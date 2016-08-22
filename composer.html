@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<title>Composer</title>
+</head>
+<body>
+<div class="container">
+	<div id="criarQuestionario">
+		<h2>Exercício</h2>
+		<div >
+			<!-- chamar uma funcao javascript que carregue as questões-->
+
+			<button type="button" class="btn btn-success">Nova questão</button></br>
+			</br>
+			<button type="button" class="btn btn-primary">Salvar questionário</button>
+
+		</div>
+	</div>
+	<div id="criacaoQuestao">
+		<h2>Nova questão</h2>
+		<form method="GET" action="salvaArquivo.php">
+			<!--Enunciado da questão:<input id="enunciado" name="enunciado" type "text"></input> -->
+			<div class="form-group">
+	      		<label for="enunciado">Insira o enunciado:</label>
+	      		<textarea class="form-control" rows="5" id="enunciado" name="enunciado"></textarea>
+	    	</div>
+
+	   		<div class="form-group">
+		    	<label for="alternativa">Indique 5 alternativas para essa questão (indique a questão): </label>
+		    	<div class="radio">
+				  <label><input type="radio" name="alternativa" value="A">A <input type="text" id="A" name="alternativaA"> </label>
+				</div>
+				<div class="radio">
+				  <label><input type="radio" name="alternativa" value="B">B <input type="text" id="B" name="alternativaB"> </label>
+				</div>
+				<div class="radio">
+				  <label><input type="radio" name="alternativa" value="C">C <input type="text" id="C" name="alternativaC"> </label>
+				</div>
+				<div class="radio">
+				  <label><input type="radio" name="alternativa" value="D">D <input type="text" id="D" name="alternativaD"> </label>
+				</div>
+				<div class="radio">
+				  <label><input type="radio" name="alternativa" value="E">E <input type="text" id="E" name="alternativaE"> </label>
+				</div>
+			</div>
+
+			<div class="form-group">
+		    	<label for="nivel">Indique o nível dessa questão:</label>
+		    	<div class="radio">
+				  <label><input type="radio" name="nivel" value="normal">Normal</label>
+				</div>
+				<div class="radio">
+				  <label><input type="radio" name="nivel" value="facil">Fácil</label>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="dica">Insira uma dica:</label>
+	      		<textarea class="form-control" rows="5" id="dica" name="dica"></textarea>
+			</div>
+			
+			<button type="submit" class="btn btn-primary">Salvar questão</button>
+			
+		</form>
+	</div>
+</div>
+</body>
+
+<style type="text/css">
+
+	#criacaoQuestao{
+		width: 500px;
+		padding: 10px;
+		float: left;
+		margin: 10px;
+	}
+
+	#criarQuestionario{
+		float: left;
+		padding: 10px;
+	}
+
+		
+
+</style>
+
+</html>
