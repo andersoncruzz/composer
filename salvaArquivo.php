@@ -10,7 +10,6 @@
 	$correta = $_GET['alternativa'];
 	$nivel = $_GET['nivel'];
 	$dica = $_GET['dica'];
-
 	print 'Questionário criado em /tmp';
 
 	//cria novo arquivo

@@ -5,6 +5,7 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+	<script src="ckeditor.js"></script>
 	<title>Composer</title>
 </head>
 <body>
@@ -26,8 +27,13 @@
 			<!--Enunciado da questão:<input id="enunciado" name="enunciado" type "text"></input> -->
 			<div class="form-group">
 	      		<label for="enunciado">Insira o enunciado:</label>
-	      		<textarea class="form-control" rows="5" id="enunciado" name="enunciado"></textarea>
+	      		<textarea class="form-control" rows="5" cols="8" id="enunciado" name="enunciado"></textarea>
 	    	</div>
+	    	<script>
+                // Replace the <textarea id="editor1"> with a CKEditor
+                // instance, using default configuration.
+                CKEDITOR.replace( 'enunciado' );
+            </script>
 
 	   		<div class="form-group">
 		    	<label for="alternativa">Indique 5 alternativas para essa questão (indique a questão): </label>
@@ -71,9 +77,8 @@
 </body>
 
 <style type="text/css">
-
 	#criacaoQuestao{
-		width: 500px;
+		width: 800px;
 		padding: 10px;
 		float: left;
 		margin: 10px;
@@ -83,9 +88,6 @@
 		float: left;
 		padding: 10px;
 	}
-
-		
-
 </style>
 
 </html>
