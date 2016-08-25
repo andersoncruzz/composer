@@ -1,40 +1,71 @@
 <meta charset="UTF-8">
 <?php 
 
-	$enunciado = $_GET['enunciado'];
-	$alternativaA = $_GET['alternativaA'];
-	$alternativaB = $_GET['alternativaB'];
-	$alternativaC = $_GET['alternativaC'];
-	$alternativaD = $_GET['alternativaD'];
-	$alternativaE = $_GET['alternativaE'];
-	$correta = $_GET['alternativa'];
-	$nivel = $_GET['nivel'];
-	$dica = $_GET['dica'];
+	include_once('models/Alternativa.php');
+	include_once('models/Questao.php');
+
+	$titulo = $_POST['titulo'];
+	$enunciado = $_POST['enunciado'];
+
+	
+	$alternativaA = $_POST['alternativaA'];
+	$distA = $_POST['distA'];
+
+	$alternativaB = $_POST['alternativaB'];
+	$distB = $_POST['distB'];
+
+	$alternativaC = $_POST['alternativaC'];
+	$distC = $_POST['distC'];
+
+	$alternativaD = $_POST['alternativaD'];
+	$distD = $_POST['distD'];
+
+	$alternativaE = $_POST['alternativaE'];
+	$distE = $_POST['distE'];
+
+	$correta = $_POST['alternativa'];
+
+	$nivel = $_POST['nivel'];
+	$dica = $_POST['dica'];
+	$tempoMax = $_POST['tempoMax'];
+
 	print 'Questionário criado em /tmp';
 
 	//cria novo arquivo
-	$arquivo = fopen("./tmp/teste.html", "w") or die("Unable to open file!");
+	$arquivo = fopen("./tmp/objeto.json", "w") or die("Unable to open file!");
 
-	//insere início do arquivo	
-	$escopo = "<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\"\ncontent=\"width=device-width, initial-scale=1\">\n<link rel=\"stylesheet\" href=\"../css/bootstrap.min.css\">\n<script src=\"../js/jquery.min.js\"></script>\n<script src=\"../js/bootstrap.min.js\"></script>\n<title>Questionario</title>\n</head>\n<body>\n<div style=\"display: inline-block;\">\n<div class=\"container\" id=\"menu\">\n<h2>Exercício</h2>\n<div >\n<a class=\"list-group-item\">Questão 1</a>\n<a class=\"list-group-item\">Questão 2</a>\n<a class=\"list-group-item\">Questão 3</a>\n</div>\n</div>\n<div class=\"container\" id=\"containerQuestao\">\n</div>\n</div>";
-	fwrite($arquivo, $escopo);
-	
-	// aqui estão os dados da questão que serão escritos no arquivo
-	$conteudo = '<p>'. $enunciado . '</p>'
-	. '<p>Alternativa A):'. $alternativaA . '</p>'
-	. $conteudo = '<p>Alternativa B):'. $alternativaB . '</p>'
-	. $conteudo = '<p>Alternativa C):'. $alternativaC . '</p>'
-	. $conteudo = '<p>Alternativa D):'. $alternativaD . '</p>'
-	. $conteudo = '<p>Alternativa E):'. $alternativaE . '</p>'
-	. $conteudo = '</br><p>Alternativa correta:'. $correta . '</p>'
-	. $conteudo = '<p>Essa questao é: '. $nivel . '</p>'
-	. $conteudo = '<p>A dica dessa questao é: '. $dica . '</p>';
-	fwrite($arquivo, $conteudo);
+	$a = new Alternativa();
+	$a->descricao = $alternativaA;
+	$a->distanciaCorreta = $distA;
 
+	$b = new Alternativa();
+	$b->descricao = $alternativaC;
+	$b->distanciaCorreta = $distB;
 
-	//insere o final do arquivo
-	$fim = "\n</body>\n<style type=\"text/css\">\n	.questao{\n		visibility: hidden;\n	}\n\n	#menu{\n		width: 200px;\n		float: left;\n	}\n\n	#containerQuestao{\n		width: 500px;\n		float: left;\n	}\n\n</style></html>";
-	fwrite($arquivo, $fim);
+	$c = new Alternativa();
+	$c->descricao = $alternativaC;
+	$c->distanciaCorreta = $distC;
+
+	$d = new Alternativa();
+	$d->descricao = $alternativaD;
+	$d->distanciaCorreta = $distD;
+
+	$e = new Alternativa();
+	$e->descricao = $alternativaE;
+	$e->distanciaCorreta = $distE;
+
+	$q = new Questao();
+	$q->titulo = $titulo;
+	$q->enunciado = base64_encode($enunciado);
+	$q->alternativas = [$a, $b, $c, $d, $e];
+	$q->alternativaCorreta = $correta;
+	$q->nivel = $nivel;
+	$q->tempoMax = $tempoMax;
+	$q->dica = base64_encode($dica);
+
+	$objJson = json_encode($q);
+
+	fwrite($arquivo, $objJson);
 	
 	//fecha o arquivo
 	fclose($arquivo);

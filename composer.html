@@ -5,7 +5,7 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<script src="ckeditor.js"></script>
+	<script src="CKEditor/ckeditor.js"></script>
 	<title>Composer</title>
 </head>
 <body>
@@ -23,34 +23,34 @@
 	</div>
 	<div id="criacaoQuestao">
 		<h2>Nova questão</h2>
-		<form method="GET" action="salvaArquivo.php">
+		<form method="POST" action="salvaArquivo.php">
+
+			<div class="form-group">
+		    	<label for="nivel">Título da questão:</label>
+		    	<input type="text" placeholder="assunto/tópico/conceito" id="titulo" name="titulo">
+			</div>
 			<!--Enunciado da questão:<input id="enunciado" name="enunciado" type "text"></input> -->
 			<div class="form-group">
 	      		<label for="enunciado">Insira o enunciado:</label>
 	      		<textarea class="form-control" rows="5" cols="8" id="enunciado" name="enunciado"></textarea>
 	    	</div>
-	    	<script>
-                // Replace the <textarea id="editor1"> with a CKEditor
-                // instance, using default configuration.
-                CKEDITOR.replace( 'enunciado' );
-            </script>
 
 	   		<div class="form-group">
 		    	<label for="alternativa">Indique 5 alternativas para essa questão (indique a questão): </label>
 		    	<div class="radio">
-				  <label><input type="radio" name="alternativa" value="A">A <input type="text" id="A" name="alternativaA"> </label>
+				  <label><input type="radio" name="alternativa" value="A">A <input type="text" id="A" name="alternativaA"> </label> <input type="text" placeholder="Quão errado?" id="distA" name="distA">
 				</div>
 				<div class="radio">
-				  <label><input type="radio" name="alternativa" value="B">B <input type="text" id="B" name="alternativaB"> </label>
+				  <label><input type="radio" name="alternativa" value="B">B <input type="text" id="B" name="alternativaB"> </label> <input type="text" placeholder="Quão errado?" id="distB" name="distB">
 				</div>
 				<div class="radio">
-				  <label><input type="radio" name="alternativa" value="C">C <input type="text" id="C" name="alternativaC"> </label>
+				  <label><input type="radio" name="alternativa" value="C">C <input type="text" id="C" name="alternativaC"> </label> <input type="text" placeholder="Quão errado?" id="distC" name="distC">
 				</div>
 				<div class="radio">
-				  <label><input type="radio" name="alternativa" value="D">D <input type="text" id="D" name="alternativaD"> </label>
+				  <label><input type="radio" name="alternativa" value="D">D <input type="text" id="D" name="alternativaD"> </label> <input type="text" placeholder="Quão errado?" id="distD" name="distD">
 				</div>
 				<div class="radio">
-				  <label><input type="radio" name="alternativa" value="E">E <input type="text" id="E" name="alternativaE"> </label>
+				  <label><input type="radio" name="alternativa" value="E">E <input type="text" id="E" name="alternativaE"> </label> <input type="text" placeholder="Quão errado?" id="distE" name="distE">
 				</div>
 			</div>
 
@@ -65,6 +65,11 @@
 			</div>
 
 			<div class="form-group">
+		    	<label for="tempoMax">Indique o tempo de resolução (em minutos):</label>
+		    	<input type="text" id="tempoMax" name="tempoMax">
+			</div>
+
+			<div class="form-group">
 				<label for="dica">Insira uma dica:</label>
 	      		<textarea class="form-control" rows="5" id="dica" name="dica"></textarea>
 			</div>
@@ -75,6 +80,11 @@
 	</div>
 </div>
 </body>
+
+<script>
+	CKEDITOR.replace( 'enunciado' );
+	CKEDITOR.replace( 'dica' );
+</script>
 
 <style type="text/css">
 	#criacaoQuestao{
