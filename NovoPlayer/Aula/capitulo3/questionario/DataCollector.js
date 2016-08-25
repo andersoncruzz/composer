@@ -2,7 +2,7 @@ var debug = true;
 var timer;
 var currentScreen = "conteudo.html";
 var multioption = {
-    status: true,
+    status: false,
     div: "id"
 }
 
@@ -40,7 +40,7 @@ function overflowTimer(){
         },
         function(data, status){
             // alert("Data: " + data + "\nStatus: " + status);
-            multioption.status = true;
+            multioption.status = false;
             multioption.div = "Q1-facil";
         });
 }
@@ -111,7 +111,9 @@ function listenClick(e){
       id: idTela,
     },
     function(data, status){
-       // alert("Data: " + data + "\nStatus: " + status);
+        // alert("Data: " + data + "\nStatus: " + status);
+        multioption.status = false;
+        multioption.div = "Q1-facil";
     });
 }
 

@@ -355,9 +355,16 @@
 </style>
 <script type="text/javascript">
 	var containerQuestao = document.getElementById("containerQuestao");
-
+	var time = setInterval(teste,1000);
 	//container da questao deve iniciar com a primeira questao
 	containerQuestao.innerHTML = document.getElementById('Q1-dificil').innerHTML;
+
+	function teste() {
+		console.log('teste');
+		if (multioption.status == true) {
+			alert("é pra mudar");
+		}
+	}
 
 	function carregar(id) {
 		//questao a ser carregada
