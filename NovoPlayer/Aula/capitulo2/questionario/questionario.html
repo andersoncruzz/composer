@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<title>Template questionario</title>
+</head>
+<body>
+<div style="display: inline-block;">
+	<!-- menu lateral que deve listar as questões -->
+	<div class="container" id="menu">
+		<h2>Exercício</h2>
+		<div >
+		  <a href="#" onclick="carregar('Q1')" class="list-group-item">Questão 1</a>
+		  <a href="#" onclick="carregar('Q2')" class="list-group-item">Questão 2</a>
+		  <a href="#" onclick="carregar('Q3')" class="list-group-item">Questão 3</a>
+		</div>
+	</div>
+
+	<div class="container" id="containerQuestao">
+	</div>
+	</div>
+
+	<!-- A partir daqui fica escondido -->
+	<!-- Inicio da div de uma questão-->
+	<div class="questao" id="Q1">
+		<h1>Questão 1</h1>
+
+		<p>Indique se as sentenças abaixo são verdadeiras (V) ou falsas (F):</p>
+		<img src="images/questao_1.png" width="100" height="100">
+		<div class="alternativas">
+			<div class="radio">
+			      <label><input type="radio" name="1" value="A">a) O prisma é uma figura da geometria plana</label>
+			    </div>
+
+			    <div class="radio">
+			      <label><input type="radio" name="1" value="B">b) Todo paralelepípedo é um prisma reto</label>
+			    </div>
+
+			    <div class="radio">
+			      <label><input type="radio" name="1" value="C">c) As arestas laterais de um prisma são congruentes</label>
+			    </div>
+
+			    <div class="radio">
+			      <label><input type="radio" name="1" value="D">d) As duas bases de um prisma são polígonos semelhantes</label>
+			    </div>
+
+			    <div class="radio">
+			      <label><input type="radio" name="1" value="E">e) As faces laterais de um prisma oblíquo são paralelogramos</label>
+			    </div>	
+		</div>
+		<button type="button" class="btn btn-info btn-lg">Responder</button>
+		<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#dica">Dica</button>
+		
+	</div>
+	<!-- Fim da div de uma questão-->
+
+	<!-- Inicio da div de uma questão-->
+	<div class="questao" id="Q2">
+		<h1>Questão 2</h1>
+
+		<p>O número de faces laterais, arestas e vértices de um prisma oblíquo quadrangular é:</p>
+		<img src="images/questao_1.png" width="100" height="100">
+		<div class="alternativas">
+			<div class="radio">
+			      <label><input type="radio" name="2" value="A">a) 6; 8; 12</label>
+			    </div>
+
+			    <div class="radio">
+			      <label><input type="radio" name="2" value="B">b) 2; 8; 4</label>
+			    </div>
+
+			    <div class="radio">
+			      <label><input type="radio" name="2" value="C">c) 2; 4; 8</label>
+			    </div>
+
+			    <div class="radio">
+			      <label><input type="radio" name="2" value="D">d) 4; 10; 8</label>
+			    </div>
+
+			    <div class="radio">
+			      <label><input type="radio" name="2" value="E">e) 4; 12; 8</label>
+			    </div>	
+		</div>
+		<button type="button" class="btn btn-info btn-lg">Responder</button>
+		<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#dica">Dica</button>
+	</div>
+	<!-- Fim da div de uma questão-->
+
+	<!-- Inicio da div de uma questão-->
+	<div class="questao" id="Q3">
+		<h1>Questão 3</h1>
+
+		<p>O número de faces laterais, arestas e vértices de um prisma reto heptagonal é:</p>
+		<img src="images/questao_1.png" width="100" height="100">
+		<div class="alternativas">
+				<div class="radio">
+			      <label><input type="radio" name="3" value="A">a) 7; 21; 14</label>
+			    </div>
+
+			    <div class="radio">
+			      <label><input type="radio" name="3" value="B">b) 7; 12; 14</label>
+			    </div>
+
+			    <div class="radio">
+			      <label><input type="radio" name="3" value="C">c) 14; 21; 7</label>
+			    </div>
+
+			    <div class="radio">
+			      <label><input type="radio" name="3" value="D">d) 14; 7; 12</label>
+			    </div>
+
+			    <div class="radio">
+			      <label><input type="radio" name="3" value="E">e) 21; 12; 7</label>
+			    </div>			
+		</div>
+		<button type="button" class="btn btn-info btn-lg">Responder</button>
+		<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#dica">Dica</button>
+	</div>
+	<!-- Fim da div de uma questão-->
+
+	<div id="dica" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Dica do exercício</h4>
+	      </div>
+	      <div class="modal-body">
+	        <p>Essa é uma dica</p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+	      </div>
+	    </div>
+
+	  </div>
+	</div>
+
+</body>
+<style type="text/css">
+	.questao{
+		visibility: hidden;
+	}
+
+	#menu{
+		width: 200px;
+		float: left;
+	}
+
+	#containerQuestao{
+		width: 400px;
+		float: left;
+	}
+
+</style>
+<script type="text/javascript">
+	var containerQuestao = document.getElementById("containerQuestao");
+
+	//container da questao deve iniciar com a primeira questao
+	containerQuestao.innerHTML = document.getElementById('Q1').innerHTML;
+
+	function carregar(id) {
+		//questao a ser carregada
+		var questao = document.getElementById(id);
+
+		//setando container da questao para a questão clicada na lista
+		containerQuestao.innerHTML = questao.innerHTML;
+	}
+</script>
+</html>
