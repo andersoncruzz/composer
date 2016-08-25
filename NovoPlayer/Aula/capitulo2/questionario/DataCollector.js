@@ -1,6 +1,10 @@
 var debug = true;
 var timer;
 var currentScreen = "conteudo.html";
+var multioption = {
+    status: true,
+    div: "id"
+}
 
 onload =  function(e){
 
@@ -38,6 +42,8 @@ function overflowTimer(){
         },
         function(data, status){
             // alert("Data: " + data + "\nStatus: " + status);
+            multioption.status = true;
+            multioption.div = "Q1-facil";
         });
 }
 
