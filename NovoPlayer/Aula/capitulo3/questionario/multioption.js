@@ -34,6 +34,12 @@ function setCookie(name,value){    //função universal para criar cookie
         return true;
 }
 
+
+function listen(){
+	if(multioption.status == true){
+
+	}
+}
 function getCookie(cname) {
     var name = cname + "=";
     var ca = document.cookie.split(';');

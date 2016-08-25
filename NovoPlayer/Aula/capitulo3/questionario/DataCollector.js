@@ -12,8 +12,6 @@ onload =  function(e){
 
 	for (var i=0;  i < html.length; i++) {
 		html[i].addEventListener("click", listenClick);
-		//html[i].addEventListener("mouseover", listemMouseOver);
-		//html[i].addEventListener("mouseout", listemMouseOut);
 	}
 
     //timer = setInterval(overflowTimer, 2000);
