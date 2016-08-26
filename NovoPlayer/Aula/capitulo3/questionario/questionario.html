@@ -9,23 +9,50 @@
 	<script type="text/javascript" src="DataCollector.js"></script>
 	<title>Questionário Cilindro</title>
 </head>
-<body>
+<body onload="carregar('outset')">
 <div style="display: inline-block;">
+
+	<!-- div com localização das etapas -->
+	<ul class="nav nav-pills" role="tablist">
+	  	<li role="presentation" class="active"><a href="#">Início <span class="badge"></a></li>
+	  	<li role="presentation"><a href="#">Perguntas</a></li>
+	  	<li role="presentation"><a href="#">Fim</a></li>
+	</ul>
+
+	<!--<div class="jumbotron" id="outset">
+  		<h1>Vamos exercitar!</h1>
+  		<p>Responda as questões e verifique como está seu andamento nos estudos! Qualquer dúvida, chame o professor. Vamos lá :)</p>
+  		<p><a class="btn btn-primary btn-lg" href="#" onclick="iniciar('menu','containerQuestao')" role="button">Iniciar</a></p>
+	</div>-->
+
+
 	<!-- menu lateral que deve listar as questões -->
 	<div class="container" id="menu">
+		
+	</div>
+
+	<div class="container" id="containerQuestao">
+
+	</div>
+
+	</div>
+
+	<!-- A partir daqui fica escondido -->
+	<div id="menuListaQuestoes">
 		<h2>Exercício</h2>
-		<div >
+		<div>
 		  <a href="#" onclick="carregar('Q1-dificil')" class="list-group-item">Questão 1</a>
 		  <a href="#" onclick="carregar('Q2-dificil')" class="list-group-item">Questão 2</a>
 		  <a href="#" onclick="carregar('Q3-dificil')" class="list-group-item">Questão 3</a>
 		</div>
 	</div>
 
-	<div class="container" id="containerQuestao">
-	</div>
+	<div id="outset">
+  		<h1>Vamos exercitar!</h1>
+  		<p>Responda as questões e verifique como está seu andamento nos estudos! Qualquer dúvida, chame o professor. Vamos lá :)</p>
+  		<p><a class="btn btn-primary btn-lg" href="#" onclick="iniciar('menuListaQuestoes','Q1-dificil')" role="button">Iniciar</a></p>
 	</div>
 
-	<!-- A partir daqui fica escondido -->
 	<!-- Inicio da div de uma questão-->
 	<div class="questao" id="Q1-dificil">
 		<h1>Questão 1</h1>
@@ -342,6 +369,14 @@
 		visibility: hidden;
 	}
 
+	#outset{
+		visibility: hidden;
+	}
+
+	#menuListaQuestoes {
+		visibility: hidden;
+	}
+
 	#menu{
 		width: 200px;
 		float: left;
@@ -355,14 +390,20 @@
 </style>
 <script type="text/javascript">
 	var containerQuestao = document.getElementById("containerQuestao");
-	var time = setInterval(teste,1000);
-	//container da questao deve iniciar com a primeira questao
+	var time = setInterval(verificar(),1000);
+
 	containerQuestao.innerHTML = document.getElementById('Q1-dificil').innerHTML;
 
-	function teste() {
-		console.log('teste');
+	function iniciar(idMenu,idQuestao){
+		var menu = document.getElementById('menu');
+		menu.innerHTML = document.getElementById(idMenu).innerHTML;
+		
+		containerQuestao.innerHTML = document.getElementById(idQuestao).innerHTML;
+	}
+
+	function verificar() {
 		if (multioption.status == true) {
-			alert("é pra mudar");
+			carregar(multioption.div);
 		}
 	}
 

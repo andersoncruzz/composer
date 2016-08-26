@@ -3,7 +3,7 @@ var timer;
 var currentScreen = "conteudo.html";
 var multioption = {
     status: false,
-    div: "id"
+    div: "Q1-facil"
 }
 
 onload =  function(e){
