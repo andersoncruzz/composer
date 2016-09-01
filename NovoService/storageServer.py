@@ -29,7 +29,7 @@ active_sessions.append("1")
 
 mutex = 0
 
-def moduleSummarizer(user, timestamp, event, idView):
+def searchAdaptation(user, timestamp, event, idView):
 
 	global mutex
 	global sumario
@@ -45,7 +45,7 @@ def moduleSummarizer(user, timestamp, event, idView):
 	idQuestion = idView.split(":")
 	feedback = []
 	if recomendationUser == True:
-		feedback = recommender (user, recomendation, sumario, int(idQuestion[1]))
+		feedback = recommender (user, recomendation, sumario, int(idQuestion[1]), int(timestamp))
 	mutex = 0#releaseSemaforo	
 	#print "feedback sumarizer"
 	#print feedback
@@ -121,16 +121,18 @@ def receive_data(idSession):
 		#Solicita recomendacao caso o aluno estiver em uma questao
 		if idView != "" and idView[0] == "Q":
 			idViewSplit = idView.split(":")
-			print idViewSplit
-			feedback = moduleSummarizer(idUser, timestamp, event, idView)
+			#print idViewSplit
+			feedback = searchAdaptation(idUser, timestamp, event, idView)
 			print feedback
 			if len(feedback) > 0:
-				recomendation = feedback[0]
-				return feedback[1], 200
+				recommendation = [{"recommendation": feedback[0]}]
+				return jsonify({'recommendation': recommendation})
 			else:
-				return "ok", 200
+				recommendation = [{"recommendation": "ok"}]
+				return jsonify({'recommendation': recommendation})
 		else:
-			return "ok", 200
+			recommendation = [{"recommendation": "ok"}]
+			return jsonify({'recommendation': recommendation})
 #@app.route("/analytics/<idSession>", methods=["GET"])
 #def receiveAnalytics(idSession):
 #	if request.method == "GET":
