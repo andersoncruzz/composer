@@ -16,8 +16,8 @@ def LoadSummarizerByUser(user, timestamp, event, idView, sumario):
 		if(t == []):
 			Delta = "0"
 			Data = user + ";" + timestamp + ";" + Delta + ";" + idView		
-			print "Data"
-			print Data
+			#print "Data"
+			#print Data
 			exemplo.append(Data)
 		else:
 			if(event == "click"):
@@ -26,13 +26,13 @@ def LoadSummarizerByUser(user, timestamp, event, idView, sumario):
 			else:
 				Delta = str(int(timestamp) - int(t[1]))
 				Data = user + ";" + t[1] + ";" + Delta + ";" + idView
-				print Data
+				#print Data
 			exemplo[i] = Data
 	else:
 		Delta = "0"
 		Data = user + ";" + timestamp + ";" + Delta + ";" + idView		
-		print "Data"
-		print Data
+		#print "Data"
+		#print Data
 		exemplo.append(Data)
 	return exemplo
 

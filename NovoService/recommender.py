@@ -1,4 +1,4 @@
-def recommender (user, recommender, sumarizer):
+def recommender (user, recommender, sumarizer, idQuestion):
 	
 	flagUserExists = False
 	#Verificando se o usuario existe na lista do recommender
@@ -7,8 +7,8 @@ def recommender (user, recommender, sumarizer):
 			flagUserExists = True
 		#adicionando na lista do recomender este usuario
 	if flagUserExists == False:
-		print "if"
-		recommender.append([user,[False,False,False,False], [False,False,False,False]])
+		#print "if"
+		recommender.append([user,[[False,False,False,False], [False,False,False,False]],[[False,False,False,False], [False,False,False,False]],[[False,False,False,False], [False,False,False,False]]])
 
 	if len(recommender) > 0:
 		i = 0
@@ -17,39 +17,44 @@ def recommender (user, recommender, sumarizer):
 		for userActives in recommender:
 			if userActives[0] == user:
 				#Nao passou pela questao facil
-				if userActives[1][0] == False:
-					if userActives[1][1] == False:
-						userActives[1][1] = True
-						print "conteudo QHARD"	
-						recommendation = "conteudo"
-					elif userActives[1][2] == False:
-						userActives[1][2] = True
-						print "dica QHARD"	
-						recommendation = "dica"
-					elif userActives[1][3] == False:
-						userActives[1][3] = True
+				if userActives[idQuestion][0][0] == False:
+					if userActives[idQuestion][0][1] == False:
+						userActives[idQuestion][0][1] = True
+						print "D"+str(idQuestion)+"-hard"	
+						recommendation = "D"+str(idQuestion)+"-hard"
+					elif userActives[idQuestion][0][2] == False:
+						userActives[idQuestion][0][2] = True
+						print "C"+str(idQuestion)+"-hard"	
+						recommendation = "C"+str(idQuestion)+"-hard"
+					elif userActives[idQuestion][0][3] == False:
+						userActives[idQuestion][0][3] = True
 						#Vai passar para questao facil	
-						userActives[1][0] = True
-						print "questaofacil QHARD"
-						recommendation = "questaofacil"
+						userActives[idQuestion][0][0] = True
+						print "Q"+str(idQuestion)+"-easy"
+						recommendation = "Q"+str(idQuestion)+"-easy"
 
-				else: 
-					if userActives[2][1] == False:
-						userActives[2][1] = True
-						print "conteudo QEASY"	
-						recommendation = "conteudo"
-					elif userActives[2][2] == False:
-						userActives[2][2] = True
-						print "dica QEASY"	
-						recommendation = "dica"
-					elif userActives[2][3] == False:
-						userActives[2][3] = True
-						#Vai passar para questao facil	
-						userActives[2][0] = True
-						print "professor QEASY"
-						recommendation = "professor"
+				else:
+					if userActives[idQuestion][1][0] == False: 
+						if userActives[idQuestion][1][1] == False:
+							userActives[idQuestion][1][1] = True
+							print "D"+str(idQuestion)+"-easy"	
+							recommendation = "D"+str(idQuestion)+"-easy"
+						elif userActives[idQuestion][1][2] == False:
+							userActives[idQuestion][1][2] = True
+							print "C"+str(idQuestion)+"-easy"	
+							recommendation = "C"+str(idQuestion)+"-easy"
+						elif userActives[idQuestion][1][3] == False:
+							userActives[idQuestion][1][3] = True
+							#Vai passar para questao facil	
+							userActives[idQuestion][1][0] = True
+							print "P"+str(idQuestion)
+							recommendation = "P"+str(idQuestion)
+					else:
+						recommendation = "ok"
+						print "Esta Questao ja utilizou todas as adaptacoes"
+
 		feedback = []
 		feedback.append(recommender)
 		feedback.append(recommendation)
-		print feedback
+		#print feedback
 		return feedback																
