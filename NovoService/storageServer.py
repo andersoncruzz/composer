@@ -38,16 +38,17 @@ def moduleSummarizer(user, timestamp, event, idView):
 	mutex = 1#setSemaforo(session)
 	#atualiza o sumario
 	sumario = LoadSummarizerByUser(user, timestamp, event, idView, sumario)
-	recomendationUser = analytics(user, sumario)
+	recomendationUser = analytics(user, sumario, idView)
 	#print "sumario"
 	#print sumario
 	#print "recomendation"
+	idQuestion = idView.split(":")
 	feedback = []
 	if recomendationUser == True:
-		feedback = recommender (user, recomendation, sumario)
+		feedback = recommender (user, recomendation, sumario, int(idQuestion[1]))
 	mutex = 0#releaseSemaforo	
-	print "feedback sumarizer"
-	print feedback
+	#print "feedback sumarizer"
+	#print feedback
 	return feedback
 
 
@@ -116,14 +117,20 @@ def receive_data(idSession):
 			#fileBuffer.close()
 
 		print idSession+";"+idUser+";"+timestamp+";"+event +";"+ tela +";"+idView+";"+resource+";"+x+";"+y
-		feedback = moduleSummarizer(idUser, timestamp, event, idView)
-		print feedback
-		if len(feedback) > 0:
-			recomendation = feedback[0]
-			return feedback[1], 200
+
+		#Solicita recomendacao caso o aluno estiver em uma questao
+		if idView != "" and idView[0] == "Q":
+			idViewSplit = idView.split(":")
+			print idViewSplit
+			feedback = moduleSummarizer(idUser, timestamp, event, idView)
+			print feedback
+			if len(feedback) > 0:
+				recomendation = feedback[0]
+				return feedback[1], 200
+			else:
+				return "ok", 200
 		else:
 			return "ok", 200
-
 #@app.route("/analytics/<idSession>", methods=["GET"])
 #def receiveAnalytics(idSession):
 #	if request.method == "GET":
