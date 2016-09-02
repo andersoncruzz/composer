@@ -4,6 +4,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 #from flask.ext.cors import CORS, cross_origin
 from sumario import LoadSummarizerByUser
+from sumario import LoadQuestionTime
 from analytics import analytics
 from cut import cut
 from recommender import recommender
@@ -14,7 +15,8 @@ import threading
 
 sumario = []
 recomendation = list()
-
+timeQuestions = list()
+idQ = list()
 app = Flask('storage')
 CORS(app)
 #moveBufferHttpRest_to_BufferChangeLogger = False
@@ -29,7 +31,7 @@ active_sessions.append("1")
 
 mutex = 0
 
-def moduleSummarizer(user, timestamp, event, idView):
+def searchAdaptation(user, timestamp, event, idView):
 
 	global mutex
 	global sumario
@@ -42,14 +44,21 @@ def moduleSummarizer(user, timestamp, event, idView):
 	#print "sumario"
 	#print sumario
 	#print "recomendation"
+	#print recomendation
 	idQuestion = idView.split(":")
 	feedback = []
 	if recomendationUser == True:
-		feedback = recommender (user, recomendation, sumario, int(idQuestion[1]))
+		feedback = recommender (user, recomendation, sumario, int(idQuestion[1]), int(timestamp))
 	mutex = 0#releaseSemaforo	
 	#print "feedback sumarizer"
 	#print feedback
 	return feedback
+
+def updateQuestionsTime(user, timestamp, idView):
+	idQuestion = idView.split(":")
+	idQ.append(idQuestion[1])
+	timeQuestion = LoadQuestionTime (user, timeQuestions, int(idQuestion[1]), int(timestamp))
+	print timeQuestions
 
 
 @app.route("/storage/<idSession>", methods=["POST"])
@@ -121,16 +130,119 @@ def receive_data(idSession):
 		#Solicita recomendacao caso o aluno estiver em uma questao
 		if idView != "" and idView[0] == "Q":
 			idViewSplit = idView.split(":")
-			print idViewSplit
-			feedback = moduleSummarizer(idUser, timestamp, event, idView)
-			print feedback
+			#print idViewSplit
+			updateQuestionsTime(idUser, timestamp, idView)
+			feedback = searchAdaptation(idUser, timestamp, event, idView)
+			#print feedback
 			if len(feedback) > 0:
-				recomendation = feedback[0]
-				return feedback[1], 200
+				recommendation = [{"recommendation": feedback[0]}]
+				return jsonify({'recommendation': recommendation})
 			else:
-				return "ok", 200
+				recommendation = [{"recommendation": "ok"}]
+				return jsonify({'recommendation': recommendation})
 		else:
-			return "ok", 200
+			recommendation = [{"recommendation": "ok"}]
+			return jsonify({'recommendation': recommendation})
+
+@app.route("/realtime/<idSession>", methods=["GET"])
+def realTimeStateStudents(idSession):
+	if request.method == "GET":
+		return buildGraphTimeLine(idSession), 200
+
+def buildGraphTimeLine(idSession):
+	html = ""
+	print idQ[0]
+	if idQ[0] == "1":
+		html = """<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load("current", {packages:["timeline"]});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var container = document.getElementById('graphTimeLine');
+    var chart = new google.visualization.Timeline(container);
+    var dataTable = new google.visualization.DataTable();
+    dataTable.addColumn({ type: 'string', id: 'Question' });
+    dataTable.addColumn({ type: 'string', id: 'idUser' });
+    dataTable.addColumn({ type: 'date', id: 'Start' });
+    dataTable.addColumn({ type: 'date', id: 'End' });
+    dataTable.addRows([
+      [ 'Q1', '1 ', new Date(0), new Date("""+str(timeQuestions[0][1][3])+""") ],
+      [ 'Q2', '1', new Date(0), new Date("""+str(timeQuestions[0][2][3])+""") ],
+      [ 'Q3', '1', new Date(0), new Date("""+str(timeQuestions[0][3][3])+""") ]]);
+
+    var options = {
+      colors: ['#2DB000','#F00'],
+    };
+
+    chart.draw(dataTable, options);
+  }
+
+</script>
+
+<div id="graphTimeLine"></div>
+"""
+
+	elif idQ[0] == "2":
+		html = """<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+  google.charts.load("current", {packages:["timeline"]});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var container = document.getElementById('graphTimeLine');
+    var chart = new google.visualization.Timeline(container);
+    var dataTable = new google.visualization.DataTable();
+    dataTable.addColumn({ type: 'string', id: 'Question' });
+    dataTable.addColumn({ type: 'string', id: 'idUser' });
+    dataTable.addColumn({ type: 'date', id: 'Start' });
+    dataTable.addColumn({ type: 'date', id: 'End' });
+    dataTable.addRows([
+      [ 'Q1', '1', new Date(0), new Date("""+str(timeQuestions[0][1][3])+""") ],
+      [ 'Q2', '1 ', new Date(0), new Date("""+str(timeQuestions[0][2][3])+""") ],
+      [ 'Q3', '1', new Date(0), new Date("""+str(timeQuestions[0][3][3])+""") ]]);
+
+    var options = {
+      colors: ['#2DB000','#F00','#2DB000'],
+    };
+
+    chart.draw(dataTable, options);
+  }
+
+</script>
+
+<div id="graphTimeLine"></div>
+"""
+	elif idQ[0] == "3":
+		html = """<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+  google.charts.load("current", {packages:["timeline"]});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var container = document.getElementById('graphTimeLine');
+    var chart = new google.visualization.Timeline(container);
+    var dataTable = new google.visualization.DataTable();
+    dataTable.addColumn({ type: 'string', id: 'Question' });
+    dataTable.addColumn({ type: 'string', id: 'idUser' });
+    dataTable.addColumn({ type: 'date', id: 'Start' });
+    dataTable.addColumn({ type: 'date', id: 'End' });
+    dataTable.addRows([
+      [ 'Q1', '1', new Date(0), new Date("""+str(timeQuestions[0][1][3])+""") ],
+      [ 'Q2', '1', new Date(0), new Date("""+str(timeQuestions[0][2][3])+""") ],
+      [ 'Q3', '1 ', new Date(0), new Date("""+str(timeQuestions[0][3][3])+""") ]]);
+
+    var options = {
+      colors: ['#F00','#F00','#2DB000'],
+    };
+
+    chart.draw(dataTable, options);
+  }
+
+</script>
+
+<div id="graphTimeLine"></div>
+"""
+	return html
 #@app.route("/analytics/<idSession>", methods=["GET"])
 #def receiveAnalytics(idSession):
 #	if request.method == "GET":
