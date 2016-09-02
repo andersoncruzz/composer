@@ -6,7 +6,8 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<title>Template questionario</title>
+	<script type="text/javascript" src="./tmp/objeto.json"></script>
+	<title>Template questionário</title>
 </head>
 <body>
 	<div style="display: inline-block;">
@@ -15,9 +16,13 @@
 			<h2>Exercício</h2>
 			<div>
 				<script>
-					document.writeln("<a  onclick=\"carregar('Q1')\" class='list-group-item'>Questão 1</a>");
-					document.writeln("<a  onclick=\"carregar('Q2')\" class='list-group-item'>Questão 2</a>");
-					document.writeln("<a  onclick=\"carregar('Q3')\" class='list-group-item'>Questão 3</a>");
+					var j;
+					var menu = JSON.parse(data);
+					for (var i = 0; i < menu.length; i++) {
+						j = i + 1;
+						console.log(j);
+						document.writeln("<a  onclick=\"carregar('Q"+j+"')\" class='list-group-item'>Questão "+j+"</a>");
+					}
 				</script>
 			</div>
 		</div>
@@ -27,56 +32,46 @@
 	</div>
 
 	<!-- A partir daqui fica escondido -->
-	<div style="display: none;">
+	<div style="display: none;" >
 	<!-- Inicio da div de uma questão-->
 		<script>
-			function Questao () {
-				this.id = "Q1";
-				this.titulo = "type";
-				this.enunciado= "red";
-			}
-			var q1 = new Questao();
-			q1.id = "Q1"
-			q1.titulo = "aaaa";
-			q1.enunciado = "aaas";
+		var j;
+		function Questao () {
+			this.id = "Q1";
+			this.titulo = "type";
+			this.enunciado= "red";
+		}
 
-			var q2 = new Questao();
-			q2.id = "Q2"
-			q2.titulo = "bbbb";
-			q2.enunciado = "bbbbbfdsfd está é uma descrição muit legal";
-
-			var q3 = new Questao();
-			q3.id = "Q3"
-			q3.titulo = "ccccc";
-			q3.enunciado = "ccccsdfsdf";
-
-			var questoes = [q1, q2, q3];
-
-			for(var i=0;i< questoes.length;i++) {
-				document.writeln("<div class='questao' id='"+questoes[i].id+"'>");
-				document.writeln("<h1>"+questoes[i].titulo+"</h1>");
-				document.writeln("<p>"+questoes[i].enunciado+"</p>");
-				document.writeln("<img src='images/questao_1.png' width='100' height='100'>");
-				document.writeln("<div class='alternativas'>");
-				document.writeln("<div class='radio'>");
-				document.writeln("<label><input type='radio' name='1' value='A'>alternativa A</label>");
-				document.writeln("</div>");
-				document.writeln("<div class='radio'>");
-				document.writeln("<label><input type='radio' name='1' value='B'>alternativa B</label>");
-				document.writeln("</div>");
-				document.writeln("<div class='radio'>");
-				document.writeln("<label><input type='radio' name='1' value='C'>alternativa C</label>");
-				document.writeln("</div>");
-				document.writeln("<div class='radio'>");
-				document.writeln("<label><input type='radio' name='1' value='D'>alternativa D</label>");
-				document.writeln("</div>");
-				document.writeln("<div class='radio'>");
-				document.writeln("<label><input type='radio' name='1' value='E'>alternativa E</label>");
-				document.writeln("</div>");
-				document.writeln("</div>");
-				document.writeln("<button type='button' class='btn btn-info btn-lg' data-toggle='modal' data-target='#dica'>Dica</button>");
-				document.writeln("</div>");
-			}
+		var questao = JSON.parse(data);
+		for(var i=0;i < questao.length;i++) {
+			j = i + 1;
+			console.log(j);
+			document.writeln("<div class='questao' id='Q" +j+ "'>");
+			document.writeln("<h1>"+questao[i].titulo+"</h1>");
+			document.writeln("<p>"+questao[i].enunciado+"</p>");
+			document.writeln("<img src='images/questao_1.png' width='100' height='100'>");
+			document.writeln("<div class='alternativas'>");
+			document.writeln("<div class='radio'>");
+			document.writeln("<label><input type='radio' name='1' value='A'>"+questao[i].alternativas[0].descricao+"</label>");
+			document.writeln("</div>");
+			document.writeln("<div class='radio'>");
+			document.writeln("<label><input type='radio' name='1' value='B'>"+questao[i].alternativas[1].descricao+"</label>");
+			document.writeln("</div>");
+			document.writeln("<div class='radio'>");
+			document.writeln("<label><input type='radio' name='1' value='C'>"+questao[i].alternativas[2].descricao+"</label>");
+			document.writeln("</div>");
+			document.writeln("<div class='radio'>");
+			document.writeln("<label><input type='radio' name='1' value='D'>"+questao[i].alternativas[3].descricao+"</label>");
+			document.writeln("</div>");
+			document.writeln("<div class='radio'>");
+			document.writeln("<label><input type='radio' name='1' value='E'>"+questao[i].alternativas[4].descricao+"</label>");
+			document.writeln("</div>");
+			document.writeln("</div>");
+			document.writeln("<button type=\"button\" class=\"btn btn-info btn-lg\">Responder</button>");
+			document.writeln("<button type='button' class='btn btn-info btn-lg' data-toggle='modal' data-target='#dica'>Dica</button>");
+			document.writeln("</div>");
+		}
+		
 		</script>
 
 		<!-- Fim da div de uma questão-->
@@ -97,7 +92,6 @@
 		        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
 		      </div>
 		    </div>
-
 		  </div>
 		</div>
 	</div>

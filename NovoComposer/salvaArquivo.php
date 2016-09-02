@@ -7,7 +7,6 @@
 	$titulo = $_POST['titulo'];
 	$enunciado = $_POST['enunciado'];
 
-	
 	$alternativaA = $_POST['alternativaA'];
 	$distA = $_POST['distA'];
 
@@ -32,7 +31,7 @@
 	print 'Questionário criado em /tmp';
 
 	//cria novo arquivo
-	$arquivo = fopen("./tmp/objeto.json", "w") or die("Unable to open file!");
+	$arquivo = fopen("./tmp/objeto.json", "a") or die("Unable to open file!");
 
 	$a = new Alternativa();
 	$a->descricao = $alternativaA;
@@ -56,12 +55,12 @@
 
 	$q = new Questao();
 	$q->titulo = $titulo;
-	$q->enunciado = base64_encode($enunciado);
+	$q->enunciado = $enunciado;
 	$q->alternativas = [$a, $b, $c, $d, $e];
 	$q->alternativaCorreta = $correta;
 	$q->nivel = $nivel;
 	$q->tempoMax = $tempoMax;
-	$q->dica = base64_encode($dica);
+	$q->dica = $dica;
 
 	$objJson = json_encode($q);
 
