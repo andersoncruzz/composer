@@ -64,7 +64,7 @@
 
 	$objJson = json_encode($q);
 
-	fwrite($arquivo, $objJson);
+	fwrite($arquivo, $objJson . ",");
 	
 	//fecha o arquivo
 	fclose($arquivo);

@@ -1,14 +1,19 @@
 <meta charset="utf-8">
 <?php
 	$arquivo = fopen("./tmp/objeto.json","r+") or die("Unable to open html file!");
-	$var = $arquivo;
-	fseek($arquivo,0);
-	fwrite($arquivo, "");
-	fwrite($arquivo,"data='[");
-	fwrite($arquivo, $var)
-	fseek($arquivo, 0, SEEK_END);
-	fwrite($arquivo, "]'");
-	str_replace("}{", "},{", $arquivo);
+	$tmp = fopen("./templates/objeto.json","w") or die("Unable to open html file!");
+	
+	$texto = fread($arquivo, filesize("./tmp/objeto.json"));
+	
+	$texto = "data='[" . $texto . "]'";
+
+	$tam = strlen($texto);
+	$texto[$tam - 3] = " ";
+	print ($texto[$tam - 3]);
+
+	fwrite($tmp, $texto);
+
 	print "Questionário salvo em ./templates";
+	fclose($tmp);
 	fclose($arquivo);
 ?>
