@@ -111,7 +111,7 @@ function listenClick(e){
       id: idTela,
     },
     function(data, status){
-        // alert("Data: " + data + "\nStatus: " + status);
+        alert("Data: " + data + "\nStatus: " + status);
         multioption.status = false;
         multioption.div = "Q1-facil";
     });
