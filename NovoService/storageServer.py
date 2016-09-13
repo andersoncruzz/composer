@@ -60,8 +60,8 @@ def searchAdaptation(user, timestamp, event, idView):
 	if recomendationUser == True:
 		feedback = recommender(user, recomendation, sumario, int(idQuestion[1]), int(timestamp))
 	mutex = 0#releaseSemaforo	
-	#print "feedback sumarizer"
-	#print feedback
+	print "feedback sumarizer"
+	print feedback
 	return feedback
 
 def updateQuestionsTime(user, timestamp, idView):

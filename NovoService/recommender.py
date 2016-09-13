@@ -66,4 +66,4 @@ def recommender (user, recommender, sumarizer, idQuestion, timestamp):
 		feedback.append(recommender)
 		feedback.append(recommendation)
 		#print feedback
-		return feedback																
+		return feedback 																
