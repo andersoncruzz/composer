@@ -66,7 +66,8 @@ class ObjquestionarioController extends Controller
         $model = new ObjQuestionario();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+
+            return $this->redirect(['questao/create', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
