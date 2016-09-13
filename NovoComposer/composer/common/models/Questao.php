@@ -10,6 +10,8 @@ use Yii;
  * @property string $id
  * @property string $nivel
  * @property string $assunto
+ * @property integer $duracao
+ * @property string $dica
  *
  * @property Alternativa[] $alternativas
  * @property ObjQuestionarioHasQuestao[] $objQuestionarioHasQuestaos
@@ -31,7 +33,9 @@ class Questao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'nivel'], 'required'],
+            [['id', 'nivel', 'duracao', 'dica'], 'required'],
+            [['duracao'], 'integer'],
+            [['dica'], 'string'],
             [['id', 'assunto'], 'string', 'max' => 255],
             [['nivel'], 'string', 'max' => 16],
         ];
@@ -46,6 +50,8 @@ class Questao extends \yii\db\ActiveRecord
             'id' => 'ID',
             'nivel' => 'Nivel',
             'assunto' => 'Assunto',
+            'duracao' => 'Duracao',
+            'dica' => 'Dica',
         ];
     }
 

@@ -18,6 +18,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'assunto')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'duracao')->textInput() ?>
+
+    <?= $form->field($model, 'dica')->textarea(['rows' => 6]) ?>
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
