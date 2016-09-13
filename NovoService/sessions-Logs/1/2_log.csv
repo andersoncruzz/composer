@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 1;2;1472740898023;click;questionario.html;Q:1:H:1-1 list-group-item;a;1437;181
 1;2;1472741128075;click;questionario.html;;label;1582;339
 1;2;1472741128094;click;questionario.html;Q:1:H:1-1;input;1582;339
@@ -213,3 +214,17 @@
 1;2;1473800134783;click;questionario.html#;Q:3:H:1-3 list-group-item;a;1502;278
 1;2;1473800161687;click;questionario.html#;Q:2:H:1-2 list-group-item;a;1525;235
 1;2;1473800431688;;questionario.html#;Q:2:H:1-2 list-group-item;;;
+=======
+1;2;1472819482120;click;questionario.html#;btn btn-primary btn-lg;a;1473;255
+1;2;1472819500684;click;questionario.html#;;div;1957;281
+1;2;1472819515802;click;questionario.html#;Q:1:H:1-1 list-group-item;a;1558;195
+1;2;1472819554784;click;questionario.html#;btn btn-primary btn-lg;a;1512;254
+1;2;1472819580146;click;questionario.html#;btn btn-primary btn-lg;a;1487;263
+1;2;1472819591103;click;questionario.html#;btn btn-primary btn-lg;a;1462;269
+1;2;1472832959100;click;questionario.html#;;body;1134;244
+1;2;1472833400765;click;questionario.html#;Q:1:H:1-1 list-group-item;a;194;198
+1;2;1472833441219;click;questionario.html#;Q:2:H:1-2 list-group-item;a;168;245
+1;2;1472833548632;click;questionario.html#;Q:3:H:1-3 list-group-item;a;227;277
+1;2;1473706745629;click;questionario.html;btn btn-primary btn-lg;a;121;259
+1;2;1473706769629;;questionario.html;btn btn-primary btn-lg;;;
+>>>>>>> 0fb929cca0e6e6f14038283684000f631c9da5a3
