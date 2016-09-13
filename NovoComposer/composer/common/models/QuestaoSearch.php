@@ -18,8 +18,8 @@ class QuestaoSearch extends Questao
     public function rules()
     {
         return [
-            [['id', 'nivel', 'assunto', 'dica'], 'safe'],
-            [['duracao'], 'integer'],
+            [['id', 'duracao'], 'integer'],
+            [['nivel', 'assunto', 'enunciado', 'dica'], 'safe'],
         ];
     }
 
@@ -59,12 +59,13 @@ class QuestaoSearch extends Questao
 
         // grid filtering conditions
         $query->andFilterWhere([
+            'id' => $this->id,
             'duracao' => $this->duracao,
         ]);
 
-        $query->andFilterWhere(['like', 'id', $this->id])
-            ->andFilterWhere(['like', 'nivel', $this->nivel])
+        $query->andFilterWhere(['like', 'nivel', $this->nivel])
             ->andFilterWhere(['like', 'assunto', $this->assunto])
+            ->andFilterWhere(['like', 'enunciado', $this->enunciado])
             ->andFilterWhere(['like', 'dica', $this->dica]);
 
         return $dataProvider;

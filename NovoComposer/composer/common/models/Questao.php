@@ -7,9 +7,10 @@ use Yii;
 /**
  * This is the model class for table "Questao".
  *
- * @property string $id
+ * @property integer $id
  * @property string $nivel
  * @property string $assunto
+ * @property string $enunciado
  * @property integer $duracao
  * @property string $dica
  *
@@ -33,11 +34,11 @@ class Questao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'nivel', 'duracao', 'dica'], 'required'],
+            [['nivel', 'enunciado', 'duracao', 'dica'], 'required'],
+            [['enunciado', 'dica'], 'string'],
             [['duracao'], 'integer'],
-            [['dica'], 'string'],
-            [['id', 'assunto'], 'string', 'max' => 255],
             [['nivel'], 'string', 'max' => 16],
+            [['assunto'], 'string', 'max' => 255],
         ];
     }
 
@@ -50,6 +51,7 @@ class Questao extends \yii\db\ActiveRecord
             'id' => 'ID',
             'nivel' => 'Nivel',
             'assunto' => 'Assunto',
+            'enunciado' => 'Enunciado',
             'duracao' => 'Duracao',
             'dica' => 'Dica',
         ];

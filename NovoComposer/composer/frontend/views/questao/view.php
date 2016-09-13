@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'nivel',
             'assunto',
+            'enunciado:ntext',
             'duracao',
             'dica:ntext',
         ],
