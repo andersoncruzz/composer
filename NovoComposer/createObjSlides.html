@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<title>Objeto de aprendizagem: Slides</title>
+</head>
+<body>
+	<div class="container">
+		<h2>Upload de slides</h2>
+			<form method="POST" action="saveSlides.php" enctype="multipart/form-data">
+				<div class="form-group">
+			    	<label for="nivel">Título:</label>
+			    	<input type="text" size="100%" placeholder=" Assunto/Tópico/Conceito" id="titulo" name="titulo">
+				</div>
+
+				<div class="form-group">
+		      		<input type="file" name="fileToUpload" id="fileToUpload" accept=".pdf" title="Search for a file to add">
+	    		</div>
+
+	    		<button type="submit" name="submit" class="btn btn-primary">Salvar</button>
+
+			</form>
+	</div>
+</body>
+
+</html>

@@ -10,3 +10,9 @@
 	padding: 15px;
 	margin-top: 10px;
 }
+
+#conteudoImagem img{
+	display: block;
+	margin: 0 auto;
+}
+
