@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tela de Aguardo</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container center_div">
+	<div class="alert alert-success" role="alert">Muito bem! Login feito com sucesso!</div>
+	<div class="jumbotron">
+  	<h1>Seja bem-vindo!</h1>
+  	<p>Escolha a aula para Iniciar.</p>
+	<button type="submit" class="btn btn-primary" onclick="Iniciar()">Iniciar</button>	  	
+	<!--<p><a id="btnIniciarAula" class="btn btn-primary btn-lg" href="index.html" role="button">Iniciar Aula</a></p>-->
+</div>
+</div>
+</body>
+
+<script>
+	//var un, ps;
+	function Iniciar(){
+		//un = document.getElementById("usr").value;
+		//ps = document.getElementById("pwd").value;
+		$.post("http://localhost:5000/statusclass/1",
+        {
+	    idUser:0
+            //username: un,
+            //password: ps
+	
+        },
+        function(data, status){
+            retorno = data.split(";");
+            alert("Data: " + retorno[0]);
+            if(retorno[0] == "Ok") {
+            	window.location.href = "index.html";
+            }
+        });
+	}
+</script>
+</html>

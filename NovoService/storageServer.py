@@ -73,6 +73,10 @@ def updateQuestionsTime(user, timestamp, idView):
 
 @app.route("/login/<idSession>", methods=["POST"])
 def login(idSession):
+<<<<<<< HEAD
+	global status_class
+=======
+>>>>>>> 8194be4f9f7b84eea52022b84c009e1c2bd0276b
 	if request.method == "POST":
 		userName = request.form["username"]
 		senha	 = request.form["password"]
@@ -84,6 +88,31 @@ def login(idSession):
 			if(user[3] == '0'): 
 				print("Seja Bem Vindo Professor " + user[0])
 				file_users.close()
+<<<<<<< HEAD
+				return "Professor;"+user[3], 200
+			else:
+				print("Seja Bem Vindo(a) aluno(a) " + user[0])
+				file_users.close()
+				if(status_class == False):
+					return "Wait;"+user[3], 200
+				else:
+					return "Start;"+user[3], 200
+	print ("User Nao encontrado!")
+	file_users.close()
+	return "Error", 200
+
+@app.route("/statusclass/<idSession>", methods=["POST"])
+def StatusClass(idSession):
+	global status_class
+	if request.method == "POST":
+		idUser = request.form["idUser"]
+		print idUser
+		if(idUser == '0'):
+			status_class = True
+			return "Ok", 200
+		else:
+			if(status_class == False):
+=======
 				return user[3], 200
 			else:
 				print("Seja Bem Vindo(a) aluno(a) " + user[0])
@@ -103,6 +132,7 @@ def StatusClass(idSession):
 			return "Ok", 200
 		else:
 			if(status_class == "False"):
+>>>>>>> 8194be4f9f7b84eea52022b84c009e1c2bd0276b
 				return "Wait", 200
 			else:
 				return "Start", 200
