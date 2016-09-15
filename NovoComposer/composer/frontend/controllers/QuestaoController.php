@@ -65,7 +65,11 @@ class QuestaoController extends Controller
     {
         $model = new Questao();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) ) {
+            //salva questão =>  pega id
+            $model->save();
+
+            // salva questionario tem questao
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [

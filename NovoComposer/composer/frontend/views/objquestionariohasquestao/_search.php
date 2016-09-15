@@ -4,22 +4,20 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\DisciplinaSearch */
+/* @var $model common\models\ObjquestionariohasquestaoSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="disciplina-search">
+<div class="obj-questionario-has-questao-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
+    <?= $form->field($model, 'ObjQuestionario_id') ?>
 
-    <?= $form->field($model, 'nome') ?>
-
-    <?= $form->field($model, 'user_id') ?>
+    <?= $form->field($model, 'Questao_id') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

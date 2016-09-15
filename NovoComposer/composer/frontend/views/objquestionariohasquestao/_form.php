@@ -4,17 +4,17 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Disciplina */
+/* @var $model common\models\ObjQuestionarioHasQuestao */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="disciplina-form">
+<div class="obj-questionario-has-questao-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'user_id')->hiddenInput(['value' => Yii::$app->user->identity->getId()])->label('')?>
-    <!--<?= $form->field($model, 'user_id')->textInput() ?>-->
+    <?= $form->field($model, 'ObjQuestionario_id')->textInput() ?>
+
+    <?= $form->field($model, 'Questao_id')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

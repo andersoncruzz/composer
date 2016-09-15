@@ -5,12 +5,12 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Questao;
+use common\models\ObjQuestionarioHasQuestao;
 
 /**
- * QuestaoSearch represents the model behind the search form about `common\models\Questao`.
+ * ObjquestionariohasquestaoSearch represents the model behind the search form about `common\models\ObjQuestionarioHasQuestao`.
  */
-class QuestaoSearch extends Questao
+class ObjquestionariohasquestaoSearch extends ObjQuestionarioHasQuestao
 {
     /**
      * @inheritdoc
@@ -18,8 +18,7 @@ class QuestaoSearch extends Questao
     public function rules()
     {
         return [
-            [['id', 'duracao'], 'integer'],
-            [['nivel', 'assunto', 'enunciado', 'dica'], 'safe'],
+            [['ObjQuestionario_id', 'Questao_id'], 'integer'],
         ];
     }
 
@@ -41,7 +40,7 @@ class QuestaoSearch extends Questao
      */
     public function search($params)
     {
-        $query = Questao::find();
+        $query = ObjQuestionarioHasQuestao::find();
 
         // add conditions that should always apply here
 
@@ -59,14 +58,9 @@ class QuestaoSearch extends Questao
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'duracao' => $this->duracao,
+            'ObjQuestionario_id' => $this->ObjQuestionario_id,
+            'Questao_id' => $this->Questao_id,
         ]);
-
-        $query->andFilterWhere(['like', 'nivel', $this->nivel])
-            ->andFilterWhere(['like', 'assunto', $this->assunto])
-            ->andFilterWhere(['like', 'enunciado', $this->enunciado])
-            ->andFilterWhere(['like', 'dica', $this->dica]);
 
         return $dataProvider;
     }

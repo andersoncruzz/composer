@@ -3,16 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use common\models\Aula;
-use common\models\AulaSearch;
+use common\models\ObjQuestionarioHasQuestao;
+use common\models\ObjquestionariohasquestaoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * AulaController implements the CRUD actions for Aula model.
+ * ObjquestionariohasquestaoController implements the CRUD actions for ObjQuestionarioHasQuestao model.
  */
-class AulaController extends Controller
+class ObjquestionariohasquestaoController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class AulaController extends Controller
     }
 
     /**
-     * Lists all Aula models.
+     * Lists all ObjQuestionarioHasQuestao models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new AulaSearch();
+        $searchModel = new ObjquestionariohasquestaoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,28 +45,29 @@ class AulaController extends Controller
     }
 
     /**
-     * Displays a single Aula model.
-     * @param integer $id
+     * Displays a single ObjQuestionarioHasQuestao model.
+     * @param integer $ObjQuestionario_id
+     * @param integer $Questao_id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView($ObjQuestionario_id, $Questao_id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($ObjQuestionario_id, $Questao_id),
         ]);
     }
 
     /**
-     * Creates a new Aula model.
+     * Creates a new ObjQuestionarioHasQuestao model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Aula();
+        $model = new ObjQuestionarioHasQuestao();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'ObjQuestionario_id' => $model->ObjQuestionario_id, 'Questao_id' => $model->Questao_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -75,17 +76,18 @@ class AulaController extends Controller
     }
 
     /**
-     * Updates an existing Aula model.
+     * Updates an existing ObjQuestionarioHasQuestao model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param integer $ObjQuestionario_id
+     * @param integer $Questao_id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate($ObjQuestionario_id, $Questao_id)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($ObjQuestionario_id, $Questao_id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'ObjQuestionario_id' => $model->ObjQuestionario_id, 'Questao_id' => $model->Questao_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -94,28 +96,30 @@ class AulaController extends Controller
     }
 
     /**
-     * Deletes an existing Aula model.
+     * Deletes an existing ObjQuestionarioHasQuestao model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param integer $ObjQuestionario_id
+     * @param integer $Questao_id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete($ObjQuestionario_id, $Questao_id)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($ObjQuestionario_id, $Questao_id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Aula model based on its primary key value.
+     * Finds the ObjQuestionarioHasQuestao model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Aula the loaded model
+     * @param integer $ObjQuestionario_id
+     * @param integer $Questao_id
+     * @return ObjQuestionarioHasQuestao the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($ObjQuestionario_id, $Questao_id)
     {
-        if (($model = Aula::findOne($id)) !== null) {
+        if (($model = ObjQuestionarioHasQuestao::findOne(['ObjQuestionario_id' => $ObjQuestionario_id, 'Questao_id' => $Questao_id])) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
