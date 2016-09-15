@@ -5,6 +5,8 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\ObjQuestionario */
+/* @var $questao common\models\Questao */
+
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Obj Questionarios', 'url' => ['index']];
@@ -32,5 +34,17 @@ $this->params['breadcrumbs'][] = $this->title;
             'assunto',
         ],
     ]) ?>
+
+    <?php
+        foreach ($model->questaos as $questao) {
+            echo "<br> Id:".$questao->id;
+            echo "<br> Nivel:".$questao->nivel;
+            echo "<br> Assunto:".$questao->assunto;
+            echo "<br> enunciado:".$questao->enunciado;
+            echo "<br> duracao:".$questao->duracao;
+            echo "<br> dica:".$questao->dica;
+        }
+
+     ?>
 
 </div>
