@@ -2,9 +2,11 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use common\models\Capitulo;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Aula */
+/* @var $capitulo common\models\Capitulo */
 
 $this->title = $model->subject;
 $this->params['breadcrumbs'][] = ['label' => 'Aulas', 'url' => ['index']];
@@ -19,10 +21,12 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Tem certeza que deseja deletar essa aula?',
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Novo Capitulo', ['capitulo/create', 'Aula_id' => $model->id], ['class' => 'btn btn-primary']) ?>
+
     </p>
 
     <?= DetailView::widget([
@@ -33,6 +37,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'Disciplina_id',
         ],
     ]) ?>
-    <?= Html::a('Novo Capitulo', ['capitulo/create', 'Aula_id' => $model->id], ['class' => 'btn btn-primary']) ?>
 
+    <p>
+        <?php
+        foreach ($model->capitulos as $capitulo){
+            echo Html::a($capitulo->titulo, ['capitulo/view', 'id' => $capitulo->id], ['class' => 'btn btn-defaut']);
+        }
+        ?>
+    </p>
 </div>

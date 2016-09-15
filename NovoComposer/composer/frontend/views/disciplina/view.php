@@ -21,10 +21,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Tem certeza que deseja deletar esse item?',
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Nova Aula', ['aula/create', 'Disciplina_id' => $model->id], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?= DetailView::widget([
@@ -33,14 +34,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'nome',
         ],
     ]) ?>
-    <p>
-        <?= Html::a('Nova Aula', ['aula/create', 'Disciplina_id' => $model->id], ['class' => 'btn btn-primary']) ?>
-    </p>
+
 
     <p>
     <?php
         foreach ($model->aulas as $aula){
-            echo $aula->subject .'</br>';
+            echo Html::a($aula->subject, ['aula/view', 'id' => $aula->id], ['class' => 'btn btn-defaut']);
         }
     ?>
     </p>
