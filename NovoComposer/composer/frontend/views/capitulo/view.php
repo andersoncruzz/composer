@@ -2,17 +2,15 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use common\models\Aula;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Disciplina */
-/* @var $aulas common\models\Aula */
+/* @var $model common\models\Capitulo */
 
-$this->title = $model->nome;
-$this->params['breadcrumbs'][] = ['label' => 'Disciplinas', 'url' => ['index']];
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Capitulos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="disciplina-view">
+<div class="capitulo-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -30,18 +28,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'nome',
+            'id',
+            'titulo',
+            'qtObjects',
+            'Aula_id',
+            'dificuldade',
         ],
     ]) ?>
-    <p>
-        <?= Html::a('Nova Aula', ['aula/create', 'Disciplina_id' => $model->id], ['class' => 'btn btn-primary']) ?>
-    </p>
 
-    <p>
-    <?php
-        foreach ($model->aulas as $aula){
-            echo $aula->subject .'</br>';
-        }
-    ?>
-    </p>
 </div>

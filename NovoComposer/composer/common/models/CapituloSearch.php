@@ -5,12 +5,12 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Aula;
+use common\models\Capitulo;
 
 /**
- * AulaSearch represents the model behind the search form about `common\models\Aula`.
+ * CapituloSearch represents the model behind the search form about `common\models\Capitulo`.
  */
-class AulaSearch extends Aula
+class CapituloSearch extends Capitulo
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class AulaSearch extends Aula
     public function rules()
     {
         return [
-            [['id', 'qtChapters', 'Disciplina_id'], 'integer'],
-            [['subject'], 'safe'],
+            [['id', 'qtObjects', 'Aula_id', 'dificuldade'], 'integer'],
+            [['titulo'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class AulaSearch extends Aula
      */
     public function search($params)
     {
-        $query = Aula::find();
+        $query = Capitulo::find();
 
         // add conditions that should always apply here
 
@@ -60,11 +60,12 @@ class AulaSearch extends Aula
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'qtChapters' => $this->qtChapters,
-            'Disciplina_id' => $this->Disciplina_id,
+            'qtObjects' => $this->qtObjects,
+            'Aula_id' => $this->Aula_id,
+            'dificuldade' => $this->dificuldade,
         ]);
 
-        $query->andFilterWhere(['like', 'subject', $this->subject]);
+        $query->andFilterWhere(['like', 'titulo', $this->titulo]);
 
         return $dataProvider;
     }

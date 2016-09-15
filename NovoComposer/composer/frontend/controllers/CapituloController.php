@@ -2,18 +2,17 @@
 
 namespace frontend\controllers;
 
-use common\models\Aula;
 use Yii;
-use common\models\Disciplina;
-use common\models\DisciplinaSearch;
+use common\models\Capitulo;
+use common\models\CapituloSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * DisciplinaController implements the CRUD actions for Disciplina model.
+ * CapituloController implements the CRUD actions for Capitulo model.
  */
-class DisciplinaController extends Controller
+class CapituloController extends Controller
 {
     /**
      * @inheritdoc
@@ -31,12 +30,12 @@ class DisciplinaController extends Controller
     }
 
     /**
-     * Lists all Disciplina models.
+     * Lists all Capitulo models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new DisciplinaSearch();
+        $searchModel = new CapituloSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -46,26 +45,28 @@ class DisciplinaController extends Controller
     }
 
     /**
-     * Displays a single Disciplina model.
+     * Displays a single Capitulo model.
      * @param integer $id
      * @return mixed
      */
     public function actionView($id)
     {
-        return $this->render('view', ['model' => $this->findModel($id)]);
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
     }
 
     /**
-     * Creates a new Disciplina model.
+     * Creates a new Capitulo model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Disciplina();
+        $model = new Capitulo();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['aula/view', 'id' => $model->Aula_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -74,7 +75,7 @@ class DisciplinaController extends Controller
     }
 
     /**
-     * Updates an existing Disciplina model.
+     * Updates an existing Capitulo model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -93,7 +94,7 @@ class DisciplinaController extends Controller
     }
 
     /**
-     * Deletes an existing Disciplina model.
+     * Deletes an existing Capitulo model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -106,15 +107,15 @@ class DisciplinaController extends Controller
     }
 
     /**
-     * Finds the Disciplina model based on its primary key value.
+     * Finds the Capitulo model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Disciplina the loaded model
+     * @return Capitulo the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Disciplina::findOne($id)) !== null) {
+        if (($model = Capitulo::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

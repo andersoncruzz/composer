@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\AulaSearch */
+/* @var $searchModel common\models\CapituloSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Aulas';
+$this->title = 'Capitulos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="aula-index">
+<div class="capitulo-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Aula', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Capitulo', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -25,9 +25,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'subject',
-            'qtChapters',
-            'Disciplina_id',
+            'titulo',
+            'qtObjects',
+            'Aula_id',
+            'dificuldade',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

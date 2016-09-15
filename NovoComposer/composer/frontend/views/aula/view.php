@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\Aula */
 
-$this->title = $model->id;
+$this->title = $model->subject;
 $this->params['breadcrumbs'][] = ['label' => 'Aulas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -28,12 +28,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+
             'subject',
-            'discipline',
-            'qtChapters',
             'Disciplina_id',
         ],
     ]) ?>
+    <?= Html::a('Novo Capitulo', ['capitulo/create', 'Aula_id' => $model->id], ['class' => 'btn btn-primary']) ?>
 
 </div>
