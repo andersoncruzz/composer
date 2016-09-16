@@ -39,8 +39,9 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+    <label class="control-label" for="objquestionario-capitulo"> Questões </label>
 
-    <div id="w1" class="grid-view"><div class="summary">Showing <b>1-1</b> of <b>1</b> item.</div>
+    <div id="w1" class="grid-view"><div class="summary">Showing <b>1-<?= count($model->questaos)?></b> of <b>1</b> item.</div>
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>

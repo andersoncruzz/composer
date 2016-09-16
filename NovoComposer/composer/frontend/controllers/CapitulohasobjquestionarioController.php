@@ -2,18 +2,17 @@
 
 namespace frontend\controllers;
 
-use common\models\CapituloHasObjQuestionario;
 use Yii;
-use common\models\ObjQuestionario;
-use common\models\ObjquestionarioSearch;
+use common\models\CapituloHasObjQuestionario;
+use common\models\CapitulohasobjquestionarioSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ObjquestionarioController implements the CRUD actions for ObjQuestionario model.
+ * CapitulohasobjquestionarioController implements the CRUD actions for CapituloHasObjQuestionario model.
  */
-class ObjquestionarioController extends Controller
+class CapitulohasobjquestionarioController extends Controller
 {
     /**
      * @inheritdoc
@@ -31,12 +30,12 @@ class ObjquestionarioController extends Controller
     }
 
     /**
-     * Lists all ObjQuestionario models.
+     * Lists all CapituloHasObjQuestionario models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ObjquestionarioSearch();
+        $searchModel = new CapitulohasobjquestionarioSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -46,37 +45,31 @@ class ObjquestionarioController extends Controller
     }
 
     /**
-     * Displays a single ObjQuestionario model.
-     * @param integer $id
+     * Displays a single CapituloHasObjQuestionario model.
+     * @param integer $Capitulo_id
+     * @param integer $ObjQuestionario_id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView($Capitulo_id, $ObjQuestionario_id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($Capitulo_id, $ObjQuestionario_id),
         ]);
     }
 
     /**
-     * Creates a new ObjQuestionario model.
+     * Creates a new CapituloHasObjQuestionario model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new ObjQuestionario();
+        $model = new CapituloHasObjQuestionario();
 
         if ($model->load(Yii::$app->request->post())) {
-            $params = Yii::$app->request->post();
 
             $model->save();
-
-            $capituloHasObjQuestionario = new CapituloHasObjQuestionario();
-            $capituloHasObjQuestionario->ObjQuestionario_id = $model->id;
-            $capituloHasObjQuestionario->Capitulo_id =$params["capitulo_id"];
-            $capituloHasObjQuestionario->save();
-
-            return $this->redirect(['questao/create', 'id' => $model->id]);
+            return $this->redirect(['view', 'Capitulo_id' => $model->Capitulo_id, 'ObjQuestionario_id' => $model->ObjQuestionario_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -85,17 +78,18 @@ class ObjquestionarioController extends Controller
     }
 
     /**
-     * Updates an existing ObjQuestionario model.
+     * Updates an existing CapituloHasObjQuestionario model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param integer $Capitulo_id
+     * @param integer $ObjQuestionario_id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate($Capitulo_id, $ObjQuestionario_id)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($Capitulo_id, $ObjQuestionario_id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'Capitulo_id' => $model->Capitulo_id, 'ObjQuestionario_id' => $model->ObjQuestionario_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -104,28 +98,30 @@ class ObjquestionarioController extends Controller
     }
 
     /**
-     * Deletes an existing ObjQuestionario model.
+     * Deletes an existing CapituloHasObjQuestionario model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param integer $Capitulo_id
+     * @param integer $ObjQuestionario_id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete($Capitulo_id, $ObjQuestionario_id)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($Capitulo_id, $ObjQuestionario_id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the ObjQuestionario model based on its primary key value.
+     * Finds the CapituloHasObjQuestionario model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return ObjQuestionario the loaded model
+     * @param integer $Capitulo_id
+     * @param integer $ObjQuestionario_id
+     * @return CapituloHasObjQuestionario the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($Capitulo_id, $ObjQuestionario_id)
     {
-        if (($model = ObjQuestionario::findOne($id)) !== null) {
+        if (($model = CapituloHasObjQuestionario::findOne(['Capitulo_id' => $Capitulo_id, 'ObjQuestionario_id' => $ObjQuestionario_id])) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

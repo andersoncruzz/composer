@@ -1,23 +1,22 @@
 <?php
 
-use common\models\Capitulo;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\ObjQuestionario */
+/* @var $model common\models\CapituloHasObjQuestionario */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="obj-questionario-form">
+<div class="capitulo-has-obj-questionario-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'Capitulo_id')->textInput() ?>
 
-    <label class="control-label" for="objquestionario-capitulo">Capítulo: <?= Capitulo::findOne($_GET['catitulo_id'])->titulo ?></label>
 
-    <input type="hidden" name="capitulo_id" value=<?= $_GET['catitulo_id'] ?> >
-    <?= $form->field($model, 'assunto')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'ObjQuestionario_id')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
