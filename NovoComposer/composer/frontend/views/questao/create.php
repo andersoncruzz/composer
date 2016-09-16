@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php
         echo "<h1>".$_GET['id']."</h1>";
-        $model->id_questao = $_GET['id'];
+        $model->id_questionario = $_GET['id'];
     ?>
     <?= $this->render('_form', [
         'model' => $model,

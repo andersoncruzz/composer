@@ -20,7 +20,8 @@ use Yii;
  */
 class Questao extends \yii\db\ActiveRecord
 {
-    public $id_questao;
+    public $id_questionario;
+
     /**
      * @inheritdoc
      */

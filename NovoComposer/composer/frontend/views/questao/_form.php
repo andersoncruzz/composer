@@ -10,11 +10,9 @@ use yii\widgets\ActiveForm;
 
 <div class="questao-form">
 
-    <?php $form = ActiveForm::begin([]);
+    <?php $form = ActiveForm::begin([]); ?>
 
-    ?>
-
-    <input type="hidden" name="id_questionario" value="<?=$model->id_questao?>"/>
+    <input type="hidden" name="id_questionario" value="<?=$model->id_questionario?>"/>
 
     <?= $form->field($model, 'nivel')->textInput(['maxlength' => true]) ?>
 
@@ -25,6 +23,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'duracao')->textInput() ?>
 
     <?= $form->field($model, 'dica')->textarea(['rows' => 6])
+
 
     ?>
 
