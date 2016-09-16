@@ -6,6 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\Capitulo */
 /* @var $quiz common\models\ObjQuestionario */
+/* @var $texto common\models\Objtexto */
 
 $this->title = $model->titulo;
 $this->params['breadcrumbs'][] = ['label' => 'Capitulos', 'url' => ['index']];
@@ -26,7 +27,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
 
-        <!--TODO: <?= Html::a('Novo Objeto', ['capitulo/create', 'Aula_id' => $model->id], ['class' => 'btn btn-primary']) ?>-->
     </p>
 
     <?= DetailView::widget([
@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Novo Objeto
             <span class="caret"></span></button>
         <ul class="dropdown-menu">
-            <li><?= Html::a('Texto', ['objtexto/create'])?></li>
+            <li><?= Html::a('Texto', ['objtexto/create', 'Capitulo_id' => $model->id])?></li>
             <li><?= Html::a('Galeria', ['objvideo/create'])?></li>
             <li><?= Html::a('Apresentação', ['objapresentacao/create'])?></li>
             <li><?= Html::a('Vídeo', ['objvideo/create'])?></li>
@@ -52,12 +52,6 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <!--deve listar os objetos de aprendizagem do capítulo-->
-    <p>
-        <?php
-        foreach ($model->objQuestionarios as $quiz){
-            echo Html::a($quiz->assunto, ['objquestionario/view', 'id' => $quiz->id], ['class' => 'btn btn-defaut']);
-        }
-        ?>
-    </p>
+
 
 </div>
