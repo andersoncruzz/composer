@@ -2,11 +2,13 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use common\models\Aula;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Disciplina */
+/* @var $aulas common\models\Aula */
 
-$this->title = $model->id;
+$this->title = $model->nome;
 $this->params['breadcrumbs'][] = ['label' => 'Disciplinas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -19,19 +21,26 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Tem certeza que deseja deletar esse item?',
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Nova Aula', ['aula/create', 'Disciplina_id' => $model->id], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'nome',
-            'user_id',
         ],
     ]) ?>
 
+
+    <p>
+    <?php
+        foreach ($model->aulas as $aula){
+            echo Html::a($aula->subject, ['aula/view', 'id' => $aula->id], ['class' => 'btn btn-defaut']);
+        }
+    ?>
+    </p>
 </div>

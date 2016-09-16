@@ -26,7 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'subject',
-            'discipline',
             'qtChapters',
             'Disciplina_id',
 

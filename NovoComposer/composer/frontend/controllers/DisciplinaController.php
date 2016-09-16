@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Aula;
 use Yii;
 use common\models\Disciplina;
 use common\models\DisciplinaSearch;
@@ -51,9 +52,7 @@ class DisciplinaController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        return $this->render('view', ['model' => $this->findModel($id)]);
     }
 
     /**

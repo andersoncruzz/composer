@@ -9,7 +9,6 @@ use Yii;
  *
  * @property integer $id
  * @property string $subject
- * @property string $discipline
  * @property integer $qtChapters
  * @property integer $Disciplina_id
  *
@@ -32,9 +31,9 @@ class Aula extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['subject', 'discipline', 'qtChapters', 'Disciplina_id'], 'required'],
+            [['subject', 'Disciplina_id'], 'required'],
             [['qtChapters', 'Disciplina_id'], 'integer'],
-            [['subject', 'discipline'], 'string', 'max' => 255],
+            [['subject'], 'string', 'max' => 255],
             [['Disciplina_id'], 'exist', 'skipOnError' => true, 'targetClass' => Disciplina::className(), 'targetAttribute' => ['Disciplina_id' => 'id']],
         ];
     }
@@ -47,7 +46,6 @@ class Aula extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'subject' => 'Subject',
-            'discipline' => 'Discipline',
             'qtChapters' => 'Qt Chapters',
             'Disciplina_id' => 'Disciplina ID',
         ];

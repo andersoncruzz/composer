@@ -23,12 +23,16 @@ class ComposerStaticInitebc9ce8df3b3a029f529deb18afe09d0
             'yii\\bootstrap\\' => 14,
             'yii\\' => 4,
         ),
-        'k' => 
+        'k' =>
         array (
             'kartik\\select2\\' => 15,
             'kartik\\base\\' => 12,
         ),
-        'c' => 
+        'd' =>
+        array (
+            'dosamigos\\ckeditor\\' => 19,
+        ),
+        'c' =>
         array (
             'cebe\\markdown\\' => 14,
         ),
@@ -71,15 +75,23 @@ class ComposerStaticInitebc9ce8df3b3a029f529deb18afe09d0
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2',
         ),
-        'kartik\\select2\\' => 
+        'kartik\\select2\\' =>
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-select2',
         ),
-        'kartik\\base\\' => 
+        'kartik\\base\\' =>
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-krajee-base',
         ),
-        'cebe\\markdown\\' => 
+        'kartik\\touchspin\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-touchspin',
+        ),
+        'dosamigos\\ckeditor\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/2amigos/yii2-ckeditor-widget/src',
+        ),
+        'cebe\\markdown\\' =>
         array (
             0 => __DIR__ . '/..' . '/cebe/markdown',
         ),

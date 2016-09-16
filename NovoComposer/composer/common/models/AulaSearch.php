@@ -19,7 +19,7 @@ class AulaSearch extends Aula
     {
         return [
             [['id', 'qtChapters', 'Disciplina_id'], 'integer'],
-            [['subject', 'discipline'], 'safe'],
+            [['subject'], 'safe'],
         ];
     }
 
@@ -64,8 +64,7 @@ class AulaSearch extends Aula
             'Disciplina_id' => $this->Disciplina_id,
         ]);
 
-        $query->andFilterWhere(['like', 'subject', $this->subject])
-            ->andFilterWhere(['like', 'discipline', $this->discipline]);
+        $query->andFilterWhere(['like', 'subject', $this->subject]);
 
         return $dataProvider;
     }
