@@ -73,10 +73,9 @@ def updateQuestionsTime(user, timestamp, idView):
 
 @app.route("/login/<idSession>", methods=["POST"])
 def login(idSession):
-<<<<<<< HEAD
+
 	global status_class
-=======
->>>>>>> 8194be4f9f7b84eea52022b84c009e1c2bd0276b
+
 	if request.method == "POST":
 		userName = request.form["username"]
 		senha	 = request.form["password"]
@@ -88,7 +87,7 @@ def login(idSession):
 			if(user[3] == '0'): 
 				print("Seja Bem Vindo Professor " + user[0])
 				file_users.close()
-<<<<<<< HEAD
+
 				return "Professor;"+user[3], 200
 			else:
 				print("Seja Bem Vindo(a) aluno(a) " + user[0])
@@ -112,7 +111,7 @@ def StatusClass(idSession):
 			return "Ok", 200
 		else:
 			if(status_class == False):
-=======
+
 				return user[3], 200
 			else:
 				print("Seja Bem Vindo(a) aluno(a) " + user[0])
@@ -124,18 +123,18 @@ def StatusClass(idSession):
 	print ("User Nao encontrado!")
 	return "Erro", 200
 
-@app.route("/status/<idSession>", methods=["POST"])
-def StatusClass(idSession):
-	if request.method == "POST":
-		idUser = request.form["idUser"]
-		if(idUser == 0):
-			return "Ok", 200
-		else:
-			if(status_class == "False"):
->>>>>>> 8194be4f9f7b84eea52022b84c009e1c2bd0276b
-				return "Wait", 200
-			else:
-				return "Start", 200
+#@app.route("/status/<idSession>", methods=["POST"])
+#def StatusClass(idSession):
+#	if request.method == "POST":
+#		idUser = request.form["idUser"]
+#		if(idUser == 0):
+#			return "Ok", 200
+#		else:
+#			if(status_class == "False"):
+#
+#				return "Wait", 200
+#			else:
+#				return "Start", 200
 
 #def logout(userName):#idSession):
 	#if request.method == "POST":
@@ -228,7 +227,8 @@ def receive_data(idSession):
 			feedback = searchAdaptation(idUser, timestamp, event, idView)
 			#print feedback
 			if len(feedback) > 0:
-				recommendation = [{"recommendation": feedback[0]}]
+				recommendation = [{"recommendation": feedback[1]}]
+				#print "----Teste Recommendation OOOOOI------", recommendation
 				return jsonify({'recommendation': recommendation})
 			else:
 				recommendation = [{"recommendation": "ok"}]
