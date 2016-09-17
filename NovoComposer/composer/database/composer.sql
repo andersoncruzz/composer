@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Máquina: localhost
--- Data de Criação: 13-Set-2016 às 08:42
+-- Data de Criação: 14-Set-2016 às 09:18
 -- Versão do servidor: 5.6.31-0ubuntu0.14.04.2
 -- versão do PHP: 5.5.9-1ubuntu4.19
 
@@ -182,6 +182,7 @@ INSERT INTO `Disciplina` (`id`, `nome`, `user_id`) VALUES
 
 CREATE TABLE IF NOT EXISTS `Imagem` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `caminho` varchar(255) NOT NULL,
   `Galeria_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_Imagem_Galeria1_idx` (`Galeria_id`)

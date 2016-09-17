@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\ObjQuestionarioHasQuestao;
 use Yii;
 use common\models\Questao;
 use common\models\QuestaoSearch;
@@ -65,8 +66,33 @@ class QuestaoController extends Controller
     {
         $model = new Questao();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) ) {
+            //salva questão =>  pega id
+            $param = Yii::$app->request->post();
+            /**
+             * Salva a questão no Banco.
+             */
+            $model->save();
+
+            /**
+             * Pega o id_questao que está no hidden input.
+             */
+            echo $param["id_questionario"];
+
+            /**
+             * Salva na Tabela Questionario tem questão. [relação M:N]
+             */
+            $objQuestionarioHasQuestao = new ObjQuestionarioHasQuestao();
+            $objQuestionarioHasQuestao->ObjQuestionario_id = $param["id_questionario"];
+            $objQuestionarioHasQuestao->Questao_id = $model->id;
+            $objQuestionarioHasQuestao->save();
+
+            /**
+             * Redireciona para a tela de visualização do questionario.
+             */
+            Yii::$app->session->setFlash('success', 'Questão inserida com sucesso.');
+            return $this->redirect(['objquestionario/view', 'id' => $param["id_questionario"]]);
+
         } else {
             return $this->render('create', [
                 'model' => $model,

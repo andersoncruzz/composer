@@ -14,11 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'subject')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'discipline')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'qtChapters')->textInput() ?>
-
-    <?= $form->field($model, 'Disciplina_id')->textInput() ?>
+    <?= $form->field($model, 'Disciplina_id')->hiddenInput(['value' => $_GET['Disciplina_id']])->label('') ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

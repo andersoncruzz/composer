@@ -19,8 +19,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'subject') ?>
 
-    <?= $form->field($model, 'discipline') ?>
-
     <?= $form->field($model, 'qtChapters') ?>
 
     <?= $form->field($model, 'Disciplina_id') ?>

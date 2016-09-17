@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\CapituloHasObjQuestionario;
 use Yii;
 use common\models\ObjQuestionario;
 use common\models\ObjquestionarioSearch;
@@ -65,7 +66,15 @@ class ObjquestionarioController extends Controller
     {
         $model = new ObjQuestionario();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $params = Yii::$app->request->post();
+
+            $model->save();
+
+            $capituloHasObjQuestionario = new CapituloHasObjQuestionario();
+            $capituloHasObjQuestionario->ObjQuestionario_id = $model->id;
+            $capituloHasObjQuestionario->Capitulo_id =$params["capitulo_id"];
+            $capituloHasObjQuestionario->save();
 
             return $this->redirect(['questao/create', 'id' => $model->id]);
         } else {
