@@ -3,35 +3,28 @@
 <head>
 	<title>Login</title>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
 </head>
 <body>
 	<div class="container center_div">
 		<div class="alert alert-info" role="alert">Olá! Certifique-se com seu professor que você tem cadastro no sistema.</div>
 		<div class="form-group">
-			<label for="usr">Usuário:</label>
-			<input type="text" class="form-control" id="usr">
+			<label for="usr">Matrícula:</label>
+			<input type="text" class="form-control" id="matricula">
 		</div>
-		<div class="form-group">
-  			<label for="pwd">Senha:</label>
-  			<input type="password" class="form-control" id="pwd">
-		</div>
-		<button type="submit" class="btn btn-success">Cancelar</button>
-		<button type="submit" class="btn btn-primary" onclick="logar()">Entrar</button>	
+		<button type="submit" id="btnLogar" class="btn btn-primary" onclick="logar()">Entrar</button>	
 	</div>
 </body>
 
 <script>
 	var un, ps;
 	function logar(){
-		un = document.getElementById("usr").value;
-		ps = document.getElementById("pwd").value;
+		un = document.getElementById("matricula").value;
 		$.post("http://localhost:5000/login/1",
         {
-            username: un,
-            password: ps
+            matricula: un
         },
         function(data, status){
             retorno = data.split(";");
@@ -40,7 +33,9 @@
             	window.location.href = "./NovoPlayer/Aula/index.html";
             }
             else{
-            	alert('Erro! Tente logar novamente.');
+            	var alerta = document.getElementById('alerta');
+				alerta.className = 'alert alert-danger';
+				alerta.innerHTML = "Puxa vida, deu erro! Tem certeza que informou seus dados corretamente?";
             }
         });
 	}
