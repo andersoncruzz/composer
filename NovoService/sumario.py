@@ -63,7 +63,7 @@ def LoadQuestionTime (user, timeQuestions, idQuestion, timestamp):
 						userActives[idQuestion][0] = timestamp							
 					else:
 						userActives[idQuestion][1] = timestamp
-						userActives[idQuestion][3] = userActives[idQuestion][1] - userActives[idQuestion][0] + userActives[idQuestion][2]
+						userActives[idQuestion][3] = userActives[idQuestion][1] - userActives[idQuestion][0]
 				#print userActives 	
 		#print ""					
 		#print feedback

@@ -160,4 +160,29 @@
 1;2;1472790238074;click;questionario.html;;label;1587;338
 1;2;1472790238097;click;questionario.html;Q:1:H:1-1;input;1587;338
 1;2;1472790239001;click;questionario.html;Q:2:H:1-2 list-group-item;a;1428;222
-1;2;1472790272163;;questionario.html;Q:2:H:1-2 list-group-item;;;
+1;2;1472832062590;click;;btn btn-primary btn-lg;a;66;233
+1;2;1472832120567;click;questionario.html;Q:1:H:1-1 list-group-item;a;127;176
+1;2;1472832156409;click;questionario.html;;body;415;539
+1;2;1472832171251;click;questionario.html;;body;549;664
+1;2;1472832255900;click;questionario.html;;body;508;625
+1;2;1472832277264;click;questionario.html;Q:1:H:1-1;input;224;327
+1;2;1472832290844;click;questionario.html;;body;283;710
+1;2;1472832402669;click;questionario.html;;body;433;596
+1;2;1472832407881;click;questionario.html;Q:2:H:1-2 list-group-item;a;96;217
+1;2;1472832416639;click;questionario.html;Q:1:H:1-1 list-group-item;a;93;174
+1;2;1472832422821;click;questionario.html;Q:2:H:1-2 list-group-item;a;93;220
+1;2;1472832425552;click;questionario.html;Q:1:H:1-1 list-group-item;a;120;177
+1;2;1472832437419;click;questionario.html;Q:2:H:1-2 list-group-item;a;104;223
+1;2;1472832439618;click;questionario.html;Q:1:H:1-1 list-group-item;a;90;171
+1;2;1472832523623;click;questionario.html;Q:3:H:1-3 list-group-item;a;77;247
+1;2;1472832718353;click;questionario.html;Q:2:H:1-2 list-group-item;a;106;209
+1;2;1472832788053;click;questionario.html;Q:1:H:1-1 list-group-item;a;110;170
+1;2;1472832837834;click;questionario.html;Q:2:H:1-2 list-group-item;a;62;229
+1;2;1472832841735;click;questionario.html;Q:1:H:1-1 list-group-item;a;59;169
+1;2;1472832845774;click;questionario.html;Q:2:H:1-2 list-group-item;a;94;198
+1;2;1472832847383;click;questionario.html;Q:1:H:1-1 list-group-item;a;90;167
+1;2;1472832854355;click;questionario.html;Q:2:H:1-2 list-group-item;a;77;217
+1;2;1472833195025;click;questionario.html;;html;332;758
+1;2;1473802976234;click;;btn btn-primary btn-lg;a;78;241
+1;2;1473802978387;click;questionario.html;Q:1:H:1-1;input;220;377
+1;2;1473803188457;;questionario.html;Q:1:H:1-1;;;

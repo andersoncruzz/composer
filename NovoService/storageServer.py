@@ -52,6 +52,8 @@ def searchAdaptation(user, timestamp, event, idView):
 	mutex = 0#releaseSemaforo	
 	#print "feedback sumarizer"
 	#print feedback
+	print "feedback "
+	print feedback 
 	return feedback
 
 def updateQuestionsTime(user, timestamp, idView):
@@ -135,7 +137,8 @@ def receive_data(idSession):
 			feedback = searchAdaptation(idUser, timestamp, event, idView)
 			#print feedback
 			if len(feedback) > 0:
-				recommendation = [{"recommendation": feedback[0]}]
+				#print "feedback" +feedback[1]
+				recommendation = [{"recommendation": feedback[1]}]
 				return jsonify({'recommendation': recommendation})
 			else:
 				recommendation = [{"recommendation": "ok"}]
