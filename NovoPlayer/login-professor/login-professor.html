@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login - Professor</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container center_div">
+		<div class="alert alert-info" role="alert">Olá, professor! Faça o login para fazer upload da aula.</div>
+		<div class="form-group">
+			<label for="usr">Usuário:</label>
+			<input type="text" class="form-control" id="matricula">
+		</div>
+		<div class="form-group">
+			<label for="usr">Senha:</label>
+			<input type="password" class="form-control" id="senha">
+		</div>
+		<button type="submit" id="btnCadastrarr" class="btn btn-success" onclick="cadastrar()">Cadastre-se</button>
+		<button type="submit" id="btnLogar" class="btn btn-primary" onclick="logar()">Entrar</button>	
+	</div>
+</body>
+
+<script>
+	var un, ps;
+	function logar(){
+		un = document.getElementById("matricula").value;
+		ps = document.getElementById("senha").value;
+		$.post("http://localhost:5000/login/1",
+        {
+            matricula: un,
+            senha: ps
+        },
+        function(data, status){
+            retorno = data.split(";");
+            alert("Data: " + data + "\nStatus: " + status);
+            if(data == true) {
+            	window.location.href = "./NovoPlayer/Aula/index.html";
+            }
+            else{
+            	var alerta = document.getElementById('alerta');
+				alerta.className = 'alert alert-danger';
+				alerta.innerHTML = "Puxa vida, deu erro! Tem certeza que informou seus dados corretamente?";
+            }
+        });
+	}
+
+	function cadastrar() {
+		window.location.href = "cadastrar-professor.html";
+	}
+
+</script>
+</html>
+
