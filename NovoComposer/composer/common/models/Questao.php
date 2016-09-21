@@ -13,6 +13,7 @@ use Yii;
  * @property string $enunciado
  * @property integer $duracao
  * @property string $dica
+ * @property string $correta
  *
  * @property Alternativa[] $alternativas
  * @property ObjQuestionarioHasQuestao[] $objQuestionarioHasQuestaos
@@ -56,6 +57,7 @@ class Questao extends \yii\db\ActiveRecord
             'enunciado' => 'Enunciado',
             'duracao' => 'Duracao',
             'dica' => 'Dica',
+            'correta' => "Correta",
         ];
     }
 
