@@ -124,8 +124,8 @@ class QuestaoController extends Controller
             /**
              * Redireciona para a tela de visualização do questionario.
              */
-//            Yii::$app->session->setFlash('success', 'Questão inserida com sucesso.');
-//            return $this->redirect(['objquestionario/view', 'id' => $param["id_questionario"]]);
+            Yii::$app->session->setFlash('success', 'Questão inserida com sucesso.');
+            return $this->redirect(['objquestionario/view', 'id' => $param["id_questionario"]]);
 
         } else {
             return $this->render('create', [

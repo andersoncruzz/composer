@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\Capitulo;
 use common\models\CapituloHasObjtexto;
+use frontend\models\ObjetoDeAprendizagem;
 use Yii;
 use common\models\ObjTexto;
 use common\models\ObjtextoSearch;
@@ -76,6 +77,26 @@ class ObjtextoController extends Controller
                 $relacao->Capitulo_id = $parametros['Capitulo_id'];
                 $relacao->ObjTexto_id = $model->id;
                 $relacao->save();
+
+                $capitulo = Capitulo::findOne($parametros["Capitulo_id"]);
+
+                $ordem = json_decode($capitulo->ordem, true);
+                $objeto = new ObjetoDeAprendizagem("Texto/Html", $model->assunto, count($ordem)+1, $model->id);
+
+                $achou = 0;
+                for($i = 1; $i < count($ordem); $i++){
+                    if($ordem[$i]['tipo'] == "questionario" && $ordem[$i]['id'] == $model->id){
+                        $achou = 1;
+                        break;
+                    }
+                }
+
+                if($achou == 0) {
+                    $ordem[count($ordem) + 1] = $objeto;
+                }
+
+                $capitulo->ordem = json_encode($ordem);
+                $capitulo->save(true);
 
                 return $this->redirect(['capitulo/view', 'id' => $relacao->Capitulo_id]);
             }
