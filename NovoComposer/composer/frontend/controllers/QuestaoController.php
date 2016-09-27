@@ -7,6 +7,7 @@ use common\models\ObjQuestionarioHasQuestao;
 use Yii;
 use common\models\Questao;
 use common\models\QuestaoSearch;
+use yii\base\Exception;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -190,11 +191,13 @@ class QuestaoController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete($id, $idquestionario)
     {
-        $this->findModel($id)->delete();
+        echo ObjQuestionarioHasQuestao::find()->where(['ObjQuestionario_id'=>$idquestionario])
+        ->andWhere(['Questao_id'=>$id])->one()->delete();
 
-        return $this->redirect(['index']);
+        Yii::$app->session->setFlash('success', 'Questão excluída com sucesso.');
+        return $this->redirect(['objquestionario/view', 'id' => $idquestionario]);
     }
 
     /**

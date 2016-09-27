@@ -90,7 +90,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         )?>
                         <?=Html::a(
                             'Excluir',
-                            ['questao/delete', 'id'=>$questao->id],
+                            ['questao/delete', 'id'=>$questao->id, 'idquestionario'=>$model->id],
                             ['data' => [
                                 'confirm' => 'Tem certeza que deseja deletar esse item?',
                                 'method' => 'post',

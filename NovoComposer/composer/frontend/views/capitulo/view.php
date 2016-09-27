@@ -80,26 +80,21 @@ $this->params['breadcrumbs'][] = $this->title;
             for ($i=1 ; $i<= count($array); $i++) {
                 ?>
                 <tr data-key="<?= $i?>">
+                    <td><?=$i?></td>
                     <td><?=$array[$i]['id']?></td>
                     <td><?=$array[$i]['tipo']?></td>
                     <td><?=$array[$i]['descricao']?></td>
                     <td>
-                        <?=Html::a(
-                            'Visualizar',
-                            ['objquestionario/view', 'id'=>$questionario->id]
-                        )?>
-                        <?=Html::a(
-                           'Editar',
-                            ['objquestionario/update', 'id'=>$questionario->id]
-                        )?>
-                        <?=Html::a(
-                            'Excluir',
-                            ['objquestionario/delete', 'id'=>$questionario->id],
-                            ['data' => [
-                            'confirm' => 'Tem certeza que deseja deletar esse item?',
-                            'method' => 'post',
-                        ],
-                        ])?>
+                        <?php
+                        if ($array[$i]['tipo'] == 'questionario')
+                            echo Html::a('Visualizar', ['objquestionario/view', 'id'=>$array[$i]['id']]);
+                        else
+                            echo "<a href='#'>Visualizar</a>";
+                        ?>
+
+                        <a href="#">Editar</a>
+                        <a href="#">Excluir</a>
+
 
                     </td>
                 </tr>
