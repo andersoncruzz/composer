@@ -29,14 +29,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
     </p>
 
-    <?= DetailView::widget([
+    <!--<?= DetailView::widget([
         'model' => $model,
         'attributes' => [
 
             'subject',
             'Disciplina_id',
         ],
-    ]) ?>
+    ]) ?>-->
 
     <p>
         <?php

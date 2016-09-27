@@ -42,15 +42,15 @@ $this->params['breadcrumbs'][] = $this->title;
         <ul class="dropdown-menu">
             <li><?= Html::a('Texto', ['objtexto/create', 'Capitulo_id' => $model->id])?></li>
             <li><?= Html::a('Galeria', ['objvideo/create'])?></li>
-            <li><?= Html::a('Apresentação', ['objapresentacao/create'])?></li>
-            <li><?= Html::a('Vídeo', ['objvideo/create'])?></li>
-            <li><?= Html::a('Objeto dinâmico', ['objdinamico/create'])?></li>
+            <li><?= Html::a('Apresentação', ['objapresentacao/create', 'Capitulo_id'=>$model->id])?></li>
+            <li><?= Html::a('Vídeo', ['objvideo/create', 'Capitulo_id'=>$model->id])?></li>
+            <li><?= Html::a('Objeto dinâmico', ['objdinamico/create', 'Capitulo_id'=>$model->id])?></li>
             <li class="divider"></li>
-            <li><?= Html::a('Questionario', ['objquestionario/create', 'catitulo_id' => $model->id])?></li>
+            <li><?= Html::a('Questionario', ['objquestionario/create', 'capitulo_id' => $model->id])?></li>
         </ul>
     </div>
 
-    <br><label class="control-label" for="objquestionario-capitulo"> Questões </label>
+    <br><label class="control-label" for="objquestionario-capitulo"> Questionários </label>
 
     <div id="w1" class="grid-view">
         <div class="summary">
@@ -81,9 +81,23 @@ $this->params['breadcrumbs'][] = $this->title;
                     <td><?=$questionario->id?></td>
                     <td><?=$questionario->assunto?></td>
                     <td>
-                        <a href="/NovoCompose/NovoComposer/composer/frontend/web/index.php?r=objquestionario/view&amp;id=<?=$questionario->id ?>" title="View" aria-label="View" data-pjax="0"><span class="glyphicon glyphicon-eye-open"></span></a>
-                        <a href="/NovoCompose/NovoComposer/composer/frontend/web/index.php?r=objquestionario/update&amp;id=<?=$questionario->id ?>" title="Update" aria-label="Update" data-pjax="0"><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a href="/NovoCompose/NovoComposer/composer/frontend/web/index.php?r=objquestionario/delete&amp;id=<?=$questionario->id ?>" title="Delete" aria-label="Delete" data-confirm="Are you sure you want to delete this item?" data-method="post" data-pjax="0"><span class="glyphicon glyphicon-trash"></span></a>
+                        <?=Html::a(
+                            'Visualizar',
+                            ['objquestionario/view', 'id'=>$questionario->id]
+                        )?>
+                        <?=Html::a(
+                           'Editar',
+                            ['objquestionario/update', 'id'=>$questionario->id]
+                        )?>
+                        <?=Html::a(
+                            'Excluir',
+                            ['objquestionario/delete', 'id'=>$questionario->id],
+                            ['data' => [
+                            'confirm' => 'Tem certeza que deseja deletar esse item?',
+                            'method' => 'post',
+                        ],
+                        ])?>
+
                     </td>
                 </tr>
             <?php }?>
