@@ -50,8 +50,8 @@ $this->params['breadcrumbs'][] = $this->title;
         </ul>
     </div>
 
-    <br><label class="control-label" for="objquestionario-capitulo"> Questionários </label>
-
+    <br><label class="control-label" for="objquestionario-capitulo"> Objetos de Aprendizagem </label>
+<!---->
     <div id="w1" class="grid-view">
         <div class="summary">
             Showing <b>1-<?= count($model->objQuestionarios)?></b> of <b>1</b> item.
@@ -61,8 +61,12 @@ $this->params['breadcrumbs'][] = $this->title;
             <tr>
                 <th>#</th>
                 <th>
-                    <a href="#" data-sort="id">ID</a>
+                    <a href="#" data-sort="id">código</a>
                 </th>
+                <th>
+                    <a href="#" data-sort="id">Tipo</a>
+                </th>
+
                 <th>
                     <a href="#" data-sort="assunto">Assunto</a>
                 </th>
@@ -71,15 +75,14 @@ $this->params['breadcrumbs'][] = $this->title;
             </tr>
             </thead>
             <tbody>
-
             <?php
-
-            foreach ($model->objQuestionarios as $key =>$questionario) {
+            $array = json_decode($model->ordem, true);
+            for ($i=1 ; $i<= count($array); $i++) {
                 ?>
-
-                <tr data-key="<?= $key?>">
-                    <td><?=$questionario->id?></td>
-                    <td><?=$questionario->assunto?></td>
+                <tr data-key="<?= $i?>">
+                    <td><?=$array[$i]['id']?></td>
+                    <td><?=$array[$i]['tipo']?></td>
+                    <td><?=$array[$i]['descricao']?></td>
                     <td>
                         <?=Html::a(
                             'Visualizar',
