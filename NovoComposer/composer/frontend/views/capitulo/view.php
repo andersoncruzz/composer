@@ -17,8 +17,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Atualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Deletar', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Tem certeza que deseja deletar esse capítulo?',
@@ -51,10 +51,10 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <br><label class="control-label" for="objquestionario-capitulo"> Objetos de Aprendizagem </label>
-<!---->
+
     <div id="w1" class="grid-view">
         <div class="summary">
-            Showing <b>1-<?= count($model->objQuestionarios)?></b> of <b>1</b> item.
+            Mostrar <b>1-<?= count($model->objQuestionarios)?></b> of <b>1</b> item.
         </div>
         <table class="table table-striped table-bordered">
             <thead>
