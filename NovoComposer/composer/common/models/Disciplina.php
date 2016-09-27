@@ -30,7 +30,7 @@ class Disciplina extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nome', 'user_id'], 'required'],
+            [['nome', 'user_id'], 'required', 'message'=>"Este campo é obrigatório"],
             [['user_id'], 'integer'],
             [['nome'], 'string', 'max' => 255],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
