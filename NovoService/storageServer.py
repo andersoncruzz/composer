@@ -18,9 +18,10 @@ recomendation = list()
 timeQuestions = list()
 idQ = list()
 status_class = False
+idQu = list()
 
 
-app = Flask('storage')
+app = Flask('storage', static_folder='realtime')
 CORS(app)
 #moveBufferHttpRest_to_BufferChangeLogger = False
 #Criando diretório sessions caso não exista	
@@ -60,22 +61,19 @@ def searchAdaptation(user, timestamp, event, idView):
 	if recomendationUser == True:
 		feedback = recommender(user, recomendation, sumario, int(idQuestion[1]), int(timestamp))
 	mutex = 0#releaseSemaforo	
-<<<<<<< HEAD
 	#print "feedback sumarizer"
 	#print feedback
-	print "feedback "
-	print feedback 
-=======
-	print "feedback sumarizer"
-	print feedback
->>>>>>> 3f39cf6002571921f04b48bce2d90f82525ed08d
 	return feedback
 
 def updateQuestionsTime(user, timestamp, idView):
 	idQuestion = idView.split(":")
 	idQ.append(idQuestion[1])
+	if len(idQu) == 0:
+		idQu.append(idQuestion[1])
+	idQu[0] = idQuestion[1]
+	#print ("\n\n\n" + idQu[0] + "\n\n\n")
 	timeQuestion = LoadQuestionTime (user, timeQuestions, int(idQuestion[1]), int(timestamp))
-	print timeQuestions
+	#print timeQuestions
 
 
 @app.route("/login/<idSession>", methods=["POST"])
@@ -234,13 +232,9 @@ def receive_data(idSession):
 			feedback = searchAdaptation(idUser, timestamp, event, idView)
 			#print feedback
 			if len(feedback) > 0:
-<<<<<<< HEAD
-				#print "feedback" +feedback[1]
-				recommendation = [{"recommendation": feedback[1]}]
-=======
+				print feedback[1]
 				recommendation = [{"recommendation": feedback[1]}]
 				#print "----Teste Recommendation OOOOOI------", recommendation
->>>>>>> 3f39cf6002571921f04b48bce2d90f82525ed08d
 				return jsonify({'recommendation': recommendation})
 			else:
 				recommendation = [{"recommendation": "ok"}]
@@ -252,13 +246,16 @@ def receive_data(idSession):
 @app.route("/realtime/<idSession>", methods=["GET"])
 def realTimeStateStudents(idSession):
 	if request.method == "GET":
-		return buildGraphTimeLine(idSession), 200
+		#return buildGraphTimeLine(idSession), 200
+		return flotchart2(), 200
 
 def buildGraphTimeLine(idSession):
 	html = ""
 	print idQ[0]
 	if idQ[0] == "1":
-		html = """<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		html = """
+		<meta http-equiv="refresh" content="3">
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
   google.charts.load("current", {packages:["timeline"]});
   google.charts.setOnLoadCallback(drawChart);
@@ -347,7 +344,356 @@ def buildGraphTimeLine(idSession):
 
 <div id="graphTimeLine"></div>
 """
+
 	return html
+
+def flotchart ():
+	print "aqui"
+	html = """<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta charset = "utf-8">
+
+<head>
+	<meta http-equiv="refresh" content="3">
+    <title>Gráfico tempo por questão</title>
+
+    <script src="js/flot/jquery-3.1.0.min.js" type='text/javascript'></script>  
+    <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="/js/flot/excanvas.min.js"></script><![endif]-->
+     
+    <script type="text/javascript" src="js/flot/jquery.flot.min.js"></script>    
+    <script type="text/javascript" src="js/flot/jquery.flot.symbol.js"></script>
+    <script type="text/javascript" src="js/flot/jquery.flot.axislabels.js"></script>
+ <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://www.flotcharts.org/flot/jquery.flot.js"></script> -->
+
+    <script type="text/javascript">
+  
+//
+        //******* 2012 Average Temperature - BAR CHART
+       // var data = [{color: "red", data: [[1, 11]]},
+         //           {color: "blue", data: [[2, 15]]},
+           //        {color: "blue", data: [[3, 25]]}
+             //      ];
+       var data = [[0,11],[1,15],[2,25]];
+       // var color = ["red", "blue", "blue"]            
+  
+var color01 = '#00cde2';
+var color02 = '#ffb700';
+var color03 = '#7ac70c';"""
+
+	if idQ[0] == "1":
+		html = html + """
+  var data = [
+            {data: [[0,""" + str(timeQuestions[0][1][2]) + """]], color: color02},
+            {data: [[1,""" + str(timeQuestions[0][2][2]) + """]], color: color02},
+            {data: [[2,""" + str(timeQuestions[0][3][2]) + """]], color: color02},  
+            ]; """
+
+	if idQ[0] == "2":
+		html = html + """
+  var data = [
+            {data: [[0,""" + str(timeQuestions[0][1][2]) + """]], color: color02},
+            {data: [[1,""" + str(timeQuestions[0][2][2]) + """]], color: color02},
+            {data: [[2,""" + str(timeQuestions[0][3][2]) + """]], color: color02},  
+            ]; """
+
+	if idQ[0] == "3":
+		html = html + """
+  var data = [
+            {data: [[0,""" + str(timeQuestions[0][1][2]) + """]], color: color02},
+            {data: [[1,""" + str(timeQuestions[0][2][2]) + """]], color: color02},
+            {data: [[2,""" + str(timeQuestions[0][3][2]) + """]], color: color02},  
+            ]; """
+	html = html + """
+    //  var data = [[0,11],[1,15],[2,25]];
+
+        //var dataset = [{ label: "Tempo por questão em segundos", data: data, color: "red" }];
+        var ticks = [[0, "Q1"], [1, "Q2"], [2, "Q3"]];
+ 
+        var options = {
+            series: {
+               // stack: 1,
+                bars: {
+                    show: true
+                }
+            },
+            bars: {
+                align: "center",
+                barWidth: 0.5,
+                //fill:1
+            },
+            xaxis: {
+                axisLabel: "Questões",
+                axisLabelUseCanvas: true,
+                axisLabelFontSizePixels: 12,
+                axisLabelFontFamily: 'Verdana, Arial',
+                axisLabelPadding: 10,
+                ticks: ticks
+            },
+            yaxis: {
+                axisLabel: "Tempo por questão em segundos",
+                axisLabelUseCanvas: true,
+                axisLabelFontSizePixels: 12,
+                axisLabelFontFamily: 'Verdana, Arial',
+                axisLabelPadding: 3,
+                tickFormatter: function (v, axis) {
+                    return v + " S";
+                }
+            },
+            legend: {
+                noColumns: 0,
+                labelBoxBorderColor: "#000000",
+                position: "nw"
+            },
+            grid: {
+                hoverable: true,
+                borderWidth: 2,
+                backgroundColor: { colors: ["#ffffff", "#EDF5FF"] }
+            }
+        };
+ 
+        $(document).ready(function () {
+            $.plot($("#flot-placeholder"), data, options);
+            $("#flot-placeholder").UseTooltip();
+        });
+ 
+        function gd(year, month, day) {
+            return new Date(year, month, day).getTime();
+        }
+ 
+        var previousPoint = null, previousLabel = null;
+ 
+        $.fn.UseTooltip = function () {
+            $(this).bind("plothover", function (event, pos, item) {
+                if (item) {
+                    if ((previousLabel != item.series.label) || (previousPoint != item.dataIndex)) {
+                        previousPoint = item.dataIndex;
+                        previousLabel = item.series.label;
+                        $("#tooltip").remove();
+ 
+                        var x = item.datapoint[0];
+                        var y = item.datapoint[1];
+ 
+                        var color = item.series.color;
+ 
+                        //console.log(item.series.xaxis.ticks[x].label);                
+ 
+                        showTooltip(item.pageX,
+                        item.pageY,
+                        color,
+                        "<strong>"+"Tempo gasto por segundo</strong><br>" + item.series.xaxis.ticks[x].label + " : <strong>" + y + "</strong> Segundos");
+                    }
+                } else {
+                    $("#tooltip").remove();
+                    previousPoint = null;
+                }
+            });
+        };
+ 
+        function showTooltip(x, y, color, contents) {
+            $('<div id="tooltip">' + contents + '</div>').css({
+                position: 'absolute',
+                display: 'none',
+                top: y - 40,
+                left: x - 120,
+                border: '2px solid ' + color,
+                padding: '3px',
+                'font-size': '9px',
+                'border-radius': '5px',
+                'background-color': '#fff',
+                'font-family': 'Verdana, Arial, Helvetica, Tahoma, sans-serif',
+                opacity: 0.9
+            }).appendTo("body").fadeIn(200);
+        }
+    </script>
+</head>
+<body>
+    <div style="width:600px;height:450px;text-align:center;margin:10px">        
+        <div id="flot-placeholder" style="width:100%;height:100%;"></div>        
+    </div>
+
+    <h1>Questao atual: """+str(idQ[0]) +"""</h1>
+</body>
+</html>
+"""
+	print ("IDQ" + str(idQ))
+	return html
+
+def flotchart2 ():
+	print "aqui"
+	html = """<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta charset = "utf-8">
+
+<head>
+	<meta http-equiv="refresh" content="3">
+    <title>Gráfico tempo por questão</title>
+
+    <script src="js/flot/jquery-3.1.0.min.js" type='text/javascript'></script>  
+    <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="/js/flot/excanvas.min.js"></script><![endif]-->
+     
+    <script type="text/javascript" src="js/flot/jquery.flot.min.js"></script>    
+    <script type="text/javascript" src="js/flot/jquery.flot.symbol.js"></script>
+    <script type="text/javascript" src="js/flot/jquery.flot.axislabels.js"></script>
+ <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://www.flotcharts.org/flot/jquery.flot.js"></script> -->
+
+    <script type="text/javascript">
+  
+//
+        //******* 2012 Average Temperature - BAR CHART
+       // var data = [{color: "red", data: [[1, 11]]},
+         //           {color: "blue", data: [[2, 15]]},
+           //        {color: "blue", data: [[3, 25]]}
+             //      ];
+       var data = [[0,11],[1,15],[2,25]];
+       // var color = ["red", "blue", "blue"]            
+  
+var color01 = '#00cde2';
+var color02 = '#ffb700';
+var color03 = '#7ac70c';"""
+
+	if idQu[0] == "1":
+		html = html + """
+  var data = [
+            {data: [[0,""" + str(timeQuestions[0][1][2]) + """]], color: color03},
+            {data: [[1,""" + str(timeQuestions[0][2][2]) + """]], color: color02},
+            {data: [[2,""" + str(timeQuestions[0][3][2]) + """]], color: color02},  
+            ]; """
+
+	if idQu[0] == "2":
+		html = html + """
+  var data = [
+            {data: [[0,""" + str(timeQuestions[0][1][2]) + """]], color: color02},
+            {data: [[1,""" + str(timeQuestions[0][2][2]) + """]], color: color03},
+            {data: [[2,""" + str(timeQuestions[0][3][2]) + """]], color: color02},  
+            ]; """
+
+	if idQu[0] == "3":
+		html = html + """
+  var data = [
+            {data: [[0,""" + str(timeQuestions[0][1][2]) + """]], color: color02},
+            {data: [[1,""" + str(timeQuestions[0][2][2]) + """]], color: color02},
+            {data: [[2,""" + str(timeQuestions[0][3][2]) + """]], color: color03},  
+            ]; """
+	html = html + """
+    //  var data = [[0,11],[1,15],[2,25]];
+
+        //var dataset = [{ label: "Tempo por questão em segundos", data: data, color: "red" }];
+        var ticks = [[0, "Q1"], [1, "Q2"], [2, "Q3"]];
+ 
+        var options = {
+            series: {
+               // stack: 1,
+                bars: {
+                    show: true
+                }
+            },
+            bars: {
+                align: "center",
+                barWidth: 0.5,
+                //fill:1
+            },
+            xaxis: {
+                axisLabel: "Questões",
+                axisLabelUseCanvas: true,
+                axisLabelFontSizePixels: 12,
+                axisLabelFontFamily: 'Verdana, Arial',
+                axisLabelPadding: 10,
+                ticks: ticks
+            },
+            yaxis: {
+                axisLabel: "Tempo por questão em segundos",
+                axisLabelUseCanvas: true,
+                axisLabelFontSizePixels: 12,
+                axisLabelFontFamily: 'Verdana, Arial',
+                axisLabelPadding: 3,
+                tickFormatter: function (v, axis) {
+                    return v + " S";
+                }
+            },
+            legend: {
+                noColumns: 0,
+                labelBoxBorderColor: "#000000",
+                position: "nw"
+            },
+            grid: {
+                hoverable: true,
+                borderWidth: 2,
+                backgroundColor: { colors: ["#ffffff", "#EDF5FF"] }
+            }
+        };
+ 
+        $(document).ready(function () {
+            $.plot($("#flot-placeholder"), data, options);
+            $("#flot-placeholder").UseTooltip();
+        });
+ 
+        function gd(year, month, day) {
+            return new Date(year, month, day).getTime();
+        }
+ 
+        var previousPoint = null, previousLabel = null;
+ 
+        $.fn.UseTooltip = function () {
+            $(this).bind("plothover", function (event, pos, item) {
+                if (item) {
+                    if ((previousLabel != item.series.label) || (previousPoint != item.dataIndex)) {
+                        previousPoint = item.dataIndex;
+                        previousLabel = item.series.label;
+                        $("#tooltip").remove();
+ 
+                        var x = item.datapoint[0];
+                        var y = item.datapoint[1];
+ 
+                        var color = item.series.color;
+ 
+                        //console.log(item.series.xaxis.ticks[x].label);                
+ 
+                        showTooltip(item.pageX,
+                        item.pageY,
+                        color,
+                        "<strong>"+"Tempo gasto por segundo</strong><br>" + item.series.xaxis.ticks[x].label + " : <strong>" + y + "</strong> Segundos");
+                    }
+                } else {
+                    $("#tooltip").remove();
+                    previousPoint = null;
+                }
+            });
+        };
+ 
+        function showTooltip(x, y, color, contents) {
+            $('<div id="tooltip">' + contents + '</div>').css({
+                position: 'absolute',
+                display: 'none',
+                top: y - 40,
+                left: x - 120,
+                border: '2px solid ' + color,
+                padding: '3px',
+                'font-size': '9px',
+                'border-radius': '5px',
+                'background-color': '#fff',
+                'font-family': 'Verdana, Arial, Helvetica, Tahoma, sans-serif',
+                opacity: 0.9
+            }).appendTo("body").fadeIn(200);
+        }
+    </script>
+</head>
+<body>
+    <div style="width:600px;height:450px;text-align:center;margin:10px">        
+        <div id="flot-placeholder" style="width:100%;height:100%;"></div>        
+    </div>
+
+    <h1>Questao atual: """+str(idQu[0]) +"""</h1>
+</body>
+</html>
+"""
+	print ("IDQ" + str(idQu[0]))
+	return html
+
+
 #@app.route("/analytics/<idSession>", methods=["GET"])
 #def receiveAnalytics(idSession):
 #	if request.method == "GET":
