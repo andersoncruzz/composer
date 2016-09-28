@@ -80,9 +80,22 @@ $this->params['breadcrumbs'][] = $this->title;
                     <td><?= $questao->duracao?></td>
 
                     <td>
-                        <a href="/NovoCompose/NovoComposer/composer/frontend/web/index.php?r=questao/view&amp;id=<?=$questao->id ?>" title="View" aria-label="View" data-pjax="0"><span class="glyphicon glyphicon-eye-open"></span></a>
-                        <a href="/NovoCompose/NovoComposer/composer/frontend/web/index.php?r=questao/update&amp;id=<?=$questao->id ?>" title="Update" aria-label="Update" data-pjax="0"><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a href="/NovoCompose/NovoComposer/composer/frontend/web/index.php?r=questao/delete&amp;id=<?=$questao->id ?>" title="Delete" aria-label="Delete" data-confirm="Are you sure you want to delete this item?" data-method="post" data-pjax="0"><span class="glyphicon glyphicon-trash"></span></a>
+                        <?=Html::a(
+                            'Visualizar',
+                            ['questao/view', 'id'=>$questao->id]
+                        )?>
+                        <?=Html::a(
+                            'Editar',
+                            ['questao/update', 'id'=>$questao->id]
+                        )?>
+                        <?=Html::a(
+                            'Excluir',
+                            ['questao/delete', 'id'=>$questao->id, 'idquestionario'=>$model->id],
+                            ['data' => [
+                                'confirm' => 'Tem certeza que deseja deletar esse item?',
+                                'method' => 'post',
+                            ],
+                            ])?>
                     </td>
                 </tr>
              <?php }?>

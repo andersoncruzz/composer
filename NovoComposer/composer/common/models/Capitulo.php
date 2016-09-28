@@ -12,6 +12,7 @@ use Yii;
  * @property integer $qtObjects
  * @property integer $Aula_id
  * @property integer $dificuldade
+ * @property string $ordem
  *
  * @property Aula $aula
  * @property CapituloHasObjApresentacao[] $capituloHasObjApresentacaos
@@ -61,6 +62,7 @@ class Capitulo extends \yii\db\ActiveRecord
             'qtObjects' => 'Qt Objects',
             'Aula_id' => 'Aula ID',
             'dificuldade' => 'Dificuldade',
+            'ordem' => 'Ordem'
         ];
     }
 
