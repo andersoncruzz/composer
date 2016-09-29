@@ -31,13 +31,13 @@ def recommender (user, recommender, sumarizer, idQuestion, timestamp):
 						elif userActives[idQuestion][0][2] == False:
 							userActives[idQuestion][0][2] = True
 							print "C"+str(idQuestion)+"-hard"	
-							recommendation = "C"+str(idQuestion)+"-hard"
+							recommendation = "D"+str(idQuestion)+"-hard" + ";" + "C"+str(idQuestion)+"-hard"
 						elif userActives[idQuestion][0][3] == False:
 							userActives[idQuestion][0][3] = True
 							#Vai passar para questao facil	
 							userActives[idQuestion][0][0] = True
 							print "Q"+str(idQuestion)+"-easy"
-							recommendation = "Q"+str(idQuestion)+"-easy"
+							recommendation = "D"+str(idQuestion)+"-hard" + ";" + "C"+str(idQuestion)+"-hard" + ";" + "Q"+str(idQuestion)+"-easy"
 
 					else:
 						if userActives[idQuestion][1][0] == False: 
@@ -48,13 +48,13 @@ def recommender (user, recommender, sumarizer, idQuestion, timestamp):
 							elif userActives[idQuestion][1][2] == False:
 								userActives[idQuestion][1][2] = True
 								print "C"+str(idQuestion)+"-easy"	
-								recommendation = "C"+str(idQuestion)+"-easy"
+								recommendation = "D"+str(idQuestion)+"-easy" +";" +"C"+str(idQuestion)+"-easy"
 							elif userActives[idQuestion][1][3] == False:
 								userActives[idQuestion][1][3] = True
 								#Vai passar para questao facil	
 								userActives[idQuestion][1][0] = True
 								print "P"+str(idQuestion)
-								recommendation = "P"+str(idQuestion)
+								recommendation = "D"+str(idQuestion)+"-easy" +";" +"C"+str(idQuestion)+"-easy" + ";" + "P"+str(idQuestion)
 				else:
 					#userActives[0][1] = -1
 					recommendation = "ok"
