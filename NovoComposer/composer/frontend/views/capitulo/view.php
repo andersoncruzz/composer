@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <span class="caret"></span></button>
         <ul class="dropdown-menu">
             <li><?= Html::a('Texto', ['objtexto/create', 'Capitulo_id' => $model->id])?></li>
-            <li><?= Html::a('Galeria', ['objvideo/create'])?></li>
+            <li><?= Html::a('Galeria', ['objgaleria/create', 'Capitulo_id' => $model->id])?></li>
             <li><?= Html::a('Apresentação', ['objapresentacao/create', 'Capitulo_id'=>$model->id])?></li>
             <li><?= Html::a('Vídeo', ['objvideo/create', 'Capitulo_id'=>$model->id])?></li>
             <li><?= Html::a('Objeto dinâmico', ['objdinamico/create', 'Capitulo_id'=>$model->id])?></li>
