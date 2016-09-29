@@ -2,7 +2,9 @@
 
 namespace frontend\controllers;
 
+use common\models\Capitulo;
 use common\models\CapituloHasObjQuestionario;
+use frontend\models\ObjetoDeAprendizagem;
 use Yii;
 use common\models\ObjQuestionario;
 use common\models\ObjquestionarioSearch;
@@ -69,12 +71,33 @@ class ObjquestionarioController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $params = Yii::$app->request->post();
 
+
             $model->save();
 
             $capituloHasObjQuestionario = new CapituloHasObjQuestionario();
             $capituloHasObjQuestionario->ObjQuestionario_id = $model->id;
             $capituloHasObjQuestionario->Capitulo_id =$params["capitulo_id"];
             $capituloHasObjQuestionario->save();
+
+            $capitulo = Capitulo::findOne($params["capitulo_id"]);
+
+            $ordem = json_decode($capitulo->ordem, true);
+            $objeto = new ObjetoDeAprendizagem("questionario", $model->assunto, count($ordem)+1, $model->id);
+
+            $achou = 0;
+            for($i = 1; $i < count($ordem); $i++){
+                if($ordem[$i]['tipo'] == "questionario" && $ordem[$i]['id'] == $model->id){
+                    $achou = 1;
+                    break;
+                }
+            }
+
+            if($achou == 0) {
+                $ordem[count($ordem) + 1] = $objeto;
+            }
+
+            $capitulo->ordem = json_encode($ordem);
+            $capitulo->save(true);
 
             return $this->redirect(['questao/create', 'id' => $model->id]);
         } else {

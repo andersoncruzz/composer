@@ -31,7 +31,7 @@ class Aula extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['subject', 'Disciplina_id'], 'required'],
+            [['subject', 'Disciplina_id'], 'required', 'message'=>"Esse campo é obrigatório"],
             [['qtChapters', 'Disciplina_id'], 'integer'],
             [['subject'], 'string', 'max' => 255],
             [['Disciplina_id'], 'exist', 'skipOnError' => true, 'targetClass' => Disciplina::className(), 'targetAttribute' => ['Disciplina_id' => 'id']],
@@ -45,9 +45,9 @@ class Aula extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'subject' => 'Subject',
-            'qtChapters' => 'Qt Chapters',
-            'Disciplina_id' => 'Disciplina ID',
+            'subject' => 'Assunto',
+            'qtChapters' => 'Quantidade de Capítulos',
+            'Disciplina_id' => 'Disciplina',
         ];
     }
 

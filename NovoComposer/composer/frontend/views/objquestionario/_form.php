@@ -14,9 +14,9 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
 
-    <label class="control-label" for="objquestionario-capitulo">Capítulo: <?= Capitulo::findOne($_GET['catitulo_id'])->titulo ?></label>
+    <label class="control-label" for="objquestionario-capitulo">Capítulo: <?= Capitulo::findOne($_GET['capitulo_id'])->titulo ?></label>
 
-    <input type="hidden" name="capitulo_id" value=<?= $_GET['catitulo_id'] ?> >
+    <input type="hidden" name="capitulo_id" value=<?= $_GET['capitulo_id'] ?> >
     <?= $form->field($model, 'assunto')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
