@@ -24,6 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
         <?= Html::a('Adicionar imagem', ['imagem/create', 'Galeria_id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Voltar pro Capítulo', ['capitulo/view', 'id' => $capitulo_id], ['class' => 'btn btn-danger']) ?>
 
     </p>
 

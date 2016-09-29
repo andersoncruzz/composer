@@ -78,27 +78,36 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php
             $array = json_decode($model->ordem, true);
             for ($i=1 ; $i<= count($array); $i++) {
-                ?>
-                <tr data-key="<?= $i?>">
-                    <td><?=$i?></td>
-                    <td><?=$array[$i]['id']?></td>
-                    <td><?=$array[$i]['tipo']?></td>
-                    <td><?=$array[$i]['descricao']?></td>
-                    <td>
-                        <?php
-                        if ($array[$i]['tipo'] == 'questionario')
-                            echo Html::a('Visualizar', ['objquestionario/view', 'id'=>$array[$i]['id']]);
-                        else
-                            echo "<a href='#'>Visualizar</a>";
-                        ?>
+                try {
+                    ?>
+                    <tr data-key="<?= $i ?>">
+                        <td><?= $i ?></td>
+                        <td><?= $array[$i]['id'] ?></td>
+                        <td><?= $array[$i]['tipo'] ?></td>
+                        <td><?= $array[$i]['descricao'] ?></td>
+                        <td>
+                            <?php
+                            if ($array[$i]['tipo'] == 'questionario')
+                                echo Html::a('Visualizar', ['objquestionario/view', 'id' => $array[$i]['id']]);
+                            else if($array[$i]['tipo'] == 'Texto/Html')
+                                echo Html::a('Visualizar', ['objtexto/view', 'id' => $array[$i]['id']]);
+                            else if($array[$i]['tipo'] == 'objgaleria')
+                                echo Html::a('Visualizar', ['objgaleria/view', 'id' => $array[$i]['id'], 'capitulo_id' => $model->id]);
+                            else
+                                echo "<a href='#'>Visualizar</a>";
+                            ?>
 
-                        <a href="#">Editar</a>
-                        <a href="#">Excluir</a>
+                            <a href="#">Editar</a>
+                            <a href="#">Excluir</a>
 
 
-                    </td>
-                </tr>
-            <?php }?>
+                        </td>
+                    </tr>
+                    <?php
+                }catch(\Exception $e){
+                    continue;
+                }
+            }?>
 
             </tbody></table>
     </div>

@@ -2,7 +2,9 @@
 
 namespace frontend\controllers;
 
+use common\models\Capitulo;
 use common\models\CapituloHasObjGaleria;
+use frontend\models\ObjetoDeAprendizagem;
 use Yii;
 use common\models\ObjGaleria;
 use common\models\ObjgaleriaSearch;
@@ -50,10 +52,11 @@ class ObjgaleriaController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView($id, $capitulo_id)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'capitulo_id' => $capitulo_id
         ]);
     }
 
@@ -76,7 +79,32 @@ class ObjgaleriaController extends Controller
                 $relacao->ObjGaleria_id = $model->id;
                 $relacao->save();
 
-                return $this->redirect(['view', 'id' => $model->id]);
+
+                /**
+                 * Adiciona esse objeto de aprendizagem ao atributo ordem do Capitulo.
+                 */
+
+                $capitulo = Capitulo::findOne($parametros["Capitulo_id"]);
+
+                $ordem = json_decode($capitulo->ordem, true);
+                $objeto = new ObjetoDeAprendizagem("objgaleria", $model->assunto, count($ordem)+1, $model->id);
+
+                $achou = 0;
+                for($i = 1; $i < count($ordem); $i++){
+                    if($ordem[$i]['tipo'] == "objgaleria" && $ordem[$i]['id'] == $model->id){
+                        $achou = 1;
+                        break;
+                    }
+                }
+
+                if($achou == 0) {
+                    $ordem[count($ordem) + 1] = $objeto;
+                }
+
+                $capitulo->ordem = json_encode($ordem);
+                $capitulo->save(true);
+
+                return $this->redirect(['view', 'id' => $model->id, 'capitulo_id' => $capitulo->id]);
             } else {
                 return $this->render('create', [
                     'model' => $model,
