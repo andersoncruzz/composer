@@ -694,4 +694,89 @@
 1;2;1473974370907;click;questionario.html#;modal fade;div;1278;509
 1;2;1473974376705;click;questionario.html#;Q:3:H:1-3 btn btn-info btn-lg;button;552;667
 1;2;1473974387033;click;questionario.html#;modal fade;div;1244;375
-1;2;1473974386705;;questionario.html#;Q:3:H:1-3 btn btn-info btn-lg;;;
+1;2;1474244737200;click;index.html;;h4;192;217
+1;2;1474244755144;click;index.html;;h4;209;228
+1;2;1474244756472;click;index.html;item;a;145;318
+1;2;1474244760976;click;index.html;;body;615;148
+1;2;1474244761512;click;index.html;;h4;418;219
+1;2;1474244761992;click;index.html;;h4;105;220
+1;2;1474245481727;click;index.html;item;a;507;316
+1;2;1474245514232;click;index.html;;body;703;141
+1;2;1474245654350;click;index.html;;body;268;156
+1;2;1474245656352;click;index.html;;h4;221;235
+1;2;1474245657295;click;index.html;;h4;202;211
+1;2;1474245657791;click;index.html;;h4;199;216
+1;2;1474245657951;click;index.html;;h4;199;217
+1;2;1474245658134;click;index.html;;h4;200;218
+1;2;1474245658487;click;index.html;;h4;200;246
+1;2;1474245658910;click;index.html;;h4;200;251
+1;2;1474245660424;click;index.html;;body;209;183
+1;2;1474245662312;click;index.html;;body;209;183
+1;2;1474245662759;click;index.html;;h4;186;214
+1;2;1474245663454;click;index.html;item;a;163;304
+1;2;1474245666785;click;index.html;item;a;169;676
+1;2;1474246172031;click;index.html;;h4;227;215
+1;2;1474246177848;click;index.html;item;a;178;323
+1;2;1474246182473;click;index.html;item;a;165;680
+1;2;1474246271528;click;index.html;;h4;232;223
+1;2;1474246278744;click;index.html;;h4;156;218
+1;2;1474246281896;click;index.html;assessment;li;157;657
+1;2;1474246286544;click;index.html;item;a;146;687
+1;2;1474246289321;click;questionario.html;Q:1:H:1-1;p;403;166
+1;2;1474247812150;click;index.html;;div;159;257
+1;2;1474313132222;click;index.html;item;a;1612;803
+1;2;1474313153460;click;questionario.html;Q:1:H:1-1;p;1800;165
+1;2;1474313182541;click;questionario.html;D:1:H:1-1 btn btn-info btn-lg;button;1783;489
+1;2;1474313185564;click;questionario.html;D:1:H:1-1 close;button;2375;144
+1;2;1474313188290;click;questionario.html;C:1:H:1-1 btn btn-info btn-lg;button;1997;490
+1;2;1474313197294;click;questionario.html;modal fade;div;2705;297
+1;2;1474313197604;click;questionario.html;modal-backdrop fade;div;2705;297
+1;2;1474313235974;click;questionario.html;Q:1:H:1-1;p;2009;161
+1;2;1474313265504;click;questionario.html;C:1:H:1-1 btn btn-info btn-lg;button;1885;507
+1;2;1474313269407;click;questionario.html;modal fade;div;2738;438
+1;2;1474313270452;click;questionario.html;D:1:H:1-1 btn btn-info btn-lg;button;1838;486
+1;2;1474313271882;click;questionario.html;D:1:H:1-1 close;button;2374;144
+1;2;1474313272614;click;questionario.html;C:1:H:1-1 btn btn-info btn-lg;button;1973;482
+1;2;1474313274310;click;questionario.html;modal fade;div;2670;364
+1;2;1474313275399;click;questionario.html;Q:2:H:1-2 list-group-item;a;1568;211
+1;2;1474313290605;click;questionario.html#;Q:2:H:1-2 btn btn-info btn-lg;button;1820;642
+1;2;1474313291999;click;questionario.html#;D:2:H:1-2 close;button;2377;137
+1;2;1474313311933;click;questionario.html#;Q:2:H:1-2;p;2106;163
+1;2;1474313324839;click;questionario.html#;Q:2:H:1-2 btn btn-info btn-lg;button;1923;659
+1;2;1474313328190;click;questionario.html#;modal fade;div;2659;598
+1;2;1474313344452;click;questionario.html#;Q:2:H:1-2;p;2037;165
+1;2;1474313355621;click;questionario.html#;;div;2264;193
+1;2;1474313355990;click;questionario.html#;troca btn btn-info btn-lg;button;2281;175
+1;2;1474313424782;click;questionario.html#;Q:2:E:1-2;p;1959;170
+1;2;1474313464232;click;questionario.html#;Q:2:E:1-2 btn btn-info btn-lg;button;2003;560
+1;2;1474313466598;click;questionario.html#;modal fade;div;2674;569
+1;2;1474322511767;click;questionario.html;Q:1:H:1-1;p;1991;191
+1;2;1474322537226;click;questionario.html;C:1:H:1-1 btn btn-info btn-lg;button;1917;499
+1;2;1474322540322;click;questionario.html;modal fade;div;2745;298
+1;2;1474322541741;click;questionario.html;D:1:H:1-1 btn btn-info btn-lg;button;1798;500
+1;2;1474322544154;click;questionario.html;D:1:H:1-1 close;button;2377;173
+1;2;1474322546532;click;questionario.html;Q:1:H:1-1;p;1988;187
+1;2;1474322558695;click;questionario.html;troca btn btn-info btn-lg;button;2340;191
+1;2;1474322718143;click;questionario.html;Q:1:E:1-1;p;1779;211
+1;2;1474323303904;click;questionario.html;Q:1:H:1-1;h1;539;167
+1;2;1474323312426;click;questionario.html;Q:1:H:1-1;p;513;194
+1;2;1474323317833;click;questionario.html;Q:1:H:1-1;p;558;196
+1;2;1474323318217;click;questionario.html;Q:1:H:1-1;p;558;196
+1;2;1474323356742;click;questionario.html;C:1:H:1-1 btn btn-info btn-lg;button;587;519
+1;2;1474323364439;click;questionario.html;modal fade;div;1274;348
+1;2;1474323377658;click;questionario.html;troca btn btn-info btn-lg;button;963;191
+1;2;1474323387525;click;questionario.html;Q:1:E:1-1;p;619;215
+1;2;1474323445893;click;questionario.html;Q:1:E:1-1;p;397;200
+1;2;1474323478083;click;questionario.html;container;div;832;186
+1;2;1474323634263;click;questionario.html;container;div;457;208
+1;2;1474323635061;click;questionario.html;Q:1:H:1-1;p;445;196
+1;2;1474324153589;click;questionario.html;Q:1:H:1-1;p;503;191
+1;2;1474324163682;click;questionario.html;Q:1:H:1-1;p;513;192
+1;2;1474324190189;click;questionario.html;Q:2:H:1-2 list-group-item;a;162;223
+1;2;1474324191851;click;questionario.html#;Q:2:H:1-2;p;390;199
+1;2;1474324195704;click;questionario.html#;Q:1:H:1-1 list-group-item;a;195;193
+1;2;1474324198024;click;questionario.html#;Q:1:H:1-1;p;435;199
+1;2;1474339932220;click;index.html;;body;603;144
+1;2;1474339939569;click;index.html;item;a;144;702
+1;2;1474339965173;click;questionario.html;Q:1:H:1-1;p;637;187
+1;2;1474340045173;;questionario.html;;;;
