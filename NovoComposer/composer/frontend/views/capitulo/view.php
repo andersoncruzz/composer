@@ -76,29 +76,55 @@ $this->params['breadcrumbs'][] = $this->title;
             </thead>
             <tbody>
             <?php
+
             $array = json_decode($model->ordem, true);
-            for ($i=1 ; $i<= count($array); $i++) {
+            //var_dump($array);
+            for ($i=0 ; $i<= count($array); $i++) {
                 try {
                     ?>
                     <tr data-key="<?= $i ?>">
-                        <td><?= $i ?></td>
+                        <td><?= $i+1 ?></td>
                         <td><?= $array[$i]['id'] ?></td>
                         <td><?= $array[$i]['tipo'] ?></td>
                         <td><?= $array[$i]['descricao'] ?></td>
                         <td>
                             <?php
+
+                            /*
+                             * Visualizar
+                             */
                             if ($array[$i]['tipo'] == 'questionario')
-                                echo Html::a('Visualizar', ['objquestionario/view', 'id' => $array[$i]['id']]);
+                                echo Html::a('Visualizar', ['objquestionario/view', 'id' => $array[$i]['id'], 'capitulo_id' => $model->id]);
                             else if($array[$i]['tipo'] == 'Texto/Html')
-                                echo Html::a('Visualizar', ['objtexto/view', 'id' => $array[$i]['id']]);
+                                echo Html::a('Visualizar', ['objtexto/view', 'id' => $array[$i]['id'], 'capitulo_id' => $model->id]);
                             else if($array[$i]['tipo'] == 'objgaleria')
                                 echo Html::a('Visualizar', ['objgaleria/view', 'id' => $array[$i]['id'], 'capitulo_id' => $model->id]);
+                            //TODO
+                            else if($array[$i]['tipo'] == 'objdinamico')
+                                echo Html::a('Visualizar', ['objdinamico/view', 'id' => $array[$i]['id'], 'capitulo_id' => $model->id]);
+                            else if($array[$i]['tipo'] == 'objapresentacao')
+                                echo Html::a('Visualizar', ['objapresentacao/view', 'id' => $array[$i]['id'], 'capitulo_id' => $model->id]);
+                            else if($array[$i]['tipo'] == 'objvideo')
+                                echo Html::a('Visualizar', ['objvideo/view', 'id' => $array[$i]['id'], 'capitulo_id' => $model->id]);
                             else
                                 echo "<a href='#'>Visualizar</a>";
+
+                            ?>
+                            <a href="#">Editar</a>
+
+                            <?php
+                                if($array[$i]['tipo'] == 'questionario')
+                                    echo Html::a('Excluir',
+                                        ['objquestionario/delete', 'id' => $array[$i]['id'], 'capitulo_id' => $model->id],
+                                        ['data' => [
+                                            'confirm' => 'Tem certeza que deseja deletar esse Objeto de Aprendizagem?',
+                                            'method' => 'post',
+                                        ]]);
+                                else
+                                    echo "<a href='#'>Excluir</a>"
+
                             ?>
 
-                            <a href="#">Editar</a>
-                            <a href="#">Excluir</a>
 
 
                         </td>

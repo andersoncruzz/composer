@@ -51,10 +51,11 @@ class ObjapresentacaoController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView($id, $capitulo_id)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'capitulo_id'=> $capitulo_id
         ]);
     }
 
@@ -81,7 +82,7 @@ class ObjapresentacaoController extends Controller
                 $relacao->ObjApresentacao_id = $model->id;
                 $relacao->save();
 
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['capitulo/view', 'id' => $relacao->Capitulo_id]);
             }else {
                 return $this->render('create', [
                     'model' => $model,
@@ -119,11 +120,13 @@ class ObjapresentacaoController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete($id, $capitulo_id)
     {
-        $this->findModel($id)->delete();
+        CapituloHasObjApresentacao::find()->where(['ObjApresentacao_id'=>$id])
+            ->andWhere(['Capitulo_id'=>$capitulo_id])->one()->delete();
 
-        return $this->redirect(['index']);
+        Yii::$app->session->setFlash('success', 'Apresentação excluída com sucesso.');
+        return $this->redirect(['capitulo/view', 'id' => $capitulo_id]);
     }
 
     /**

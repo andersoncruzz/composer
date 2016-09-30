@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\ObjDinamico */
 
-$this->title = $model->id;
+$this->title = 'Objeto dinâmico: '.$model->assunto;
 $this->params['breadcrumbs'][] = ['label' => 'Obj Dinamicos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -15,11 +15,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Atualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Excluir', ['delete', 'id' => $model->id, 'capitulo_id'=>$capitulo_id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Tem certeza que deseja excluir esse item?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -28,14 +28,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'assunto',
             'caminho',
             'descricao:ntext',
             'topicos:ntext',
             'exerciciosResolvidos',
             'duracao',
-            'avaliacao',
             'referencias:ntext',
             'tipo:ntext',
             'serie',

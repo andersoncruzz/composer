@@ -14,6 +14,8 @@ use yii\widgets\ActiveForm;
 
     <input type="hidden" name="id_questionario" value="<?=$model->id_questionario?>"/>
 
+    <input type="hidden" name="capitulo_id" value=<?= $_GET['capitulo_id'] ?> >
+
     <?= $form->field($model, 'nivel')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'assunto')->textInput(['maxlength' => true]) ?>

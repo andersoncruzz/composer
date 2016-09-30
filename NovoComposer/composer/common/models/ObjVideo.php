@@ -83,7 +83,7 @@ class ObjVideo extends \yii\db\ActiveRecord
     private $nome, $extensao;
     public function upload()
     {
-        $nome= "video_" . $this->caminho->basename;
+        $nome= "video_tmp";
         $extensao = $this->caminho->extension;
         if ($this->validate()) {
             $this->caminho->saveAs('arquivos/' . $nome . '.' . $extensao);

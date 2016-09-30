@@ -51,10 +51,11 @@ class ObjdinamicoController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView($id, $capitulo_id)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'capitulo_id'=> $capitulo_id
         ]);
     }
 
@@ -119,11 +120,13 @@ class ObjdinamicoController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete($id, $capitulo_id)
     {
-        $this->findModel($id)->delete();
+        CapituloHasObjDinamico::find()->where(['ObjDinamico_id'=>$id])
+            ->andWhere(['Capitulo_id'=>$capitulo_id])->one()->delete();
 
-        return $this->redirect(['index']);
+        Yii::$app->session->setFlash('success', 'Objeto dinâmico excluído com sucesso.');
+        return $this->redirect(['capitulo/view', 'id' => $capitulo_id]);
     }
 
     /**

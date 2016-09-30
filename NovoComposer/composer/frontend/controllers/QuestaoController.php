@@ -3,6 +3,8 @@
 namespace frontend\controllers;
 
 use common\models\Alternativa;
+use common\models\Capitulo;
+use common\models\ObjQuestionario;
 use common\models\ObjQuestionarioHasQuestao;
 use Yii;
 use common\models\Questao;
@@ -82,6 +84,7 @@ class QuestaoController extends Controller
              * Pega o id_questao que está no hidden input.
              */
             echo $param["id_questionario"];
+            echo $param["capitulo_id"];
 
             /**
              * Salva na Tabela Questionario tem questão. [relação M:N]
@@ -121,12 +124,11 @@ class QuestaoController extends Controller
             $e->Questao_id = intval($model->id);
             echo "E: ".$e->save(false);
 
-
             /**
              * Redireciona para a tela de visualização do questionario.
              */
             Yii::$app->session->setFlash('success', 'Questão inserida com sucesso.');
-            return $this->redirect(['objquestionario/view', 'id' => $param["id_questionario"]]);
+            return $this->redirect(['objquestionario/view', 'id' => $param["id_questionario"], 'capitulo_id' => $param["capitulo_id"]]);
 
         } else {
             return $this->render('create', [
@@ -193,7 +195,7 @@ class QuestaoController extends Controller
      */
     public function actionDelete($id, $idquestionario)
     {
-        echo ObjQuestionarioHasQuestao::find()->where(['ObjQuestionario_id'=>$idquestionario])
+        ObjQuestionarioHasQuestao::find()->where(['ObjQuestionario_id'=>$idquestionario])
         ->andWhere(['Questao_id'=>$id])->one()->delete();
 
         Yii::$app->session->setFlash('success', 'Questão excluída com sucesso.');

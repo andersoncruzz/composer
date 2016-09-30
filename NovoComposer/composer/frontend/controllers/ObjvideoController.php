@@ -51,10 +51,11 @@ class ObjvideoController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView($id, $capitulo_id)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'capitulo_id'=>$capitulo_id
         ]);
     }
 
@@ -81,7 +82,7 @@ class ObjvideoController extends Controller
                 $relacao->ObjVideo_id = $model->id;
                 $relacao->save();
 
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['capitulo/view', 'id' => $relacao->Capitulo_id]);
             } else {
                 return $this->render('create', [
                     'model' => $model,
