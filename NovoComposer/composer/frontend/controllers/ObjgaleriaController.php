@@ -79,7 +79,6 @@ class ObjgaleriaController extends Controller
                 $relacao->ObjGaleria_id = $model->id;
                 $relacao->save();
 
-
                 /**
                  * Adiciona esse objeto de aprendizagem ao atributo ordem do Capitulo.
                  */

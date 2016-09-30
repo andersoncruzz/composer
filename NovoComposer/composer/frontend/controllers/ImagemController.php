@@ -69,6 +69,7 @@ class ImagemController extends Controller
 
         if ($model->load(Yii::$app->request->post())){
             $model->caminho = UploadedFile::getInstance($model, 'caminho');
+            $model->extension = $model->caminho->extension;
             $model->upload();
             if ($model->save()) {
                 $parametros = Yii::$app->request->post();
@@ -78,7 +79,7 @@ class ImagemController extends Controller
                 $relacao->Imagem_id = $model->id;
                 $relacao->save();
 
-                return $this->redirect(['objgaleria/view', 'id' => $relacao->ObjGaleria_id]);
+                return $this->redirect(['objgaleria/view', 'id' => $relacao->ObjGaleria_id, 'capitulo_id'=>$parametros['capitulo_id']]);
             } else {
                 return $this->render('create', [
                     'model' => $model,

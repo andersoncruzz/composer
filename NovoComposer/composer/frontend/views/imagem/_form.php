@@ -13,6 +13,7 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <input type="hidden" name="Galeria_id" value=<?= $_GET['Galeria_id'] ?> >
+    <input type="hidden" name="capitulo_id" value=<?= $_GET['capitulo_id'] ?> >
 
     <?= $form->field($model, 'caminho')->fileInput() ?>
 

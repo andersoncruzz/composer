@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\FileHelper;
+use yii\imagine\Image;
 
 /**
  * This is the model class for table "Imagem".
@@ -16,6 +18,7 @@ use Yii;
  */
 class Imagem extends \yii\db\ActiveRecord
 {
+    public $imagem, $image_bkp, $extension;
     /**
      * @inheritdoc
      */
@@ -66,7 +69,7 @@ class Imagem extends \yii\db\ActiveRecord
     private $nome, $extensao;
     public function upload()
     {
-        $nome= "imagem_" . $this->caminho->basename;
+        $nome= "imagem_tmp";
         $extensao = $this->caminho->extension;
         if ($this->validate()) {
             $this->caminho->saveAs('arquivos/' . $nome . '.' . $extensao);
@@ -75,5 +78,43 @@ class Imagem extends \yii\db\ActiveRecord
         } else {
             return false;
         }
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        // open image
+        $image = Image::getImagine()->open($this->caminho);
+
+        //delete old images
+        $oldImages = FileHelper::findFiles(Yii::getAlias('arquivos'), [
+            'only' => [
+                $this->caminho
+            ],
+        ]);
+        for ($i = 0; $i != count($oldImages); $i++) {
+            @unlink($oldImages[$i]);
+        }
+
+
+        /*$pathThumbImage = Yii::getAlias('arquivos')
+            . '/imagem_'
+            . $this->id
+            .   '.jpg';*/
+        $pathThumbImage = Yii::getAlias('arquivos')
+            . '/imagem_'
+            . $this->id .'.'
+            .   $this->extension;
+
+        $this->imagem='arquivos/'.'imagem_'.$this->id;
+        $this->image_bkp='arquivos/'.'imagem_'.$this->id;
+
+        //$urlImagem = 'arquivos/'.'imagem_'.$this->id . '.jpg';
+        $urlImagem = 'arquivos/'.'imagem_'.$this->id . '.' . $this->extension;
+        $meuid= $this->id;
+        $command = Yii::$app->db->createCommand("UPDATE Imagem SET caminho='$urlImagem' WHERE id='$meuid'");
+
+        $command->execute();
+
+        $image->save($pathThumbImage, ['quality' => 100]);
     }
 }

@@ -70,6 +70,7 @@ class ObjapresentacaoController extends Controller
         if ($model->load(Yii::$app->request->post())){
             $model->tipo = implode(",", $model->tipo);
             $model->caminho = UploadedFile::getInstance($model, 'caminho');
+            $model->extension = $model->caminho->extension;
             $model->upload();
 
             if($model->save()) {

@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\helpers\FileHelper;
+use yii\imagine\Image;
 
 
 /**
@@ -26,6 +27,7 @@ use yii\helpers\FileHelper;
  */
 class ObjApresentacao extends \yii\db\ActiveRecord
 {
+    public $imagem, $image_bkp, $extension;
     /**
      * @inheritdoc
      */
@@ -88,7 +90,7 @@ class ObjApresentacao extends \yii\db\ActiveRecord
     private $nome, $extensao;
     public function upload()
     {
-        $nome= "slides_" . $this->caminho->basename;
+        $nome= "slides_tmp";
         $extensao = $this->caminho->extension;
         if ($this->validate()) {
             $this->caminho->saveAs('arquivos/' . $nome . '.' . $extensao);
@@ -98,4 +100,10 @@ class ObjApresentacao extends \yii\db\ActiveRecord
             return false;
         }
     }
+
+    //implementar conversao de slides para imagem
+    /*public function afterSave($insert, $changedAttributes)
+    {
+
+    }*/
 }
