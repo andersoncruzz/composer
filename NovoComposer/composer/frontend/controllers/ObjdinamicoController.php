@@ -2,7 +2,9 @@
 
 namespace frontend\controllers;
 
+use common\models\Capitulo;
 use common\models\CapituloHasObjDinamico;
+use frontend\models\ObjetoDeAprendizagem;
 use Yii;
 use common\models\ObjDinamico;
 use common\models\ObjdinamicoSearch;
@@ -82,7 +84,32 @@ class ObjdinamicoController extends Controller
                 $relacao->ObjDinamico_id = $model->id;
                 $relacao->save();
 
-                return $this->redirect(['view', 'id' => $model->id]);
+
+                /**
+                 * Adiciona esse objeto de aprendizagem ao atributo ordem do Capitulo.
+                 */
+
+                $capitulo = Capitulo::findOne($parametros["Capitulo_id"]);
+
+                $ordem = json_decode($capitulo->ordem, true);
+                $objeto = new ObjetoDeAprendizagem("objdinamico", $model->assunto, count($ordem)+1, $model->id);
+
+                $achou = 0;
+                for($i = 1; $i < count($ordem); $i++){
+                    if($ordem[$i]['tipo'] == "objdinamico" && $ordem[$i]['id'] == $model->id){
+                        $achou = 1;
+                        break;
+                    }
+                }
+
+                if($achou == 0) {
+                    $ordem[count($ordem) + 1] = $objeto;
+                }
+
+                $capitulo->ordem = json_encode($ordem);
+                $capitulo->save(true);
+
+                return $this->redirect(['capitulo/view', 'id' => $relacao->Capitulo_id]);
             } else {
                 return $this->render('create', [
                     'model' => $model,
