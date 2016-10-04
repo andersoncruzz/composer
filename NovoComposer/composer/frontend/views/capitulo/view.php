@@ -120,6 +120,34 @@ $this->params['breadcrumbs'][] = $this->title;
                                             'confirm' => 'Tem certeza que deseja deletar esse Objeto de Aprendizagem?',
                                             'method' => 'post',
                                         ]]);
+                                else if ($array[$i]['tipo'] == 'Texto/Html')
+                                    echo Html::a('Excluir',
+                                        ['objtexto/delete', 'id' => $array[$i]['id'], 'capitulo_id' => $model->id],
+                                        ['data' => [
+                                            'confirm' => 'Tem certeza que deseja deletar esse Objeto de Aprendizagem?',
+                                            'method' => 'post',
+                                        ]]);
+                                else if ($array[$i]['tipo'] == 'objapresentacao')
+                                    echo Html::a('Excluir',
+                                        ['objapresentacao/delete', 'id' => $array[$i]['id'], 'capitulo_id' => $model->id],
+                                        ['data' => [
+                                            'confirm' => 'Tem certeza que deseja deletar esse Objeto de Aprendizagem?',
+                                            'method' => 'post',
+                                        ]]);
+                                else if ($array[$i]['tipo'] == 'objvideo')
+                                    echo Html::a('Excluir',
+                                        ['objvideo/delete', 'id' => $array[$i]['id'], 'capitulo_id' => $model->id],
+                                        ['data' => [
+                                            'confirm' => 'Tem certeza que deseja deletar esse Objeto de Aprendizagem?',
+                                            'method' => 'post',
+                                        ]]);
+                                else if ($array[$i]['tipo'] == 'objdinamico')
+                                    echo Html::a('Excluir',
+                                        ['objdinamico/delete', 'id' => $array[$i]['id'], 'capitulo_id' => $model->id],
+                                        ['data' => [
+                                            'confirm' => 'Tem certeza que deseja deletar esse Objeto de Aprendizagem?',
+                                            'method' => 'post',
+                                        ]]);
                                 else
                                     echo "<a href='#'>Excluir</a>"
 

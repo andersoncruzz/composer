@@ -149,7 +149,7 @@ class ObjquestionarioController extends Controller
         ///var_dump($ordem);
         for($i = 1; $i < count($ordem); $i++){
             try {
-                if ($ordem[$i]['tipo'] == "questionario" && $ordem[$i]['id'] == $id) {
+                if ($ordem[$i]['tipo'] == "Texto/Html" && $ordem[$i]['id'] == $id) {
                     /**
                      * Remove o objeto de aprendizagem.
                      */
@@ -162,12 +162,10 @@ class ObjquestionarioController extends Controller
             }
 
         }
-        echo "<br>achou: ".$achou."<br>";
         /**
          * Reordena os indices.
          */
         $ordem = array_values($ordem);
-        //var_dump($ordem);
 
         $capitulo->ordem = json_encode($ordem);
         $capitulo->save(true);

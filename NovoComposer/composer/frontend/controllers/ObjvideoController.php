@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\Capitulo;
 use common\models\CapituloHasObjVideo;
+use Exception;
 use frontend\models\ObjetoDeAprendizagem;
 use Yii;
 use common\models\ObjVideo;
@@ -148,8 +149,46 @@ class ObjvideoController extends Controller
      */
     public function actionDelete($id, $capitulo_id)
     {
-        CapituloHasObjVideo::find()->where(['ObjVideo_id'=>$id])
-            ->andWhere(['Capitulo_id'=>$capitulo_id])->one()->delete();
+        $capitulo = Capitulo::findOne($capitulo_id);
+        $ordem = json_decode($capitulo->ordem, true);
+
+        $achou = 0;
+        var_dump($ordem);
+        for($i = 1; $i < count($ordem); $i++){
+            try {
+                if ($ordem[$i]['tipo'] == "objvideo" && $ordem[$i]['id'] == $id) {
+                    /**
+                     * Remove o objeto de aprendizagem.
+                     */
+                    unset($ordem[$i]);
+                    $achou = 1;
+                    break;
+                }
+            }catch (Exception $e){
+                continue;
+            }
+
+        }
+        echo "<br>achou: ".$achou."<br>";
+        var_dump($ordem);
+
+        /**
+         * Reordena os indices.
+         */
+        $ordem = array_values($ordem);
+        $capitulo->ordem = json_encode($ordem);
+        $capitulo->save(true);
+
+        try {
+            $capituloHasVideo = CapituloHasObjVideo::find()->where(['ObjVideo_id'=>$id])
+                ->andWhere(['Capitulo_id'=>$capitulo_id])->one();
+            if($capituloHasVideo!= null) {
+                $capituloHasVideo->delete();
+            }
+
+        }catch (Exception $e){
+
+        }
 
         Yii::$app->session->setFlash('success', 'Vídeo excluído com sucesso.');
         return $this->redirect(['capitulo/view', 'id' => $capitulo_id]);
