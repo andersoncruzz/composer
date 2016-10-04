@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\ObjVideo */
 
-$this->title ='Vídeo' . $model->assunto;
+$this->title ='Vídeo: ' . $model->assunto;
 $this->params['breadcrumbs'][] = ['label' => 'Obj Videos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
