@@ -120,11 +120,13 @@ class ObjvideoController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete($id, $capitulo_id)
     {
-        $this->findModel($id)->delete();
+        CapituloHasObjVideo::find()->where(['ObjVideo_id'=>$id])
+            ->andWhere(['Capitulo_id'=>$capitulo_id])->one()->delete();
 
-        return $this->redirect(['index']);
+        Yii::$app->session->setFlash('success', 'Vídeo excluído com sucesso.');
+        return $this->redirect(['capitulo/view', 'id' => $capitulo_id]);
     }
 
     /**
