@@ -148,6 +148,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                             'confirm' => 'Tem certeza que deseja deletar esse Objeto de Aprendizagem?',
                                             'method' => 'post',
                                         ]]);
+                                else if ($array[$i]['tipo'] == 'objgaleria')
+                                    echo Html::a('Excluir',
+                                        ['objgaleria/delete', 'id' => $array[$i]['id'], 'capitulo_id' => $model->id],
+                                        ['data' => [
+                                            'confirm' => 'Tem certeza que deseja deletar esse Objeto de Aprendizagem?',
+                                            'method' => 'post',
+                                        ]]);
                                 else
                                     echo "<a href='#'>Excluir</a>"
 
