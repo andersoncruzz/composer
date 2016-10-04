@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a('Adicionar Questão', ['questao/create', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Adicionar Questão', ['questao/create', 'id' => $model->id,  'capitulo_id'=>$capitulo_id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Voltar pro Capítulo', ['capitulo/view', 'id' => $capitulo_id], ['class' => 'btn btn-danger',]) ?>
     </p>
 

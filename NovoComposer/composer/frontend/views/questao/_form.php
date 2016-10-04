@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\touchspin\TouchSpin;
+use dosamigos\ckeditor\CKEditor;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Questao */
@@ -16,16 +18,24 @@ use yii\widgets\ActiveForm;
 
     <input type="hidden" name="capitulo_id" value=<?= $_GET['capitulo_id'] ?> >
 
-    <?= $form->field($model, 'nivel')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'nivel')->dropDownList([1 => 'Fácil', 3 => 'Normal', 5 => 'Difícil']); ?>
 
     <?= $form->field($model, 'assunto')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'enunciado')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'duracao')->textInput() ?>
+    <?= $form->field($model, 'enunciado')->widget(CKEditor::className(), [
+        'options' => ['rows' => 6],
+        'preset' => 'basic'
+    ]) ?>
 
-    <?= $form->field($model, 'dica')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'duracao')->widget(TouchSpin::classname(), [
+        'options' => ['placeholder' => 'Selecione...'],
+    ]);?>
 
+    <?= $form->field($model, 'dica')->widget(CKEditor::className(), [
+        'options' => ['rows' => 6],
+        'preset' => 'basic'
+    ]) ?>
 
     <?php if(count($model->alternativas)){ ?>
         <input type="radio" name="correta" value="a" <?= ($model->correta == 'a')? 'checked' : "" ?> >

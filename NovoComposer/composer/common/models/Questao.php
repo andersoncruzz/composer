@@ -40,7 +40,7 @@ class Questao extends \yii\db\ActiveRecord
             [['nivel', 'enunciado', 'duracao', 'dica'], 'required'],
             [['enunciado', 'dica'], 'string'],
             [['duracao'], 'integer'],
-            [['nivel'], 'string', 'max' => 16],
+            [['nivel'], 'integer'],
             [['assunto'], 'string', 'max' => 255],
         ];
     }
@@ -52,7 +52,7 @@ class Questao extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'nivel' => 'Nivel',
+            'nivel' => 'Dificuldade',
             'assunto' => 'Assunto',
             'enunciado' => 'Enunciado',
             'duracao' => 'Duracao',
