@@ -97,9 +97,13 @@ class ObjapresentacaoController extends Controller
 
                 $achou = 0;
                 for($i = 1; $i < count($ordem); $i++){
-                    if($ordem[$i]['tipo'] == "objapresentacao" && $ordem[$i]['id'] == $model->id){
-                        $achou = 1;
-                        break;
+                    try {
+                        if ($ordem[$i]['tipo'] == "objapresentacao" && $ordem[$i]['id'] == $model->id) {
+                            $achou = 1;
+                            break;
+                        }
+                    }catch (Exception $e){
+
                     }
                 }
 

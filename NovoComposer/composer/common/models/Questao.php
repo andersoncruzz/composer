@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use frontend\models\ObjetoDeAprendizagem;
 use Yii;
 
 /**
@@ -13,8 +14,10 @@ use Yii;
  * @property string $enunciado
  * @property integer $duracao
  * @property string $dica
+ * @property integer $conteudo_id
  * @property string $correta
  *
+ * @property ObjetoDeAprendizagem $conteudo
  * @property Alternativa[] $alternativas
  * @property ObjQuestionarioHasQuestao[] $objQuestionarioHasQuestaos
  * @property ObjQuestionario[] $objQuestionarios
@@ -41,6 +44,7 @@ class Questao extends \yii\db\ActiveRecord
             [['enunciado', 'dica'], 'string'],
             [['duracao'], 'integer'],
             [['nivel'], 'integer'],
+            [['conteudo'], 'integer'],
             [['assunto'], 'string', 'max' => 255],
         ];
     }
@@ -58,6 +62,7 @@ class Questao extends \yii\db\ActiveRecord
             'duracao' => 'Duracao',
             'dica' => 'Dica',
             'correta' => "Correta",
+            'conteudo'=> "Conteúdo relacionado"
         ];
     }
 

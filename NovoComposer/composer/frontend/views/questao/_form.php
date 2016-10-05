@@ -4,10 +4,12 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\touchspin\TouchSpin;
 use dosamigos\ckeditor\CKEditor;
-
+use yii\helpers\ArrayHelper;
+use common\models\ObjTexto;
 /* @var $this yii\web\View */
 /* @var $model common\models\Questao */
 /* @var $form yii\widgets\ActiveForm */
+$dataList=ArrayHelper::map(ObjTexto::find()->asArray()->all(), 'id', 'assunto');
 ?>
 
 <div class="questao-form">
@@ -36,6 +38,9 @@ use dosamigos\ckeditor\CKEditor;
         'options' => ['rows' => 6],
         'preset' => 'basic'
     ]) ?>
+
+    <?=$form->field($model, 'conteudo')->dropDownList($dataList,
+        ['prompt'=>'-Escolha um quiz-']) ?>
 
     <?php if(count($model->alternativas)){ ?>
         <input type="radio" name="correta" value="a" <?= ($model->correta == 'a')? 'checked' : "" ?> >

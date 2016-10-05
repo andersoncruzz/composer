@@ -87,9 +87,13 @@ class ObjtextoController extends Controller
 
                 $achou = 0;
                 for($i = 1; $i < count($ordem); $i++){
-                    if($ordem[$i]['tipo'] == "questionario" && $ordem[$i]['id'] == $model->id){
-                        $achou = 1;
-                        break;
+                    try {
+                        if ($ordem[$i]['tipo'] == "questionario" && $ordem[$i]['id'] == $model->id) {
+                            $achou = 1;
+                            break;
+                        }
+                    } catch (Exception $e){
+
                     }
                 }
 
@@ -143,6 +147,7 @@ class ObjtextoController extends Controller
         var_dump($ordem);
         for($i = 1; $i < count($ordem); $i++){
             try {
+
                 if ($ordem[$i]['tipo'] == "Texto/Html" && $ordem[$i]['id'] == $id) {
                     /**
                      * Remove o objeto de aprendizagem.

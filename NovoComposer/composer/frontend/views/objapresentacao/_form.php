@@ -30,7 +30,22 @@ use kartik\touchspin\TouchSpin;
         'options' => ['placeholder' => 'Selecione...'],
     ]);?>
 
-    <?= $form->field($model, 'serie')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'serie')->dropDownList(
+        ['1ª ano - Ensino Fundamental'=> '1ª ano - Ensino Fundamental',
+            '2ª ano - Ensino Fundamental'=> '2ª ano - Ensino Fundamental',
+            '3ª ano - Ensino Fundamental'=> '3ª ano - Ensino Fundamental',
+            '4ª ano - Ensino Fundamental'=> '4ª ano - Ensino Fundamental',
+            '5ª ano - Ensino Fundamental'=> '5ª ano - Ensino Fundamental',
+            '6ª ano - Ensino Fundamental'=> '6ª ano - Ensino Fundamental',
+            '7ª ano - Ensino Fundamental'=> '7ª ano - Ensino Fundamental',
+            '8ª ano - Ensino Fundamental'=> '8ª ano - Ensino Fundamental',
+            '9ª ano - Ensino Fundamental'=> '9ª ano - Ensino Fundamental',
+            '1ª ano - Ensino Médio'=> '1ª ano - Ensino Médio',
+            '2ª ano - Ensino Médio'=> '2ª ano - Ensino Médio',
+            '3ª ano - Ensino Médio'=> '3ª ano - Ensino Médio',
+            'Outro(s)'=> 'Outro(s)',
+        ]); ?>
+
 
     <?= $form->field($model, 'referencias')->textarea(['rows' => 6]) ?>
 
