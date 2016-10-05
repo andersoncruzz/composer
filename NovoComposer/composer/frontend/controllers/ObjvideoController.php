@@ -74,11 +74,15 @@ class ObjvideoController extends Controller
 
         if ($model->load(Yii::$app->request->post())){
             $model->tipo = implode(",", $model->tipo);
-            $model->caminho = UploadedFile::getInstance($model, 'caminho');
-            $model->upload();
+            $arquivo = UploadedFile::getInstance($model, 'caminho');
+            $model->caminho = "";
 
             if($model->save()) {
                 $parametros = Yii::$app->request->post();
+
+                $model->caminho = $arquivo;
+                $model->upload();
+                $model->update();
 
                 $relacao = new CapituloHasObjVideo();
                 $relacao->Capitulo_id = $parametros['Capitulo_id'];

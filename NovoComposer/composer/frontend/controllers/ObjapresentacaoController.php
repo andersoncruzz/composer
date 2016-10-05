@@ -73,12 +73,16 @@ class ObjapresentacaoController extends Controller
 
         if ($model->load(Yii::$app->request->post())){
             $model->tipo = implode(",", $model->tipo);
-            $model->caminho = UploadedFile::getInstance($model, 'caminho');
-            $model->extension = $model->caminho->extension;
-            $model->upload();
+
+            $arquivo = UploadedFile::getInstance($model, 'caminho');
+            $model->extension = $arquivo->extension;
+            $model->caminho = "";
 
             if($model->save()) {
                 $parametros = Yii::$app->request->post();
+                $model->caminho = $arquivo;
+                $model->upload();
+                $model->update();
 
                 $relacao = new CapituloHasObjApresentacao();
                 $relacao->Capitulo_id = $parametros['Capitulo_id'];

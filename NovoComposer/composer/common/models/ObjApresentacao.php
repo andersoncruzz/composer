@@ -90,7 +90,7 @@ class ObjApresentacao extends \yii\db\ActiveRecord
     private $nome, $extensao;
     public function upload()
     {
-        $nome= "slides_tmp";
+        $nome= "slides_" . $this->id;
         $extensao = $this->caminho->extension;
         if ($this->validate()) {
             $this->caminho->saveAs('arquivos/' . $nome . '.' . $extensao);
