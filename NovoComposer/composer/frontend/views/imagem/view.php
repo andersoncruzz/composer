@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\Imagem */
 
-$this->title = $model->id;
+$this->title = 'Visualizar Imagem';
 $this->params['breadcrumbs'][] = ['label' => 'Imagens', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -28,7 +28,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'caminho',
+
+            [
+                'attribute'=>'caminho',
+                'value'=> \Yii::$app->request->BaseUrl.'/'.$model->caminho,
+                'format' => ['image',['width'=>'500']],
+            ],
+
             'legenda',
         ],
     ]) ?>

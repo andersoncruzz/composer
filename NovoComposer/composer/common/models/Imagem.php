@@ -45,7 +45,7 @@ class Imagem extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'caminho' => 'Caminho',
+            'caminho' => 'Imagem',
             'legenda' => 'Legenda',
         ];
     }
