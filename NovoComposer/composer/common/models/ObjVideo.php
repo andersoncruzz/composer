@@ -54,7 +54,7 @@ class ObjVideo extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'assunto' => 'Assunto',
-            'caminho' => 'Caminho',
+            'caminho' => 'Vídeo',
             'topicos' => 'Topicos',
             'exerciciosResolvidos' => 'Exercicios Resolvidos',
             'tipo' => 'Tipo',

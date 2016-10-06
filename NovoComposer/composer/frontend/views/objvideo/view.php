@@ -29,7 +29,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'assunto',
-            'caminho',
+
+            [
+                'attribute'=>'caminho',
+
+                'value'=> !empty($model->caminho) ? '<iframe class="embed-responsive-item" src="'.\Yii::$app->request->BaseUrl.'/'.$model->caminho.'" frameborder="0" allowfullscreen></iframe>' : null,
+                'format' => 'raw',
+            ],
+
             'topicos:ntext',
             'exerciciosResolvidos',
             'tipo:ntext',
@@ -38,5 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'referencias:ntext',
         ],
     ]) ?>
+
+
 
 </div>
