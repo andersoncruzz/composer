@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Capitulo */
 
-$this->title = 'Create Capitulo';
+$this->title = 'Novo Capítulo';
 $this->params['breadcrumbs'][] = ['label' => 'Capitulos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

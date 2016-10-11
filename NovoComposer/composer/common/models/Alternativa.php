@@ -31,7 +31,7 @@ class Alternativa extends \yii\db\ActiveRecord
     {
         return [
             [['description', 'corretude', 'Questao_id'], 'required'],
-            [['description', 'corretude'], 'integer'],
+            [['description', 'corretude'], 'string'],
             [['Questao_id'], 'string', 'max' => 255],
             [['Questao_id'], 'exist', 'skipOnError' => true, 'targetClass' => Questao::className(), 'targetAttribute' => ['Questao_id' => 'id']],
         ];

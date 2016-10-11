@@ -11,7 +11,7 @@ use yii\widgets\DetailView;
 /* @var $questao common\models\Questao */
 
 
-$this->title = $model->id;
+$this->title = 'Questionário: '. $model->assunto;
 $this->params['breadcrumbs'][] = ['label' => 'Obj Questionarios', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -20,21 +20,21 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Atualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Excluir', ['delete', 'id' => $model->id, 'capitulo_id'=>$capitulo_id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Tem certeza que deseja excluir esse item?',
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a('Adicionar Questão', ['questao/create', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Adicionar Questão', ['questao/create', 'id' => $model->id,  'capitulo_id'=>$capitulo_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Voltar pro Capítulo', ['capitulo/view', 'id' => $capitulo_id], ['class' => 'btn btn-danger',]) ?>
     </p>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'assunto',
         ],
     ]) ?>
@@ -80,9 +80,22 @@ $this->params['breadcrumbs'][] = $this->title;
                     <td><?= $questao->duracao?></td>
 
                     <td>
-                        <a href="/NovoCompose/NovoComposer/composer/frontend/web/index.php?r=questao/view&amp;id=<?=$questao->id ?>" title="View" aria-label="View" data-pjax="0"><span class="glyphicon glyphicon-eye-open"></span></a>
-                        <a href="/NovoCompose/NovoComposer/composer/frontend/web/index.php?r=questao/update&amp;id=<?=$questao->id ?>" title="Update" aria-label="Update" data-pjax="0"><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a href="/NovoCompose/NovoComposer/composer/frontend/web/index.php?r=questao/delete&amp;id=<?=$questao->id ?>" title="Delete" aria-label="Delete" data-confirm="Are you sure you want to delete this item?" data-method="post" data-pjax="0"><span class="glyphicon glyphicon-trash"></span></a>
+                        <?=Html::a(
+                            'Visualizar',
+                            ['questao/view', 'id'=>$questao->id]
+                        )?>
+                        <?=Html::a(
+                            'Editar',
+                            ['questao/update', 'id'=>$questao->id]
+                        )?>
+                        <?=Html::a(
+                            'Excluir',
+                            ['questao/delete', 'id'=>$questao->id, 'idquestionario'=>$model->id],
+                            ['data' => [
+                                'confirm' => 'Tem certeza que deseja deletar esse item?',
+                                'method' => 'post',
+                            ],
+                            ])?>
                     </td>
                 </tr>
              <?php }?>

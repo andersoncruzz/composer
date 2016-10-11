@@ -46,24 +46,22 @@ def LoadQuestionTime (user, timeQuestions, idQuestion, timestamp):
 		#adicionando na lista do recomender este usuario
 	if flagUserExists == False:
 		#print "if"
-		timeQuestions.append([[user, idQuestion], [0,0,0,0], [0,0,0,0], [0,0,0,0]])
+		timeQuestions.append([[user, idQuestion], [0,0,0], [0,0,0], [0,0,0]])
 
 	if len(timeQuestions) > 0:
 		i = 0
 		for userActives in timeQuestions:
 			if userActives[0][0] == user:
-				#Trocou de questao atualizar os timestamp
-				if userActives[0][1] != idQuestion:
-					userActives[userActives[0][1]][2] = userActives[userActives[0][1]][1] - userActives[userActives[0][1]][0] + userActives[idQuestion][2]
-					userActives[userActives[0][1]][0] = 0
-					userActives[userActives[0][1]][1] = 0
-					userActives[0][1] = idQuestion
-				else:	
+				if userActives[0][1] == idQuestion:
 					if userActives[idQuestion][0] == 0:
-						userActives[idQuestion][0] = timestamp							
+						userActives[idQuestion][0] = timestamp	
 					else:
-						userActives[idQuestion][1] = timestamp
-						userActives[idQuestion][3] = userActives[idQuestion][1] - userActives[idQuestion][0] + userActives[idQuestion][2]
+						userActives[idQuestion][1] = (timestamp - userActives[idQuestion][0] + userActives[idQuestion][1])
+						userActives[idQuestion][0] = timestamp
+						userActives[idQuestion][2] = (userActives[idQuestion][1])/1000.0 
+				else:
+					userActives[idQuestion][0] = timestamp
+					userActives[0][1] = idQuestion	
 				#print userActives 	
 		#print ""					
 		#print feedback

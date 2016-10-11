@@ -34,7 +34,32 @@ $this->params['breadcrumbs'][] = $this->title;
             'enunciado:ntext',
             'duracao',
             'dica:ntext',
+            [
+                'attribute'=>'Correta',
+                'value'=> strtoupper($model->correta),
+            ],
+            [
+                'attribute'=>'A',
+                'value'=> $model->alternativas[0]->description,
+            ],
+            [
+                'attribute'=>'B',
+                'value'=> $model->alternativas[1]->description,
+            ],
+            [
+                'attribute'=>'C',
+                'value'=> $model->alternativas[2]->description,
+            ],
+            [
+                'attribute'=>'D',
+                'value'=> $model->alternativas[3]->description,
+            ],
+            [
+                'attribute'=>'E',
+                'value'=> $model->alternativas[4]->description,
+            ],
         ],
     ]) ?>
+
 
 </div>

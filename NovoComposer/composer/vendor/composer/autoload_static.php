@@ -15,6 +15,7 @@ class ComposerStaticInitebc9ce8df3b3a029f529deb18afe09d0
         'y' => 
         array (
             'yii\\swiftmailer\\' => 16,
+            'yii\\imagine\\' => 12,
             'yii\\gii\\' => 8,
             'yii\\faker\\' => 10,
             'yii\\debug\\' => 10,
@@ -23,16 +24,17 @@ class ComposerStaticInitebc9ce8df3b3a029f529deb18afe09d0
             'yii\\bootstrap\\' => 14,
             'yii\\' => 4,
         ),
-        'k' =>
+        'k' => 
         array (
+            'kartik\\touchspin\\' => 17,
             'kartik\\select2\\' => 15,
             'kartik\\base\\' => 12,
         ),
-        'd' =>
+        'd' => 
         array (
             'dosamigos\\ckeditor\\' => 19,
         ),
-        'c' =>
+        'c' => 
         array (
             'cebe\\markdown\\' => 14,
         ),
@@ -46,6 +48,10 @@ class ComposerStaticInitebc9ce8df3b3a029f529deb18afe09d0
         'yii\\swiftmailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2-swiftmailer',
+        ),
+        'yii\\imagine\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yiisoft/yii2-imagine',
         ),
         'yii\\gii\\' => 
         array (
@@ -75,23 +81,23 @@ class ComposerStaticInitebc9ce8df3b3a029f529deb18afe09d0
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2',
         ),
-        'kartik\\select2\\' =>
-        array (
-            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-select2',
-        ),
-        'kartik\\base\\' =>
-        array (
-            0 => __DIR__ . '/..' . '/kartik-v/yii2-krajee-base',
-        ),
-        'kartik\\touchspin\\' =>
+        'kartik\\touchspin\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-touchspin',
         ),
-        'dosamigos\\ckeditor\\' =>
+        'kartik\\select2\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-select2',
+        ),
+        'kartik\\base\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-krajee-base',
+        ),
+        'dosamigos\\ckeditor\\' => 
         array (
             0 => __DIR__ . '/..' . '/2amigos/yii2-ckeditor-widget/src',
         ),
-        'cebe\\markdown\\' =>
+        'cebe\\markdown\\' => 
         array (
             0 => __DIR__ . '/..' . '/cebe/markdown',
         ),
@@ -102,6 +108,13 @@ class ComposerStaticInitebc9ce8df3b3a029f529deb18afe09d0
     );
 
     public static $prefixesPsr0 = array (
+        'I' => 
+        array (
+            'Imagine' => 
+            array (
+                0 => __DIR__ . '/..' . '/imagine/imagine/lib',
+            ),
+        ),
         'H' => 
         array (
             'HTMLPurifier' => 

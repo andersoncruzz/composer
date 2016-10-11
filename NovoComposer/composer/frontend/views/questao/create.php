@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Questao */
 
-$this->title = 'Create Questao';
+$this->title = 'Criar Questao';
 $this->params['breadcrumbs'][] = ['label' => 'Questaos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php
-        echo "<h1>".$_GET['id']."</h1>";
+
         $model->id_questionario = $_GET['id'];
     ?>
     <?= $this->render('_form', [

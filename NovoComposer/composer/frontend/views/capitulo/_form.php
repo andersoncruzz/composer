@@ -14,12 +14,14 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'Aula_id')->hiddenInput(['value' => $_GET['Aula_id']])->label('')?>
+    <?= $form->field($model, 'dificuldade')->dropDownList([1 => 'Fácil', 3 => 'Normal', 5 => 'Difícil']); ?>
 
-    <?= $form->field($model, 'dificuldade')->textInput() ?>
+    <?= $form->field($model, 'Aula_id')->hiddenInput(['value' => $_GET['Aula_id']])->label(false)?>
+
+
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Novo' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
