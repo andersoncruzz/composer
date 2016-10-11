@@ -1,5 +1,6 @@
 <?php
 
+use yii\bootstrap\BaseHtml;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\touchspin\TouchSpin;
@@ -72,30 +73,67 @@ $dataList=ArrayHelper::map(ObjTexto::find()->asArray()->all(), 'id', 'assunto');
         <input type="text" name="alternativaE" placeholder="descrição da alternativa" value="<?= $model->alternativas[4]->description?>"/>
         <input type="text" name="corretudeE" placeholder="Grau de corretude" value="<?= $model->alternativas[4]->corretude?>"/>
         <br>
-    <?php }else { ?>
+    <?php }else {
+        ?>
+
         <input type="radio" name="correta" value="a">
         <input type="text" name="alternativaA" placeholder="descrição da alternativa"/>
-        <input type="text" name="corretudeA" placeholder="Grau de corretude"/>
+        <select name="corretudeA">
+            <option value="" disabled selected>Grau de corretude</option>
+            <option value="5">Exato</option>
+            <option value="4">Perto</option>
+            <option value="3">Médio</option>
+            <option value="2">Abaixo da Média</option>
+            <option value="0">Errato</option>
+        </select>
         <br>
 
         <input type="radio" name="correta" value="b">
         <input type="text" name="alternativaB" placeholder="descrição da alternativa"/>
-        <input type="text" name="corretudeB" placeholder="Grau de corretude"/>
+        <select name="corretudeB">
+            <option value="" disabled selected>Grau de corretude</option>
+            <option value="5">Exato</option>
+            <option value="4">Perto</option>
+            <option value="3">Médio</option>
+            <option value="2">Abaixo da Média</option>
+            <option value="0">Errato</option>
+        </select>
         <br>
 
         <input type="radio" name="correta" value="c">
         <input type="text" name="alternativaC" placeholder="descrição da alternativa"/>
-        <input type="text" name="corretudeC" placeholder="Grau de corretude"/>
+        <select name="corretudeC">
+            <option value="" disabled selected>Grau de corretude</option>
+            <option value="5">Exato</option>
+            <option value="4">Perto</option>
+            <option value="3">Médio</option>
+            <option value="2">Abaixo da Média</option>
+            <option value="0">Errato</option>
+        </select>
         <br>
 
         <input type="radio" name="correta" value="d">
         <input type="text" name="alternativaD" placeholder="descrição da alternativa"/>
-        <input type="text" name="corretudeD" placeholder="Grau de corretude"/>
+        <select name="corretudeD">
+            <option value="" disabled selected>Grau de corretude</option>
+            <option value="5">Exato</option>
+            <option value="4">Perto</option>
+            <option value="3">Médio</option>
+            <option value="2">Abaixo da Média</option>
+            <option value="0">Errato</option>
+        </select>
         <br>
 
         <input type="radio" name="correta" value="e">
         <input type="text" name="alternativaE" placeholder="descrição da alternativa"/>
-        <input type="text" name="corretudeE" placeholder="Grau de corretude"/>
+        <select name="corretudeE" >
+            <option value="" disabled selected>Grau de corretude</option>
+            <option value="5">Exato</option>
+            <option value="4">Perto</option>
+            <option value="3">Médio</option>
+            <option value="2">Abaixo da Média</option>
+            <option value="0">Errato</option>
+        </select>
         <br>
     <?php    }   ?>
 
