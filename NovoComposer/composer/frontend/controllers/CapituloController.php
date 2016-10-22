@@ -2,6 +2,18 @@
 
 namespace frontend\controllers;
 
+use common\models\CapituloHasObjApresentacao;
+use common\models\CapituloHasObjDinamico;
+use common\models\CapituloHasObjGaleria;
+use common\models\CapituloHasObjQuestionario;
+use common\models\CapituloHasObjtexto;
+use common\models\ObjApresentacao;
+use common\models\ObjDinamico;
+use common\models\ObjGaleria;
+use common\models\ObjQuestionario;
+use common\models\ObjTexto;
+use Exception;
+use frontend\models\ObjetoDeAprendizagem;
 use Yii;
 use common\models\Capitulo;
 use common\models\CapituloSearch;
@@ -105,6 +117,103 @@ class CapituloController extends Controller
 
         return $this->redirect(['index']);
     }
+
+    public function actionFind($titulo)
+    {
+        $sql = "
+select temp.id, temp.assunto, temp.tipo from
+(
+SELECT oq.id, oq.assunto, 'objquestionario' as tipo from ObjQuestionario oq
+UNION ALL
+SELECT ot.id, ot.assunto, 'objtexto' as tipo from ObjTexto ot
+UNION ALL
+select ap.id, ap.assunto, 'objapresentacao' as tipo from ObjApresentacao ap
+UNION ALL
+select og.id, og.assunto,'objgaleria' as tipo from ObjGaleria og) as temp
+where assunto like '%$titulo%'";
+
+        $connection = Yii::$app->getDb();
+        $command = $connection->createCommand($sql);
+
+        $result = $command->queryAll();
+        return json_encode($result);
+    }
+
+    public function actionAdd($idCat, $idObj,  $type){
+
+        try {
+            $model = null;
+            $relacao = null;
+            if ($type == "objapresentacao"){
+                $model = ObjApresentacao::findOne($idObj);
+
+                $relacao = new CapituloHasObjApresentacao();
+                $relacao->Capitulo_id = $idCat;
+                $relacao->ObjApresentacao_id = $idObj;
+                $relacao->save();
+
+
+            }else if($type == "objgaleria"){
+                $relacao = new CapituloHasObjGaleria();
+                $relacao->Capitulo_id = $idCat;
+                $relacao->ObjGaleria_id = $idObj;
+                $relacao->save();
+
+                $model = ObjGaleria::findOne($idObj);
+            }else if($type == "objtexto"){
+                $relacao = new CapituloHasObjtexto();
+                $relacao->Capitulo_id = $idCat;
+                $relacao->ObjTexto_id = $idObj;
+                $relacao->save();
+
+                $model = ObjTexto::findOne($idObj);
+            }else if($type == "objquestionario"){
+                $relacao = new CapituloHasObjQuestionario();
+                $relacao->Capitulo_id = $idCat;
+                $relacao->ObjQuestionario_id = $idObj;
+                $relacao->save();
+
+                $model = ObjQuestionario::findOne($idObj);
+            }else if($type == "objdinamico"){
+                $relacao = new CapituloHasObjDinamico();
+                $relacao->Capitulo_id = $idCat;
+                $relacao->ObjDinamico_id = $idCat;
+                $relacao->save();
+
+                $model = ObjDinamico::findOne($idObj);
+            }
+
+            $capitulo = Capitulo::findOne($idCat);
+
+            $ordem = json_decode($capitulo->ordem, true);
+            $objeto = new ObjetoDeAprendizagem($type, $model->assunto, count($ordem)+1, $model->id);
+
+            $achou = 0;
+            for($i = 1; $i < count($ordem); $i++){
+                try {
+                    if ($ordem[$i]['tipo'] == $type && $ordem[$i]['id'] == $model->id) {
+                        $achou = 1;
+                        break;
+                    }
+                } catch (Exception $e){
+
+                }
+            }
+
+            if($achou == 0) {
+                $ordem[count($ordem) + 1] = $objeto;
+            }
+
+            $capitulo->ordem = json_encode($ordem);
+            $capitulo->save(true);
+        }catch (Exception $e){
+            $relacao->isNewRecord = false;
+            $relacao->save();
+        }finally {
+            return $this->redirect(['capitulo/view', 'id' => $idCat]);
+        }
+    }
+
 
     /**
      * Finds the Capitulo model based on its primary key value.
