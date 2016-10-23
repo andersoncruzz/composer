@@ -99,7 +99,7 @@ class ObjvideoController extends Controller
                 $objeto = new ObjetoDeAprendizagem("objvideo", $model->assunto, count($ordem)+1, $model->id);
 
                 $achou = 0;
-                for($i = 1; $i < count($ordem); $i++){
+                for($i = 0; $i < count($ordem); $i++){
                     if($ordem[$i]['tipo'] == "objvideo" && $ordem[$i]['id'] == $model->id){
                         $achou = 1;
                         break;
