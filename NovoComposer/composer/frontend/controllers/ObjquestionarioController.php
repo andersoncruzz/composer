@@ -199,4 +199,24 @@ class ObjquestionarioController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    public function actionFind($titulo)
+    {
+        $sql = "
+select temp.id, temp.assunto, temp.tipo from
+(
+  SELECT
+      q.id,
+      q.assunto,
+      'questao' AS tipo
+    FROM Questao q
+) as temp
+where assunto like '%$titulo%'";
+
+        $connection = Yii::$app->getDb();
+        $command = $connection->createCommand($sql);
+
+        $result = $command->queryAll();
+        return json_encode($result);
+    }
 }
