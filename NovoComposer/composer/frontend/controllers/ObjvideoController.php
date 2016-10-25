@@ -2,7 +2,10 @@
 
 namespace frontend\controllers;
 
+use common\models\Capitulo;
 use common\models\CapituloHasObjVideo;
+use Exception;
+use frontend\models\ObjetoDeAprendizagem;
 use Yii;
 use common\models\ObjVideo;
 use common\models\ObjvideoSearch;
@@ -51,10 +54,11 @@ class ObjvideoController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView($id, $capitulo_id)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'capitulo_id'=>$capitulo_id
         ]);
     }
 
@@ -70,18 +74,46 @@ class ObjvideoController extends Controller
 
         if ($model->load(Yii::$app->request->post())){
             $model->tipo = implode(",", $model->tipo);
-            $model->caminho = UploadedFile::getInstance($model, 'caminho');
-            $model->upload();
+            $arquivo = UploadedFile::getInstance($model, 'caminho');
+            $model->caminho = "";
 
             if($model->save()) {
                 $parametros = Yii::$app->request->post();
+
+                $model->caminho = $arquivo;
+                $model->upload();
+                $model->update();
 
                 $relacao = new CapituloHasObjVideo();
                 $relacao->Capitulo_id = $parametros['Capitulo_id'];
                 $relacao->ObjVideo_id = $model->id;
                 $relacao->save();
 
-                return $this->redirect(['view', 'id' => $model->id]);
+                /**
+                 * Adiciona esse objeto de aprendizagem ao atributo ordem do Capitulo.
+                 */
+
+                $capitulo = Capitulo::findOne($parametros["Capitulo_id"]);
+
+                $ordem = json_decode($capitulo->ordem, true);
+                $objeto = new ObjetoDeAprendizagem("objvideo", $model->assunto, count($ordem)+1, $model->id);
+
+                $achou = 0;
+                for($i = 1; $i < count($ordem); $i++){
+                    if($ordem[$i]['tipo'] == "objvideo" && $ordem[$i]['id'] == $model->id){
+                        $achou = 1;
+                        break;
+                    }
+                }
+
+                if($achou == 0) {
+                    $ordem[count($ordem) + 1] = $objeto;
+                }
+
+                $capitulo->ordem = json_encode($ordem);
+                $capitulo->save(true);
+
+                return $this->redirect(['capitulo/view', 'id' => $relacao->Capitulo_id]);
             } else {
                 return $this->render('create', [
                     'model' => $model,
@@ -119,11 +151,51 @@ class ObjvideoController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete($id, $capitulo_id)
     {
-        $this->findModel($id)->delete();
+        $capitulo = Capitulo::findOne($capitulo_id);
+        $ordem = json_decode($capitulo->ordem, true);
 
-        return $this->redirect(['index']);
+        $achou = 0;
+        var_dump($ordem);
+        for($i = 1; $i < count($ordem); $i++){
+            try {
+                if ($ordem[$i]['tipo'] == "objvideo" && $ordem[$i]['id'] == $id) {
+                    /**
+                     * Remove o objeto de aprendizagem.
+                     */
+                    unset($ordem[$i]);
+                    $achou = 1;
+                    break;
+                }
+            }catch (Exception $e){
+                continue;
+            }
+
+        }
+        echo "<br>achou: ".$achou."<br>";
+        var_dump($ordem);
+
+        /**
+         * Reordena os indices.
+         */
+        $ordem = array_values($ordem);
+        $capitulo->ordem = json_encode($ordem);
+        $capitulo->save(true);
+
+        try {
+            $capituloHasVideo = CapituloHasObjVideo::find()->where(['ObjVideo_id'=>$id])
+                ->andWhere(['Capitulo_id'=>$capitulo_id])->one();
+            if($capituloHasVideo!= null) {
+                $capituloHasVideo->delete();
+            }
+
+        }catch (Exception $e){
+
+        }
+
+        Yii::$app->session->setFlash('success', 'Vídeo excluído com sucesso.');
+        return $this->redirect(['capitulo/view', 'id' => $capitulo_id]);
     }
 
     /**

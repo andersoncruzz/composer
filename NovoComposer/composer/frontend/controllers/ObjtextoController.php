@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\Capitulo;
 use common\models\CapituloHasObjtexto;
+use Exception;
 use frontend\models\ObjetoDeAprendizagem;
 use Yii;
 use common\models\ObjTexto;
@@ -52,10 +53,11 @@ class ObjtextoController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView($id, $capitulo_id)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'capitulo_id'=>$capitulo_id
         ]);
     }
 
@@ -81,13 +83,17 @@ class ObjtextoController extends Controller
                 $capitulo = Capitulo::findOne($parametros["Capitulo_id"]);
 
                 $ordem = json_decode($capitulo->ordem, true);
-                $objeto = new ObjetoDeAprendizagem("Texto/Html", $model->assunto, count($ordem)+1, $model->id);
+                $objeto = new ObjetoDeAprendizagem("objtexto", $model->assunto, count($ordem)+1, $model->id);
 
                 $achou = 0;
                 for($i = 1; $i < count($ordem); $i++){
-                    if($ordem[$i]['tipo'] == "questionario" && $ordem[$i]['id'] == $model->id){
-                        $achou = 1;
-                        break;
+                    try {
+                        if ($ordem[$i]['tipo'] == "questionario" && $ordem[$i]['id'] == $model->id) {
+                            $achou = 1;
+                            break;
+                        }
+                    } catch (Exception $e){
+
                     }
                 }
 
@@ -132,11 +138,53 @@ class ObjtextoController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete($id, $capitulo_id)
     {
-        $this->findModel($id)->delete();
+        $capitulo = Capitulo::findOne($capitulo_id);
+        $ordem = json_decode($capitulo->ordem, true);
 
-        return $this->redirect(['index']);
+        $achou = 0;
+        var_dump($ordem);
+        for($i = 0; $i < count($ordem); $i++){
+            try {
+
+                if ($ordem[$i]['tipo'] == "objtexto" && $ordem[$i]['id'] == $id) {
+                    /**
+                     * Remove o objeto de aprendizagem.
+                     */
+                    unset($ordem[$i]);
+                    $achou = 1;
+                    break;
+                }
+            }catch (Exception $e){
+                continue;
+            }
+
+        }
+        echo "<br>achou: ".$achou."<br>";
+        var_dump($ordem);
+
+        /**
+         * Reordena os indices.
+         */
+        $ordem = array_values($ordem);
+        $capitulo->ordem = json_encode($ordem);
+        echo $capitulo->ordem;
+        $capitulo->save(true);
+
+        try {
+            $capituloHasTexto = CapituloHasObjtexto::find()->where(['ObjTexto_id'=>$id])
+                ->andWhere(['Capitulo_id'=>$capitulo_id])->one();
+            if($capituloHasTexto != null) {
+                $capituloHasTexto->delete();
+            }
+
+        }catch (Exception $e){
+
+        }
+
+        Yii::$app->session->setFlash('success', 'Texto excluído com sucesso.');
+        return $this->redirect(['capitulo/view', 'id' => $capitulo_id]);
     }
 
     /**

@@ -54,7 +54,7 @@ class ObjVideo extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'assunto' => 'Assunto',
-            'caminho' => 'Caminho',
+            'caminho' => 'Vídeo',
             'topicos' => 'Topicos',
             'exerciciosResolvidos' => 'Exercicios Resolvidos',
             'tipo' => 'Tipo',
@@ -83,7 +83,7 @@ class ObjVideo extends \yii\db\ActiveRecord
     private $nome, $extensao;
     public function upload()
     {
-        $nome= "video_" . $this->caminho->basename;
+        $nome= "video_" . $this->id;
         $extensao = $this->caminho->extension;
         if ($this->validate()) {
             $this->caminho->saveAs('arquivos/' . $nome . '.' . $extensao);

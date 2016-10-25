@@ -10,6 +10,12 @@
 <body>
 	<div class="container center_div">
 		<div class="alert alert-info" id="alerta" role="alert">Olá, professor! Preencha seus dados e realize seu cadastro para acessar o sistema.</div>
+
+		<div class="form-group">
+			<label for="usr">Nome:</label>
+			<input type="text" class="form-control" placeholder="Fulano de Souza Beltrano" id="nome">
+		</div>		
+
 		<div class="form-group">
 			<label for="usr">E-mail:</label>
 			<input type="text" class="form-control" placeholder="e-mail@example.com" id="email">
@@ -22,27 +28,30 @@
 			<label for="usr">Senha:</label>
 			<input type="password" class="form-control" placeholder="Senha" id="senha">
 		</div>
-		<button type="submit" id="btnCadastrarr" class="btn btn-primary" onclick="logar()">Cadastre-se</button>
+		<button type="submit" id="btnCadastrarr" class="btn btn-primary" onclick="register()">Cadastre-se</button>
 	</div>
 </body>
 
 <script>
 	var un, ps;
-	function logar(){
+	function register(){
+		nm = document.getElementById("nome").value;		
 		em = document.getElementById("email").value;
 		un = document.getElementById("matricula").value;
 		ps = document.getElementById("senha").value;
-		$.post("http://localhost:5000/login/1",
+		$.post("http://localhost:5000/teacherRegistration/1",
         {
+		nome: nm,
         	email: em,
             matricula: un,
             senha: ps
         },
         function(data, status){
             retorno = data.split(";");
-            alert("Data: " + data + "\nStatus: " + status);
-            if(data == true) {
-            	window.location.href = "./NovoPlayer/Aula/index.html";
+            //alert("Data: " + retorno + "\nStatus: " + status);
+            if(retorno[0] == "Ok") {
+		alert("Professor Cadastrado com Sucesso");
+            	window.location.href = "login-professor.html";
             }
             else{       	
             	var alerta = document.getElementById('alerta');

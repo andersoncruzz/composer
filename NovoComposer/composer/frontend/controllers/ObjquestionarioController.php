@@ -4,8 +4,10 @@ namespace frontend\controllers;
 
 use common\models\Capitulo;
 use common\models\CapituloHasObjQuestionario;
+use Exception;
 use frontend\models\ObjetoDeAprendizagem;
 use Yii;
+use Yii\base\ErrorException;
 use common\models\ObjQuestionario;
 use common\models\ObjquestionarioSearch;
 use yii\web\Controller;
@@ -52,10 +54,11 @@ class ObjquestionarioController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView($id, $capitulo_id)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'capitulo_id' => $capitulo_id
         ]);
     }
 
@@ -82,13 +85,17 @@ class ObjquestionarioController extends Controller
             $capitulo = Capitulo::findOne($params["capitulo_id"]);
 
             $ordem = json_decode($capitulo->ordem, true);
-            $objeto = new ObjetoDeAprendizagem("questionario", $model->assunto, count($ordem)+1, $model->id);
+            $objeto = new ObjetoDeAprendizagem("objquestionario", $model->assunto, count($ordem)+1, $model->id);
 
             $achou = 0;
             for($i = 1; $i < count($ordem); $i++){
-                if($ordem[$i]['tipo'] == "questionario" && $ordem[$i]['id'] == $model->id){
-                    $achou = 1;
-                    break;
+                try {
+                    if ($ordem[$i]['tipo'] == "objquestionario" && $ordem[$i]['id'] == $model->id) {
+                        $achou = 1;
+                        break;
+                    }
+                }catch (Exception $e){
+                    continue;
                 }
             }
 
@@ -99,7 +106,7 @@ class ObjquestionarioController extends Controller
             $capitulo->ordem = json_encode($ordem);
             $capitulo->save(true);
 
-            return $this->redirect(['questao/create', 'id' => $model->id]);
+            return $this->redirect(['questao/create', 'id' => $model->id, 'capitulo_id' => $params["capitulo_id"]]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -132,11 +139,49 @@ class ObjquestionarioController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete($id, $capitulo_id)
     {
-        $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        $capitulo = Capitulo::findOne($capitulo_id);
+        $ordem = json_decode($capitulo->ordem, true);
+
+        $achou = 0;
+        ///var_dump($ordem);
+        for($i = 0; $i < count($ordem); $i++){
+            try {
+                if ($ordem[$i]['tipo'] == "objquestionario" && $ordem[$i]['id'] == $id) {
+                    /**
+                     * Remove o objeto de aprendizagem.
+                     */
+                    unset($ordem[$i]);
+                    $achou = 1;
+                    break;
+                }
+            }catch (Exception $e){
+                continue;
+            }
+
+        }
+        /**
+         * Reordena os indices.
+         */
+        $ordem = array_values($ordem);
+
+        $capitulo->ordem = json_encode($ordem);
+        $capitulo->save(true);
+
+        try {
+            $capituloHasQuestao = CapituloHasObjQuestionario::find()->where(['ObjQuestionario_id' => $id])
+                ->andWhere(['Capitulo_id' => $capitulo_id])->one();
+            if($capituloHasQuestao != null) {
+                $capituloHasQuestao->delete();
+            }
+
+        }catch (Exception $e){
+
+        }
+        Yii::$app->session->setFlash('success', 'Questionário excluído com sucesso.');
+        return $this->redirect(['capitulo/view', 'id' => $capitulo_id]);
     }
 
     /**

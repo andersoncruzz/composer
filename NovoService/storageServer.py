@@ -1,6 +1,6 @@
 #!flask/bin/python
 # -*- coding: utf-8 -*-
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template, redirect, url_for, send_from_directory
 from flask_cors import CORS, cross_origin
 #from flask.ext.cors import CORS, cross_origin
 from sumario import LoadSummarizerByUser
@@ -9,10 +9,15 @@ from analytics import analytics
 from cut import cut
 from recommender import recommender
 import os
+<<<<<<< HEAD
 import thread
 import time
 import threading
 import sys, errno
+=======
+from banco import newTeacher, searchTeacher
+from werkzeug import secure_filename
+>>>>>>> 1e470881baf6ef5ad290b7ad2c7cdcaffebd63e4
 
 
 sumario = list()
@@ -36,6 +41,45 @@ if os.path.exists("users.csv") == False:
 	users_file = open("users.csv",'w')
 	users_file.close()
 
+app.config['UPLOAD_FOLDER'] = 'uploads/'
+# These are the extension that we are accepting to be uploaded
+app.config['ALLOWED_EXTENSIONS'] = set(['zip'])
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
+
+
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/upload', methods=['POST'])
+def upload():
+    # Get the name of the uploaded file
+    file = request.files['file']
+    # Check if the file is one of the allowed types/extensions
+    if file and allowed_file(file.filename):
+        # Make the filename safe, remove unsupported chars
+        filename = secure_filename(file.filename)
+        # Move the file form the temporal folder to
+        # the upload folder we setup
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        # Redirect the user to the uploaded_file route, which
+        # will basicaly show on the browser the uploaded file
+        return render_template('ok.html') #redirect(url_for('uploaded_file',
+                               # filename=filename))
+
+# This route is expecting a parameter containing the name
+# of a file. Then it will locate that file on the upload
+# directory and show it on the browser, so if the user uploads
+# an image, that image is going to be show after the upload
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'],
+                               filename)
+
 
 
 #semaforo_sumarizerLog = True
@@ -44,6 +88,7 @@ active_sessions = list()
 active_sessions.append("1")
 
 mutex = 0
+
 
 def searchAdaptation(user, timestamp, event, idView):
 
@@ -89,79 +134,57 @@ def login(idSession):
 	global status_class
 
 	if request.method == "POST":
-		userName = request.form["username"]
-		senha	 = request.form["password"]
+		matricula = request.form["matricula"]
 
 	file_users = open("users.csv",'r')
 	for line in file_users:
 		user = line.split(";")
-		if user[1] == userName and user[2] == senha:
-			if(user[3] == '0'): 
-				print("Seja Bem Vindo Professor " + user[0])
-				file_users.close()
-
-				return "Professor;"+user[3], 200
-			else:
-				print("Seja Bem Vindo(a) aluno(a) " + user[0])
-				file_users.close()
-				if(status_class == False):
-					return "Wait;"+user[3], 200
-				else:
-					return "Start;"+user[3], 200
+		if user[1] == matricula:
+			print("Seja Bem Vindo(a) aluno(a) " + user[0])
+			file_users.close()
+			return "Ok;"+user[0]+";"+user[2], 200
 	print ("User Nao encontrado!")
 	file_users.close()
 	return "Error", 200
 
-@app.route("/statusclass/<idSession>", methods=["POST"])
-def StatusClass(idSession):
+#@app.route("/")
+#def index():
+#	return redirect(url_for("Aula/index.html"))
+
+
+@app.route("/loginTeacher/<idSession>", methods=["POST"])
+def loginTeacher(idSession):
+
+	global status_class
+
+	if request.method == "POST":
+		matricula = request.form["matricula"]
+		senha = request.form["senha"]
+		dados = searchTeacher(int(matricula), senha)
+		if dados:
+			print("Seja bem Vindo professor(a) " + dados[1])			
+			#				nome             id
+			#a = 
+			return "Ok;"+dados[1]+";"+str(dados[0]), 200
+
+	print ("User Nao encontrado!")
+	return "Error", 200
+
+
+
+@app.route("/teacherRegistration/<idSession>", methods=["POST"])
+def teacherRegistration(idSession):
 	global status_class
 	if request.method == "POST":
-		idUser = request.form["idUser"]
-		print idUser
-		if(idUser == '0'):
-			status_class = True
+		nameTeacher = request.form["nome"]
+		emailTeacher = request.form["email"]
+		idTeacher = request.form["matricula"]
+		passwordTeacher = request.form["senha"]
+		if newTeacher(nameTeacher, emailTeacher, idTeacher, passwordTeacher):
 			return "Ok", 200
-		else:
-			if(status_class == False):
-
-				return user[3], 200
-			else:
-				print("Seja Bem Vindo(a) aluno(a) " + user[0])
-				file_users.close()
-				if(aula_status == False):
-					return "Wait;id:"+user[3], 200
-				else:
-					return "Start;id:"+user[3], 200
-	print ("User Nao encontrado!")
 	return "Erro", 200
-
-#@app.route("/status/<idSession>", methods=["POST"])
-#def StatusClass(idSession):
-#	if request.method == "POST":
-#		idUser = request.form["idUser"]
-#		if(idUser == 0):
-#			return "Ok", 200
-#		else:
-#			if(status_class == "False"):
-#
-#				return "Wait", 200
-#			else:
-#				return "Start", 200
-
-#def logout(userName):#idSession):
-	#if request.method == "POST":
-		#userName = request.form["userName"]
-		#senha	 = request.form["senha"]
-#
-#	file_users = open("users.csv",'r')
-#	for names in file_users:
-#		name = names.split(";")
-#		if name[1] == userName and name[2] == senha:
-#			print("Seja Bem Vindo " + name[0])
-#			return name[3]
-#	print ("User Nao encontrado!")
-#	file_users.close()
-#login("ericabertan")
+			
+	
 
 
 @app.route("/storage/<idSession>", methods=["POST"])

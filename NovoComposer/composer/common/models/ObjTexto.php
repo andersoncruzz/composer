@@ -79,4 +79,10 @@ class ObjTexto extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Capitulo::className(), ['id' => 'Capitulo_id'])->viaTable('Capitulo_has_ObjTexto', ['ObjTexto_id' => 'id']);
     }
+
+    public function parseToJson(){
+
+        $array_json["assunto"] = $this->assunto;
+        $str = json_encode($array_json);
+    }
 }
