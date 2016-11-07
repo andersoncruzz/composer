@@ -83,7 +83,7 @@ class ObjtextoController extends Controller
                 $capitulo = Capitulo::findOne($parametros["Capitulo_id"]);
 
                 $ordem = json_decode($capitulo->ordem, true);
-                $objeto = new ObjetoDeAprendizagem("Texto/Html", $model->assunto, count($ordem)+1, $model->id);
+                $objeto = new ObjetoDeAprendizagem("objtexto", $model->assunto, count($ordem)+1, $model->id);
 
                 $achou = 0;
                 for($i = 1; $i < count($ordem); $i++){
@@ -145,10 +145,10 @@ class ObjtextoController extends Controller
 
         $achou = 0;
         var_dump($ordem);
-        for($i = 1; $i < count($ordem); $i++){
+        for($i = 0; $i < count($ordem); $i++){
             try {
 
-                if ($ordem[$i]['tipo'] == "Texto/Html" && $ordem[$i]['id'] == $id) {
+                if ($ordem[$i]['tipo'] == "objtexto" && $ordem[$i]['id'] == $id) {
                     /**
                      * Remove o objeto de aprendizagem.
                      */
@@ -169,6 +169,7 @@ class ObjtextoController extends Controller
          */
         $ordem = array_values($ordem);
         $capitulo->ordem = json_encode($ordem);
+        echo $capitulo->ordem;
         $capitulo->save(true);
 
         try {

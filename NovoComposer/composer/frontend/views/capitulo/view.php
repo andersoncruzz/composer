@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -11,13 +12,19 @@ use yii\widgets\DetailView;
 $this->title = $model->titulo;
 $this->params['breadcrumbs'][] = ['label' => 'Capitulos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+$aux = explode("/",Url::canonical());
+$aux = $aux[2];
+
 ?>
 <style>
     #view{
+        width: 70%;
         float: left;
     }
     #search{
-        margin-left: 30px;
+        width: 325px;
+        display: ;
+        margin-left: 9px;
         border: groove;
         border-radius: 2px;
         float: left;
@@ -29,7 +36,10 @@ $this->params['breadcrumbs'][] = $this->title;
         width: 100%;
         background-color: #f1f1f1;
     }
-
+    #item button{
+        float: right;
+        margin-top: 10px;
+    }
     #item li{
         list-style: none;
         border-bottom: groove;
@@ -92,6 +102,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= DetailView::widget([
             'model' => $model,
             'attributes' => [
+                'id',
                 'titulo',
                 'dificuldade',
             ],
@@ -142,46 +153,48 @@ $this->params['breadcrumbs'][] = $this->title;
                 //var_dump($array);
                 for ($i=0 ; $i<= count($array); $i++) {
                     try {
-                        ?>
-                        <tr data-key="<?= $i ?>">
-                            <td><?= $i+1 ?></td>
-                            <td><?= $array[$i]['id'] ?></td>
-                            <td><?= $array[$i]['tipo'] ?></td>
-                            <td><?= $array[$i]['descricao'] ?></td>
-                            <td>
-                                <?php
+                        if($array[$i]['descricao'] != "" ) {
+                            ?>
 
-                                /*
-                                 * Visualizar
-                                 */
-                                if ($array[$i]['tipo'] == 'questionario')
-                                    echo Html::a('Visualizar', ['objquestionario/view', 'id' => $array[$i]['id'], 'capitulo_id' => $model->id]);
-                                else if($array[$i]['tipo'] == 'Texto/Html')
-                                    echo Html::a('Visualizar', ['objtexto/view', 'id' => $array[$i]['id'], 'capitulo_id' => $model->id]);
-                                else if($array[$i]['tipo'] == 'objgaleria')
-                                    echo Html::a('Visualizar', ['objgaleria/view', 'id' => $array[$i]['id'], 'capitulo_id' => $model->id]);
-                                //TODO
-                                else if($array[$i]['tipo'] == 'objdinamico')
-                                    echo Html::a('Visualizar', ['objdinamico/view', 'id' => $array[$i]['id'], 'capitulo_id' => $model->id]);
-                                else if($array[$i]['tipo'] == 'objapresentacao')
-                                    echo Html::a('Visualizar', ['objapresentacao/view', 'id' => $array[$i]['id'], 'capitulo_id' => $model->id]);
-                                else if($array[$i]['tipo'] == 'objvideo')
-                                    echo Html::a('Visualizar', ['objvideo/view', 'id' => $array[$i]['id'], 'capitulo_id' => $model->id]);
-                                else
-                                    echo "<a href='#'>Visualizar</a>";
+                            <tr data-key="<?= $i ?>">
+                                <td><?= $i + 1 ?></td>
+                                <td><?= $array[$i]['id'] ?></td>
+                                <td><?= $array[$i]['tipo'] ?></td>
+                                <td><?= $array[$i]['descricao'] ?></td>
+                                <td>
+                                    <?php
 
-                                ?>
-                                <a href="#">Editar</a>
+                                    /*
+                                     * Visualizar
+                                     */
+                                    if ($array[$i]['tipo'] == 'objquestionario')
+                                        echo Html::a('Visualizar', ['objquestionario/view', 'id' => $array[$i]['id'], 'capitulo_id' => $model->id]);
+                                    else if ($array[$i]['tipo'] == 'objtexto')
+                                        echo Html::a('Visualizar', ['objtexto/view', 'id' => $array[$i]['id'], 'capitulo_id' => $model->id]);
+                                    else if ($array[$i]['tipo'] == 'objgaleria')
+                                        echo Html::a('Visualizar', ['objgaleria/view', 'id' => $array[$i]['id'], 'capitulo_id' => $model->id]);
+                                    //TODO
+                                    else if ($array[$i]['tipo'] == 'objdinamico')
+                                        echo Html::a('Visualizar', ['objdinamico/view', 'id' => $array[$i]['id'], 'capitulo_id' => $model->id]);
+                                    else if ($array[$i]['tipo'] == 'objapresentacao')
+                                        echo Html::a('Visualizar', ['objapresentacao/view', 'id' => $array[$i]['id'], 'capitulo_id' => $model->id]);
+                                    else if ($array[$i]['tipo'] == 'objvideo')
+                                        echo Html::a('Visualizar', ['objvideo/view', 'id' => $array[$i]['id'], 'capitulo_id' => $model->id]);
+                                    else
+                                        echo "<a href='#'>Visualizar</a>";
 
-                                <?php
-                                    if($array[$i]['tipo'] == 'questionario')
+                                    ?>
+                                    <a href="#">Editar</a>
+
+                                    <?php
+                                    if ($array[$i]['tipo'] == 'objquestionario')
                                         echo Html::a('Excluir',
                                             ['objquestionario/delete', 'id' => $array[$i]['id'], 'capitulo_id' => $model->id],
                                             ['data' => [
                                                 'confirm' => 'Tem certeza que deseja deletar esse Objeto de Aprendizagem?',
                                                 'method' => 'post',
                                             ]]);
-                                    else if ($array[$i]['tipo'] == 'Texto/Html')
+                                    else if ($array[$i]['tipo'] == 'objtexto')
                                         echo Html::a('Excluir',
                                             ['objtexto/delete', 'id' => $array[$i]['id'], 'capitulo_id' => $model->id],
                                             ['data' => [
@@ -219,13 +232,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                     else
                                         echo "<a href='#'>Excluir</a>"
 
-                                ?>
+                                    ?>
 
 
-
-                            </td>
-                        </tr>
-                        <?php
+                                </td>
+                            </tr>
+                            <?php
+                        }
                     }catch(\Exception $e){
                         continue;
                     }
@@ -237,15 +250,59 @@ $this->params['breadcrumbs'][] = $this->title;
         <!--deve listar os objetos de aprendizagem do capítulo-->
     </div>
 
+    <script>
+        var itens;
+        function searchObejects(e){
+            console.log(e.value);
+            var ip = "<?= $aux ?>";
+            console.log(ip);
+            $.get("http://"+ip+"/NovoCompose/NovoComposer/composer/frontend/web/index.php?r=capitulo/find&titulo="+e.value, function(data, status){
+                /**
+                 * Converte o JSON(string) em objetos do tipo javascript
+                 */
+                itens = JSON.parse(data);
+
+                var ul = document.getElementById("item");
+
+                $("#item").empty();
+
+                for(var i=0;i< itens.length; i++){
+                    var pathImg = "";
+                    if(itens[i].tipo == "objgaleria") pathImg = "img/ico-preview-gallery.svg";
+                    if(itens[i].tipo == "objquestionario") pathImg = "img/ico-preview-assessment.svg";
+                    if(itens[i].tipo == "objtexto") pathImg = "img/ico-preview-html.svg";
+                    if(itens[i].tipo == "objapresentacao") pathImg = "img/ico-preview-presentation.svg";
+
+                    $("#item").append('<li ><a> <img  src=\"'+pathImg+'\"><label>'+itens[i].assunto+'</label> <button onclick="addObject(this)" id= \"'+i+'\" class="btn btn-success">+</button></a></a></li>');
+                    console.log("id: " + itens[i].id+" assunto: "+itens[i].assunto+" - tipo: "+itens[i].tipo);
+                }
+            });
+        }
+
+
+        function  addObject(e){
+            var indice = parseInt(e.id);
+            var category = <?= $model->id?>
+
+            console.log(indice);
+            console.log(itens[indice].assunto);
+
+            var url = "http://"+window.location.hostname+"/NovoCompose/NovoComposer/composer/frontend/web/index.php?r=capitulo/add&idCat="+category+"&idObj="+itens[indice].id+"&type="+itens[indice].tipo;
+            $.get(url, function(data, status){
+                console.log(data)
+            });
+        }
+
+    </script>
     <div id="search">
         <p><center><label>Pesquise aqui</label></center></p>
         <div class="container-3">
             <span class="icon"><i class="fa fa-search"></i></span>
-            <input type="search" id="formsearch" placeholder="Título do Objeto" />
+            <input type="search" id="formsearch" placeholder="Título do Objeto" onkeyup="searchObejects(this)"/>
         </div>
         <ul id="item">
-            <li><a> <img src="img/ico-preview-html.svg"><label>O que é prisma</label></a></li>
-            <li><a> <img src="img/ico-preview-assessment.svg"><label>Exercício</label></a></li>
+            <li><a><label style="width: 350px">Digite o título do objeto de aprendizagem que deseja </label></a> </li>
+
         </ul>
 
     </div>

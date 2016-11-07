@@ -1,40 +1,48 @@
 
-def LoadSummarizerByUser(user, timestamp, event, idView, sumario):
+def LoadSummarizerByUser(user, timestamp, event, idView, sumarioL):
 	#Percorre o sumario atras do usuario
-	exemplo = sumario
+	exemplo = sumarioL
 	#print "exemplo"
 	#print exemplo
 	t = []
 	i = 0
-	if sumario:
-		for line in sumario:
+	if sumarioL:
+		#print "if"
+		for line in sumarioL:
+			#print "for"
 			listDataLine = line.split(";")
 			if user == listDataLine[0]:
+				#print "if1"
 				t = listDataLine
 				break	
 			i += 1 
 		if(t == []):
+			#print "if2"
 			Delta = "0"
 			Data = user + ";" + timestamp + ";" + Delta + ";" + idView		
 			#print "Data"
 			#print Data
 			exemplo.append(Data)
 		else:
+			#print "else"
 			if(event == "click"):
+				#print "if3"
 				Delta = "0"
 				Data = user + ";" + timestamp + ";" + Delta + ";" + idView	
 			else:
+				#print "else2"
 				Delta = str(int(timestamp) - int(t[1]))
 				Data = user + ";" + t[1] + ";" + Delta + ";" + idView
 				#print Data
 			exemplo[i] = Data
 	else:
+		#print "else3"
 		Delta = "0"
 		Data = user + ";" + timestamp + ";" + Delta + ";" + idView		
 		#print "Data"
 		#print Data
 		exemplo.append(Data)
-	return exemplo
+	return exemplo	
 
 def LoadQuestionTime (user, timeQuestions, idQuestion, timestamp):
 	

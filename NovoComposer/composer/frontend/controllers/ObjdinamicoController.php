@@ -96,10 +96,14 @@ class ObjdinamicoController extends Controller
                 $objeto = new ObjetoDeAprendizagem("objdinamico", $model->assunto, count($ordem)+1, $model->id);
 
                 $achou = 0;
-                for($i = 1; $i < count($ordem); $i++){
-                    if($ordem[$i]['tipo'] == "objdinamico" && $ordem[$i]['id'] == $model->id){
-                        $achou = 1;
-                        break;
+                for($i = 0; $i < count($ordem); $i++){
+                    try {
+                        if ($ordem[$i]['tipo'] == "objdinamico" && $ordem[$i]['id'] == $model->id) {
+                            $achou = 1;
+                            break;
+                        }
+                    }catch(Exception $e){
+
                     }
                 }
 

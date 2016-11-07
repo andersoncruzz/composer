@@ -149,8 +149,10 @@ class ObjgaleriaController extends Controller
 
         $achou = 0;
         var_dump($ordem);
-        for($i = 1; $i < count($ordem); $i++){
+        for($i = 0; $i < count($ordem); $i++){
             try {
+                echo $ordem[$i]['id'];
+                echo $id;
                 if ($ordem[$i]['tipo'] == "objgaleria" && $ordem[$i]['id'] == $id) {
                     /**
                      * Remove o objeto de aprendizagem.
