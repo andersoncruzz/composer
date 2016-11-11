@@ -9,15 +9,15 @@ from analytics import analytics
 from cut import cut
 from recommender import recommender
 import os
-<<<<<<< HEAD
+##<<<<<<< HEAD
 import thread
 import time
 import threading
 import sys, errno
-=======
+##=======
 from banco import newTeacher, searchTeacher
 from werkzeug import secure_filename
->>>>>>> 1e470881baf6ef5ad290b7ad2c7cdcaffebd63e4
+##>>>>>>> 1e470881baf6ef5ad290b7ad2c7cdcaffebd63e4
 
 
 sumario = list()
@@ -29,7 +29,7 @@ status_class = False
 idQu = list()
 
 
-app = Flask('storage', static_folder='realtime')
+app = Flask('storage', static_folder='static')
 CORS(app)
 #moveBufferHttpRest_to_BufferChangeLogger = False
 #Criando diretório sessions caso não exista	
@@ -43,17 +43,23 @@ if os.path.exists("users.csv") == False:
 
 app.config['UPLOAD_FOLDER'] = 'uploads/'
 # These are the extension that we are accepting to be uploaded
-app.config['ALLOWED_EXTENSIONS'] = set(['zip'])
+app.config['ALLOWED_EXTENSIONS'] = set(['zip', 'csv'])
 
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
 
-
-
 @app.route('/')
 def index():
     return render_template('/login-professor/index.html')
+
+@app.route('/upload-aula/upload-aula.html')
+def upload_tela():
+    return render_template('/upload-aula/upload-aula.html')
+
+@app.route('/cadastro-professor/cadastrar-professor.html')
+def tela_cadastrar_professor():
+    return render_template('/cadastro-professor/cadastrar-professor.html')
 
 @app.route('/upload', methods=['POST'])
 def upload():

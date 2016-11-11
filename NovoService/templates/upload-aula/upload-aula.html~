@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Upload da aula</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/static/css/bootstrap.min.css">
+	<script src="/static/js/jquery.min.js"></script>
+	<script src="/static/js/bootstrap.min.js"></script>
+</head>
+<body onload="carregar('')">
+	<div class="container center_div">
+		<div class="alert alert-info" role="alert">Olá! Faça o upload do arquivo para usá-lo na aula.</div>
+
+		<div id="container">
+			
+		</div>
+
+		<div id="upload">
+			  <div>
+      
+      <form action="http://localhost:5000/upload" method="post" enctype="multipart/form-data">
+	<h3>Aula</h3>
+	<hr/>
+        <input type="file" name="file"><br /><br />
+	<!--<h3>Lista de Alunos</h3>
+	<hr/>
+        <input type="file" name="lista"><br /><br />-->
+        <input type="submit" value="Enviar">
+      </form>
+	
+      </div>
+		
+</body>
+
+</html>

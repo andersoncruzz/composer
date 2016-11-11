@@ -28,7 +28,7 @@
 	function logar(){
 		un = document.getElementById("matricula").value;
 		ps = document.getElementById("senha").value;
-		$.post("loginTeacher/1",
+		$.post("http://localhost:5000/loginTeacher/1",
         {
             matricula: un,
             senha: ps
