@@ -1,4 +1,4 @@
-def recommender (user, recommender, sumarizer, idQuestion, timestamp):
+def recommender (user, recommender, idQuestion, timestamp):
 	
 	flagUserExists = False
 	#Verificando se o usuario existe na lista do recommender
@@ -58,10 +58,10 @@ def recommender (user, recommender, sumarizer, idQuestion, timestamp):
 				else:
 					#userActives[0][1] = -1
 					recommendation = "ok"
-					print "Enviamos uma adaptacao ha pouco tempo"
+					#print "Enviamos uma adaptacao ha pouco tempo"
 
 
-		print ""					
+		#print ""					
 		feedback = []
 		feedback.append(recommender)
 		feedback.append(recommendation)

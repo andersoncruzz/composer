@@ -163,7 +163,7 @@ class ObjapresentacaoController extends Controller
 
         $achou = 0;
         var_dump($ordem);
-        for($i = 1; $i < count($ordem); $i++){
+        for($i = 0; $i < count($ordem); $i++){
             try {
                 if ($ordem[$i]['tipo'] == "objapresentacao" && $ordem[$i]['id'] == $id) {
                     /**

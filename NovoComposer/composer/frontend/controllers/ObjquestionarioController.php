@@ -85,12 +85,12 @@ class ObjquestionarioController extends Controller
             $capitulo = Capitulo::findOne($params["capitulo_id"]);
 
             $ordem = json_decode($capitulo->ordem, true);
-            $objeto = new ObjetoDeAprendizagem("questionario", $model->assunto, count($ordem)+1, $model->id);
+            $objeto = new ObjetoDeAprendizagem("objquestionario", $model->assunto, count($ordem)+1, $model->id);
 
             $achou = 0;
             for($i = 1; $i < count($ordem); $i++){
                 try {
-                    if ($ordem[$i]['tipo'] == "questionario" && $ordem[$i]['id'] == $model->id) {
+                    if ($ordem[$i]['tipo'] == "objquestionario" && $ordem[$i]['id'] == $model->id) {
                         $achou = 1;
                         break;
                     }
@@ -147,9 +147,9 @@ class ObjquestionarioController extends Controller
 
         $achou = 0;
         ///var_dump($ordem);
-        for($i = 1; $i < count($ordem); $i++){
+        for($i = 0; $i < count($ordem); $i++){
             try {
-                if ($ordem[$i]['tipo'] == "Texto/Html" && $ordem[$i]['id'] == $id) {
+                if ($ordem[$i]['tipo'] == "objquestionario" && $ordem[$i]['id'] == $id) {
                     /**
                      * Remove o objeto de aprendizagem.
                      */
