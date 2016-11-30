@@ -256,7 +256,7 @@ $aux = $aux[2];
             console.log(e.value);
             var ip = "<?= $aux ?>";
             console.log(ip);
-            $.get("http://"+ip+"/NovoCompose/NovoComposer/composer/frontend/web/index.php?r=capitulo/find&titulo="+e.value, function(data, status){
+            $.get("http://"+ip+"/OpenLab/NovoComposer/composer/frontend/web/index.php?r=capitulo/find&titulo="+e.value, function(data, status){
                 /**
                  * Converte o JSON(string) em objetos do tipo javascript
                  */
