@@ -184,7 +184,7 @@ $aux = $aux[2];
                                         echo "<a href='#'>Visualizar</a>";
 
                                     ?>
-                                    <a href="#">Editar</a>
+                                    <!-- <a href="#">Editar</a> -->
 
                                     <?php
                                     if ($array[$i]['tipo'] == 'objquestionario')
@@ -287,7 +287,7 @@ $aux = $aux[2];
             console.log(indice);
             console.log(itens[indice].assunto);
 
-            var url = "http://"+window.location.hostname+"/NovoCompose/NovoComposer/composer/frontend/web/index.php?r=capitulo/add&idCat="+category+"&idObj="+itens[indice].id+"&type="+itens[indice].tipo;
+            var url = "http://"+window.location.hostname+"/OpenLab/NovoComposer/composer/frontend/web/index.php?r=capitulo/add&idCat="+category+"&idObj="+itens[indice].id+"&type="+itens[indice].tipo;
             $.get(url, function(data, status){
                 console.log(data)
             });
