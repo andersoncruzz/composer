@@ -9,10 +9,19 @@ from analytics import analytics
 from cut import cut
 from recommender import recommender
 import os
+##<<<<<<< HEAD
+import thread
+import time
+import threading
+import sys, errno
+##=======
 from banco import newTeacher, searchTeacher
 from werkzeug import secure_filename
+##>>>>>>> 1e470881baf6ef5ad290b7ad2c7cdcaffebd63e4
 
-sumario = []
+
+sumario = list()
+#sumarioL = list()
 recomendation = list()
 timeQuestions = list()
 idQ = list()
@@ -20,7 +29,7 @@ status_class = False
 idQu = list()
 
 
-app = Flask('storage', static_folder='realtime')
+app = Flask('storage', static_folder='static')
 CORS(app)
 #moveBufferHttpRest_to_BufferChangeLogger = False
 #Criando diretório sessions caso não exista	
@@ -34,17 +43,23 @@ if os.path.exists("users.csv") == False:
 
 app.config['UPLOAD_FOLDER'] = 'uploads/'
 # These are the extension that we are accepting to be uploaded
-app.config['ALLOWED_EXTENSIONS'] = set(['zip'])
+app.config['ALLOWED_EXTENSIONS'] = set(['zip', 'csv'])
 
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
 
-
-
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('/login-professor/index.html')
+
+@app.route('/upload-aula/upload-aula.html')
+def upload_tela():
+    return render_template('/upload-aula/upload-aula.html')
+
+@app.route('/cadastro-professor/cadastrar-professor.html')
+def tela_cadastrar_professor():
+    return render_template('/cadastro-professor/cadastrar-professor.html')
 
 @app.route('/upload', methods=['POST'])
 def upload():
@@ -66,7 +81,7 @@ def upload():
 # of a file. Then it will locate that file on the upload
 # directory and show it on the browser, so if the user uploads
 # an image, that image is going to be show after the upload
-@app.route('/uploads/<filename>')
+@app.route('/download/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
@@ -90,18 +105,22 @@ def searchAdaptation(user, timestamp, event, idView):
 	mutex = 1#setSemaforo(session)
 	#atualiza o sumario
 	sumario = LoadSummarizerByUser(user, timestamp, event, idView, sumario)
+	#sumarioL = sumario
 	recomendationUser = analytics(user, sumario, idView)
-	#print "sumario"
-	#print sumario
+	print "sumario"
+	print sumario
+	#print ""
 	#print "recomendation"
 	#print recomendation
+	#print ""
 	idQuestion = idView.split(":")
 	feedback = []
 	if recomendationUser == True:
-		feedback = recommender(user, recomendation, sumario, int(idQuestion[1]), int(timestamp))
+		feedback = recommender(user, recomendation, int(idQuestion[1]), int(timestamp))
 	mutex = 0#releaseSemaforo	
-	#print "feedback sumarizer"
+	#print "feedback recomendation"
 	#print feedback
+	print ""
 	return feedback
 
 def updateQuestionsTime(user, timestamp, idView):
@@ -177,61 +196,62 @@ def teacherRegistration(idSession):
 @app.route("/storage/<idSession>", methods=["POST"])
 def receive_data(idSession):
 	if request.method == "POST":
-		if verify_active_session(idSession) == False:
-			create_session(idSession)
-		idUser = request.form["idUser"]					
-		event = request.form["tipo"]		
-		resource = request.form["tag"]
-		timestamp = request.form["timeStamp"]
-		x = request.form["x"]
-		y = request.form["y"]
-		#idView = request.form["id"]
-		tela = request.form["tela"]
-		idView = request.form["classId"]    	
-		#print tela
+		try:
+			if verify_active_session(idSession) == False:
+				create_session(idSession)
+			idUser = request.form["idUser"]					
+			event = request.form["tipo"]		
+			resource = request.form["tag"]
+			timestamp = request.form["timeStamp"]
+			x = request.form["x"]
+			y = request.form["y"]
+			#idView = request.form["id"]
+			tela = request.form["tela"]
+			idView = request.form["classId"]    	
+			#print tela
 			
-		if x == "" and y == "" and resource == "":
-			#Neste bloco está sendo atualizado a última linha que significa o timestamp e a tela atual passado pelo Player
-			with open("sessions-Logs/"+idSession+"/"+idUser+"_log.csv") as f:
-				lines = f.readlines()
-				if len(lines) > 0:
+			if x == "" and y == "" and resource == "":
+				#Neste bloco está sendo atualizado a última linha que significa o timestamp e a tela atual passado pelo Player
+				with open("sessions-Logs/"+idSession+"/"+idUser+"_log.csv") as f:
+					lines = f.readlines()
+					if len(lines) > 0:
+						lineOld = lines[-1] #pega ultima linha
+						lineNew = idSession+";"+idUser+";"+timestamp+";"+event +";"+ tela+ ";"+idView+";"+resource+";"+x+";"+y+"\n"
+						f.close()
+
+						fileaux = open("sessions-Logs/"+idSession+"/"+idUser+"_log.csv",'r')
+						filedata = fileaux.read()
+						fileaux.close()
+
+						newdata = filedata.replace(lineOld, lineNew)
+
+						fileaux = open("sessions-Logs/"+idSession+"/"+idUser+"_log.csv",'w')
+						fileaux.write(newdata)
+						fileaux.close()
+					else:
+						newdata = idSession+";"+idUser+";"+timestamp+";"+event +";"+ tela +";"+idView+";"+resource+";"+x+";"+y+"\n"
+						fileaux = open("sessions-Logs/"+idSession+"/"+idUser+"_log.csv",'w')
+						fileaux.write(newdata)
+						fileaux.close()
+
+			else:
+				with open("sessions-Logs/"+idSession+"/"+idUser+"_log.csv") as f:
+					lines = f.readlines()
 					lineOld = lines[-1] #pega ultima linha
-					lineNew = idSession+";"+idUser+";"+timestamp+";"+event +";"+ tela+ ";"+idView+";"+resource+";"+x+";"+y+"\n"
 					f.close()
+					#print lines
 
 					fileaux = open("sessions-Logs/"+idSession+"/"+idUser+"_log.csv",'r')
 					filedata = fileaux.read()
 					fileaux.close()
 
+					lineNew = idSession+";"+idUser+";"+timestamp+";"+event +";"+ tela +";"+idView+";"+resource+";"+x+";"+y+"\n"
 					newdata = filedata.replace(lineOld, lineNew)
-
+					newdata = newdata + lineOld 
+					#print newdata
 					fileaux = open("sessions-Logs/"+idSession+"/"+idUser+"_log.csv",'w')
 					fileaux.write(newdata)
 					fileaux.close()
-				else:
-					newdata = idSession+";"+idUser+";"+timestamp+";"+event +";"+ tela +";"+idView+";"+resource+";"+x+";"+y+"\n"
-					fileaux = open("sessions-Logs/"+idSession+"/"+idUser+"_log.csv",'w')
-					fileaux.write(newdata)
-					fileaux.close()
-
-		else:
-			with open("sessions-Logs/"+idSession+"/"+idUser+"_log.csv") as f:
-				lines = f.readlines()
-				lineOld = lines[-1] #pega ultima linha
-				f.close()
-				#print lines
-
-				fileaux = open("sessions-Logs/"+idSession+"/"+idUser+"_log.csv",'r')
-				filedata = fileaux.read()
-				fileaux.close()
-
-				lineNew = idSession+";"+idUser+";"+timestamp+";"+event +";"+ tela +";"+idView+";"+resource+";"+x+";"+y+"\n"
-				newdata = filedata.replace(lineOld, lineNew)
-				newdata = newdata + lineOld 
-				#print newdata
-				fileaux = open("sessions-Logs/"+idSession+"/"+idUser+"_log.csv",'w')
-				fileaux.write(newdata)
-				fileaux.close()
 
 
 			#data_received =	idSession+";"+idUser+";"+timestamp+";"+event +";"+idView+";"+resource+";"+x+";"+y+"\n"
@@ -239,26 +259,34 @@ def receive_data(idSession):
 			#fileBuffer.write(data_received)
 			#fileBuffer.close()
 
-		print idSession+";"+idUser+";"+timestamp+";"+event +";"+ tela +";"+idView+";"+resource+";"+x+";"+y
-
-		#Solicita recomendacao caso o aluno estiver em uma questao
-		if idView != "" and idView[0] == "Q":
-			idViewSplit = idView.split(":")
-			#print idViewSplit
-			updateQuestionsTime(idUser, timestamp, idView)
-			feedback = searchAdaptation(idUser, timestamp, event, idView)
-			#print feedback
-			if len(feedback) > 0:
-				print feedback[1]
-				recommendation = [{"recommendation": feedback[1]}]
-				#print "----Teste Recommendation OOOOOI------", recommendation
-				return jsonify({'recommendation': recommendation})
-			else:
-				recommendation = [{"recommendation": "ok"}]
-				return jsonify({'recommendation': recommendation})
-		else:
-			recommendation = [{"recommendation": "ok"}]
-			return jsonify({'recommendation': recommendation})
+			print idSession+";"+idUser+";"+timestamp+";"+event +";"+ tela +";"+idView+";"+resource+";"+x+";"+y
+			print ""
+			#Solicita recomendacao caso o aluno estiver em uma questao
+			try:
+				if idView != "" and idView[0] == "Q":
+					idViewSplit = idView.split(":")
+					#print idViewSplit
+					updateQuestionsTime(idUser, timestamp, idView)
+					feedback = searchAdaptation(idUser, timestamp, event, idView)
+					#print feedback			
+					if len(feedback) > 0:
+						print feedback[1]
+						recommendation = [{"recommendation": feedback[1]}]
+						#print "----Teste Recommendation OOOOOI------", recommendation
+						return jsonify({'recommendation': recommendation})
+					else:
+						recommendation = [{"recommendation": "ok"}]
+						return jsonify({'recommendation': recommendation})
+				else:
+					recommendation = [{"recommendation": "ok"}]
+					return jsonify({'recommendation': recommendation})
+			except:
+				print "Broken"
+				pass
+				
+		except:
+			print "Broken"
+			pass
 
 @app.route("/realtime/<idSession>", methods=["GET"])
 def realTimeStateStudents(idSession):
