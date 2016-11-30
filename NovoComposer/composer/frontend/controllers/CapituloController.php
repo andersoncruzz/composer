@@ -7,11 +7,13 @@ use common\models\CapituloHasObjDinamico;
 use common\models\CapituloHasObjGaleria;
 use common\models\CapituloHasObjQuestionario;
 use common\models\CapituloHasObjtexto;
+use common\models\CapituloHasObjVideo;
 use common\models\ObjApresentacao;
 use common\models\ObjDinamico;
 use common\models\ObjGaleria;
 use common\models\ObjQuestionario;
 use common\models\ObjTexto;
+use common\models\ObjVideo;
 use Exception;
 use frontend\models\ObjetoDeAprendizagem;
 use Yii;
@@ -123,12 +125,16 @@ class CapituloController extends Controller
         $sql = "
 select temp.id, temp.assunto, temp.tipo from
 (
+SELECT ov.id, ov.assunto, 'objvideo' as tipo from ObjVideo ov
+    UNION ALL
+SELECT od.id, od.assunto, 'objdinamico' as tipo from ObjDinamico od
+    UNION ALL
 SELECT oq.id, oq.assunto, 'objquestionario' as tipo from ObjQuestionario oq
-UNION ALL
+    UNION ALL
 SELECT ot.id, ot.assunto, 'objtexto' as tipo from ObjTexto ot
-UNION ALL
+    UNION ALL
 select ap.id, ap.assunto, 'objapresentacao' as tipo from ObjApresentacao ap
-UNION ALL
+    UNION ALL
 select og.id, og.assunto,'objgaleria' as tipo from ObjGaleria og) as temp
 where assunto like '%$titulo%'";
 
@@ -144,6 +150,7 @@ where assunto like '%$titulo%'";
         try {
             $model = null;
             $relacao = null;
+
             if ($type == "objapresentacao"){
                 $model = ObjApresentacao::findOne($idObj);
 
@@ -151,7 +158,6 @@ where assunto like '%$titulo%'";
                 $relacao->Capitulo_id = $idCat;
                 $relacao->ObjApresentacao_id = $idObj;
                 $relacao->save();
-
 
             }else if($type == "objgaleria"){
                 $relacao = new CapituloHasObjGaleria();
@@ -174,13 +180,21 @@ where assunto like '%$titulo%'";
                 $relacao->save();
 
                 $model = ObjQuestionario::findOne($idObj);
-            }else if($type == "objdinamico"){
+            }else if($type == "objdinamico") {
                 $relacao = new CapituloHasObjDinamico();
                 $relacao->Capitulo_id = $idCat;
                 $relacao->ObjDinamico_id = $idCat;
                 $relacao->save();
 
                 $model = ObjDinamico::findOne($idObj);
+            }else if($type == 'objvideo'){
+                $relacao = new CapituloHasObjVideo();
+                $relacao->Capitulo_id = $idCat;
+                $relacao->ObjVideo_id = $idObj;
+                $relacao->save(false);
+
+                $model = ObjVideo::findOne($idObj);
+
             }
 
             $capitulo = Capitulo::findOne($idCat);
@@ -209,6 +223,7 @@ where assunto like '%$titulo%'";
         }catch (Exception $e){
             $relacao->isNewRecord = false;
             $relacao->save();
+            echo "erroo";
         }finally {
             return $this->redirect(['capitulo/view', 'id' => $idCat]);
         }

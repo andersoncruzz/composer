@@ -272,6 +272,8 @@ $aux = $aux[2];
                     if(itens[i].tipo == "objquestionario") pathImg = "img/ico-preview-assessment.svg";
                     if(itens[i].tipo == "objtexto") pathImg = "img/ico-preview-html.svg";
                     if(itens[i].tipo == "objapresentacao") pathImg = "img/ico-preview-presentation.svg";
+                    if(itens[i].tipo == "objdinamico") pathImg = "img/ico-preview-d-object.svg";
+                    if(itens[i].tipo == "objvideo") pathImg = "img/ico-preview-video.svg";
 
                     $("#item").append('<li ><a> <img  src=\"'+pathImg+'\"><label>'+itens[i].assunto+'</label> <button onclick="addObject(this)" id= \"'+i+'\" class="btn btn-success">+</button></a></a></li>');
                     console.log("id: " + itens[i].id+" assunto: "+itens[i].assunto+" - tipo: "+itens[i].tipo);
@@ -286,8 +288,8 @@ $aux = $aux[2];
 
             console.log(indice);
             console.log(itens[indice].assunto);
-
             var url = "http://"+window.location.hostname+"/OpenLab/NovoComposer/composer/frontend/web/index.php?r=capitulo/add&idCat="+category+"&idObj="+itens[indice].id+"&type="+itens[indice].tipo;
+            console.log(url);
             $.get(url, function(data, status){
                 console.log(data)
             });
