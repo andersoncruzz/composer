@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Máquina: localhost
--- Data de Criação: 14-Set-2016 às 09:18
+-- Data de Criação: 29-Nov-2016 às 15:25
 -- Versão do servidor: 5.6.31-0ubuntu0.14.04.2
--- versão do PHP: 5.5.9-1ubuntu4.19
+-- versão do PHP: 5.5.9-1ubuntu4.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -28,12 +28,48 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `Alternativa` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `description` int(11) NOT NULL,
+  `description` varchar(500) NOT NULL,
   `corretude` int(11) NOT NULL,
   `Questao_id` int(11) NOT NULL,
   PRIMARY KEY (`id`,`Questao_id`),
   KEY `fk_Alternativa_Questao1_idx` (`Questao_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=96 ;
+
+--
+-- Extraindo dados da tabela `Alternativa`
+--
+
+INSERT INTO `Alternativa` (`id`, `description`, `corretude`, `Questao_id`) VALUES
+(66, 'Alternativa A', 1, 17),
+(67, 'Alternativa B', 2, 17),
+(68, 'Alternativa C', 3, 17),
+(69, 'Alternativa D', 4, 17),
+(70, 'Alternativa E', 5, 17),
+(71, 'Alternativa A', 1, 18),
+(72, 'Alternativa B', 2, 18),
+(73, 'Alternativa C', 3, 18),
+(74, 'Alternativa D', 4, 18),
+(75, 'Alternativa E', 5, 18),
+(76, 'Alternativa A', 2, 19),
+(77, 'Alternativa B', 3, 19),
+(78, 'Alternativa C', 4, 19),
+(79, 'Alternativa D', 5, 19),
+(80, 'Alternativa E', 6, 19),
+(81, 'Alternativa A', 1, 20),
+(82, 'Alternativa B', 2, 20),
+(83, 'Alternativa C', 3, 20),
+(84, 'Alternativa D', 4, 20),
+(85, 'Alternativa E', 5, 20),
+(86, 'Alternativa A', 1, 21),
+(87, 'Alternativa B', 5, 21),
+(88, 'Alternativa C', 3, 21),
+(89, 'Alternativa D', 5, 21),
+(90, 'Alternativa E', 0, 21),
+(91, 'Alternativa A', 5, 22),
+(92, 'Alternativa B', 4, 22),
+(93, 'Alternativa C', 1, 22),
+(94, 'Alternativa D', 1, 22),
+(95, 'Alternativa E', 0, 22);
 
 -- --------------------------------------------------------
 
@@ -44,12 +80,20 @@ CREATE TABLE IF NOT EXISTS `Alternativa` (
 CREATE TABLE IF NOT EXISTS `Aula` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `subject` varchar(255) NOT NULL,
-  `discipline` varchar(255) NOT NULL,
-  `qtChapters` int(11) NOT NULL,
+  `qtChapters` int(11) NOT NULL DEFAULT '0',
   `Disciplina_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_Aula_Disciplina1_idx` (`Disciplina_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+
+--
+-- Extraindo dados da tabela `Aula`
+--
+
+INSERT INTO `Aula` (`id`, `subject`, `qtChapters`, `Disciplina_id`) VALUES
+(10, 'Segunda Guerra Mundial', 0, 8),
+(11, 'Holocausto', 0, 8),
+(12, 'Aula testando o after save', 0, 9);
 
 -- --------------------------------------------------------
 
@@ -60,13 +104,29 @@ CREATE TABLE IF NOT EXISTS `Aula` (
 CREATE TABLE IF NOT EXISTS `Capitulo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(255) NOT NULL,
-  `qtObjects` int(11) NOT NULL,
+  `qtObjects` int(11) NOT NULL DEFAULT '0',
   `Aula_id` int(11) NOT NULL,
   `dificuldade` int(11) DEFAULT NULL,
+  `ordem` text,
   PRIMARY KEY (`id`),
   KEY `id` (`id`),
   KEY `fk_Capitulo_Aula1_idx` (`Aula_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
+
+--
+-- Extraindo dados da tabela `Capitulo`
+--
+
+INSERT INTO `Capitulo` (`id`, `titulo`, `qtObjects`, `Aula_id`, `dificuldade`, `ordem`) VALUES
+(15, 'Consequências da Primeira Guerra Mundial', 0, 10, 1, '{"0":{"tipo":"Texto\\/Html","descricao":"Testando relacao","ordem":1,"id":3},"1":{"tipo":"objgaleria","descricao":"Teste de Galeria","ordem":3,"id":3},"2":{"tipo":"objgaleria","descricao":"Teste de Galeria ","ordem":5,"id":4},"3":{"tipo":"questionario","descricao":"Teste quiz","ordem":4,"id":40},"4":{"tipo":"questionario","descricao":"Teste","ordem":5,"id":41},"5":{"tipo":"questionario","descricao":"la","ordem":6,"id":42},"6":{"tipo":"questionario","descricao":"Mudando o form","ordem":7,"id":43},"7":{"tipo":"objapresentacao","descricao":"Teste da s\\u00e9rie","ordem":8,"id":7},"8":{"tipo":"objapresentacao","descricao":"OI","ordem":9,"id":8},"9":{"tipo":"Texto\\/Html","descricao":"Teste dos tipos","ordem":10,"id":6},"11":{"tipo":"objvideo","descricao":"alallalalallalalalal","ordem":11,"id":6},"12":{"tipo":"Texto\\/Html","descricao":"Teste","ordem":12,"id":8}}'),
+(16, 'Período entre as guerras', 0, 10, 3, '{"1":{"tipo":"questionario","descricao":"Teste qiestionzario","ordem":1,"id":44}}'),
+(17, 'A Segunda Guerra', 0, 10, 4, NULL),
+(18, 'Holocausto', 0, 10, 5, NULL),
+(19, 'Atividades Complementares', 0, 10, 5, NULL),
+(20, 'Novo Capítulo ', 0, 11, 1, NULL),
+(21, 'Testando métricas', 0, 10, 3, NULL),
+(22, 'Capítulo do AfterSave', 0, 12, 5, '{"0":{"tipo":"objapresentacao","descricao":"Apresentacao after save","ordem":2,"id":9},"1":{"tipo":"objgaleria","descricao":"Testando listagem","ordem":3,"id":5},"3":{"tipo":"objvideo","descricao":"lalalla","ordem":3,"id":8}}'),
+(23, 'TEstando o <=', 0, 12, 3, '{"1":{"tipo":"Texto\\/Html","descricao":"lallal","ordem":1,"id":7}}');
 
 -- --------------------------------------------------------
 
@@ -81,6 +141,18 @@ CREATE TABLE IF NOT EXISTS `Capitulo_has_ObjApresentacao` (
   KEY `fk_Capitulo_has_ObjApresentacao_ObjApresentacao1_idx` (`ObjApresentacao_id`),
   KEY `fk_Capitulo_has_ObjApresentacao_Capitulo1_idx` (`Capitulo_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `Capitulo_has_ObjApresentacao`
+--
+
+INSERT INTO `Capitulo_has_ObjApresentacao` (`Capitulo_id`, `ObjApresentacao_id`) VALUES
+(15, 4),
+(20, 5),
+(15, 6),
+(15, 7),
+(15, 8),
+(22, 9);
 
 -- --------------------------------------------------------
 
@@ -110,6 +182,14 @@ CREATE TABLE IF NOT EXISTS `Capitulo_has_ObjGaleria` (
   KEY `fk_Capitulo_has_ObjGaleria_Capitulo1_idx` (`Capitulo_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Extraindo dados da tabela `Capitulo_has_ObjGaleria`
+--
+
+INSERT INTO `Capitulo_has_ObjGaleria` (`Capitulo_id`, `ObjGaleria_id`) VALUES
+(15, 4),
+(22, 5);
+
 -- --------------------------------------------------------
 
 --
@@ -123,6 +203,16 @@ CREATE TABLE IF NOT EXISTS `Capitulo_has_ObjQuestionario` (
   KEY `fk_Capitulo_has_ObjQuestionario_ObjQuestionario1_idx` (`ObjQuestionario_id`),
   KEY `fk_Capitulo_has_ObjQuestionario_Capitulo1_idx` (`Capitulo_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `Capitulo_has_ObjQuestionario`
+--
+
+INSERT INTO `Capitulo_has_ObjQuestionario` (`Capitulo_id`, `ObjQuestionario_id`) VALUES
+(15, 41),
+(15, 42),
+(15, 43),
+(16, 44);
 
 -- --------------------------------------------------------
 
@@ -138,6 +228,18 @@ CREATE TABLE IF NOT EXISTS `Capitulo_has_ObjTexto` (
   KEY `fk_Capitulo_has_ObjTexto_Capitulo1_idx` (`Capitulo_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Extraindo dados da tabela `Capitulo_has_ObjTexto`
+--
+
+INSERT INTO `Capitulo_has_ObjTexto` (`Capitulo_id`, `ObjTexto_id`) VALUES
+(15, 3),
+(15, 4),
+(15, 5),
+(15, 6),
+(23, 7),
+(15, 8);
+
 -- --------------------------------------------------------
 
 --
@@ -152,6 +254,15 @@ CREATE TABLE IF NOT EXISTS `Capitulo_has_ObjVideo` (
   KEY `fk_Capitulo_has_ObjVideo_Capitulo1_idx` (`Capitulo_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Extraindo dados da tabela `Capitulo_has_ObjVideo`
+--
+
+INSERT INTO `Capitulo_has_ObjVideo` (`Capitulo_id`, `ObjVideo_id`) VALUES
+(15, 4),
+(15, 6),
+(22, 8);
+
 -- --------------------------------------------------------
 
 --
@@ -164,15 +275,15 @@ CREATE TABLE IF NOT EXISTS `Disciplina` (
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_Disciplina_user1_idx` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- Extraindo dados da tabela `Disciplina`
 --
 
 INSERT INTO `Disciplina` (`id`, `nome`, `user_id`) VALUES
-(1, 'Geografia', 1),
-(2, 'teste', 1);
+(8, 'História', 2),
+(9, 'teste after save', 2);
 
 -- --------------------------------------------------------
 
@@ -183,10 +294,19 @@ INSERT INTO `Disciplina` (`id`, `nome`, `user_id`) VALUES
 CREATE TABLE IF NOT EXISTS `Imagem` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `caminho` varchar(255) NOT NULL,
-  `Galeria_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_Imagem_Galeria1_idx` (`Galeria_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `legenda` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+
+--
+-- Extraindo dados da tabela `Imagem`
+--
+
+INSERT INTO `Imagem` (`id`, `caminho`, `legenda`) VALUES
+(12, 'arquivos/imagem_12.jpg', 'Soldados marchando'),
+(13, 'arquivos/imagem_13.jpeg', 'Pintura'),
+(14, 'arquivos/imagem_14.jpg', 'Esse é o diagrama de redes'),
+(15, 'arquivos/imagem_15.jpg', 'Esse é outro diagrama');
 
 -- --------------------------------------------------------
 
@@ -218,16 +338,28 @@ CREATE TABLE IF NOT EXISTS `ObjApresentacao` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `assunto` varchar(255) NOT NULL,
   `caminho` varchar(255) NOT NULL,
-  `qteSlides` int(11) NOT NULL,
+  `qteSlides` int(11) NOT NULL DEFAULT '0',
   `topicos` text NOT NULL,
   `exerciciosResolvidos` tinyint(1) NOT NULL,
   `tipo` text NOT NULL,
   `duracao` int(11) NOT NULL,
   `serie` varchar(45) NOT NULL,
-  `avaliacao` int(11) NOT NULL,
+  `avaliacao` int(11) DEFAULT '0',
   `referencias` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+
+--
+-- Extraindo dados da tabela `ObjApresentacao`
+--
+
+INSERT INTO `ObjApresentacao` (`id`, `assunto`, `caminho`, `qteSlides`, `topicos`, `exerciciosResolvidos`, `tipo`, `duracao`, `serie`, `avaliacao`, `referencias`) VALUES
+(4, 'Os efeitos', 'arquivos/slides_tmp.pdf', 0, 'Razao, Proporção', 1, 'Conceito,Exemplo,Exercicio Resolvido', 10, '4', 0, 'lalalalla'),
+(5, 'TCC', 'arquivos/slides_tmp.pdf', 0, '#promobile', 1, 'Conceito', 1, '2', 0, 'dsfsdf'),
+(6, 'Teste da série', 'arquivos/slides_tmp.pdf', 0, 'lalal', 0, 'Exemplo', 3, '2', 0, 'lalalal'),
+(7, 'Teste da série', 'arquivos/slides_tmp.pdf', 0, 'lalal', 0, 'Exemplo', 3, '2', 0, 'lalalal'),
+(8, 'OI', 'arquivos/slides_tmp.pdf', 0, 'lalalal', 1, 'Exemplo', 3, '2ª ano - Ensino Médio', 0, 'llalalallala'),
+(9, 'Apresentacao after save', 'arquivos/slides9.pdf', 0, 'oi', 1, 'Exemplo', 2, '7ª ano - Ensino Fundamental', 0, 'lalallallaa');
 
 -- --------------------------------------------------------
 
@@ -243,7 +375,7 @@ CREATE TABLE IF NOT EXISTS `ObjDinamico` (
   `topicos` text,
   `exerciciosResolvidos` tinyint(1) DEFAULT NULL,
   `duracao` int(11) DEFAULT NULL,
-  `avaliacao` int(11) DEFAULT NULL,
+  `avaliacao` int(11) DEFAULT '0',
   `referencias` text,
   `tipo` text,
   `serie` varchar(45) DEFAULT NULL,
@@ -259,16 +391,49 @@ CREATE TABLE IF NOT EXISTS `ObjDinamico` (
 CREATE TABLE IF NOT EXISTS `ObjGaleria` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `assunto` varchar(255) NOT NULL,
-  `qteImagens` int(11) NOT NULL,
+  `qteImagens` int(11) DEFAULT NULL,
   `topicos` text NOT NULL,
   `exerciciosResolvidos` tinyint(1) NOT NULL,
   `tipo` text NOT NULL,
   `duracao` int(11) NOT NULL,
   `serie` varchar(45) NOT NULL,
-  `avaliacao` int(11) NOT NULL,
+  `avaliacao` int(11) DEFAULT NULL,
   `referencias` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+--
+-- Extraindo dados da tabela `ObjGaleria`
+--
+
+INSERT INTO `ObjGaleria` (`id`, `assunto`, `qteImagens`, `topicos`, `exerciciosResolvidos`, `tipo`, `duracao`, `serie`, `avaliacao`, `referencias`) VALUES
+(3, 'Teste de Galeria', NULL, '#primeiraguerra, #consequencias', 0, 'Conceito', 3, '4', NULL, 'referencias'),
+(4, 'Teste de Galeria ', NULL, 'topicos', 1, 'Exemplo,Exercicio Resolvido', 4, 'Se', NULL, 'referencias'),
+(5, 'Testando listagem', NULL, 'listagem', 1, 'Tutorial', 4, 'Outro(s)', NULL, 'lalalala');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `ObjGaleria_has_Imagem`
+--
+
+CREATE TABLE IF NOT EXISTS `ObjGaleria_has_Imagem` (
+  `ObjGaleria_id` int(11) NOT NULL,
+  `Imagem_id` int(11) NOT NULL,
+  PRIMARY KEY (`ObjGaleria_id`,`Imagem_id`),
+  KEY `fk_ObjGaleria_has_Imagem_Imagem1_idx` (`Imagem_id`),
+  KEY `fk_ObjGaleria_has_Imagem_ObjGaleria1_idx` (`ObjGaleria_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `ObjGaleria_has_Imagem`
+--
+
+INSERT INTO `ObjGaleria_has_Imagem` (`ObjGaleria_id`, `Imagem_id`) VALUES
+(3, 12),
+(4, 13),
+(5, 14),
+(5, 15);
 
 -- --------------------------------------------------------
 
@@ -280,15 +445,20 @@ CREATE TABLE IF NOT EXISTS `ObjQuestionario` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `assunto` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=45 ;
 
 --
 -- Extraindo dados da tabela `ObjQuestionario`
 --
 
 INSERT INTO `ObjQuestionario` (`id`, `assunto`) VALUES
-(1, 'guerra '),
-(2, 'guerra2');
+(38, 'Primeira Guerra'),
+(39, 'Holocausto'),
+(40, 'Teste quiz'),
+(41, 'Teste'),
+(42, 'la'),
+(43, 'Mudando o form'),
+(44, 'Teste qiestionzario');
 
 -- --------------------------------------------------------
 
@@ -304,6 +474,18 @@ CREATE TABLE IF NOT EXISTS `ObjQuestionario_has_Questao` (
   KEY `fk_ObjQuestionario_has_Questao_ObjQuestionario1_idx` (`ObjQuestionario_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Extraindo dados da tabela `ObjQuestionario_has_Questao`
+--
+
+INSERT INTO `ObjQuestionario_has_Questao` (`ObjQuestionario_id`, `Questao_id`) VALUES
+(43, 17),
+(43, 18),
+(43, 19),
+(43, 20),
+(43, 21),
+(44, 22);
+
 -- --------------------------------------------------------
 
 --
@@ -313,7 +495,6 @@ CREATE TABLE IF NOT EXISTS `ObjQuestionario_has_Questao` (
 CREATE TABLE IF NOT EXISTS `ObjTexto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `assunto` varchar(255) NOT NULL,
-  `Capitulo_id` int(11) NOT NULL,
   `conteudo` text NOT NULL,
   `topicos` text,
   `exerciciosResolvidos` tinyint(1) DEFAULT NULL,
@@ -323,7 +504,19 @@ CREATE TABLE IF NOT EXISTS `ObjTexto` (
   `avaliacao` int(11) DEFAULT NULL,
   `referencias` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+
+--
+-- Extraindo dados da tabela `ObjTexto`
+--
+
+INSERT INTO `ObjTexto` (`id`, `assunto`, `conteudo`, `topicos`, `exerciciosResolvidos`, `tipo`, `duracao`, `serie`, `avaliacao`, `referencias`) VALUES
+(3, 'Testando relacao', '<p>fgdfgdfgsdfg</p>\r\n', 'dfgds', 1, 'Conceito', 2, '2', NULL, 'fgd'),
+(4, 'Teste dos tipos', '<p>lalalla</p>\r\n', 'llalal', 1, 'Aplicacao,Representacao Grafica', 5, '9ª ano - Ensino Fundamental', NULL, 'lallalalal'),
+(5, 'Teste dos tipos', '<p>lalalla</p>\r\n', 'llalal', 1, 'Aplicacao,Representacao Grafica', 5, '9ª ano - Ensino Fundamental', NULL, 'lallalalal'),
+(6, 'Teste dos tipos', '<p>lalalla</p>\r\n', 'llalal', 1, 'Aplicacao,Representacao Grafica', 5, '9ª ano - Ensino Fundamental', NULL, 'lallalalal'),
+(7, 'lallal', '<p>alalal</p>\r\n', 'lalalal', 1, 'Conceito', 0, '1ª ano - Ensino Fundamental', NULL, 'lalalal'),
+(8, 'Teste', '<p><strong>Teste</strong></p>\r\n', 'teste1, teste2', 1, 'Exercicio Resolvido', 3, '2ª ano - Ensino Médio', NULL, 'teste');
 
 -- --------------------------------------------------------
 
@@ -343,7 +536,18 @@ CREATE TABLE IF NOT EXISTS `ObjVideo` (
   `avaliacao` int(11) NOT NULL,
   `referencias` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+
+--
+-- Extraindo dados da tabela `ObjVideo`
+--
+
+INSERT INTO `ObjVideo` (`id`, `assunto`, `caminho`, `topicos`, `exerciciosResolvidos`, `tipo`, `duracao`, `serie`, `avaliacao`, `referencias`) VALUES
+(4, 'Video', 'arquivos/video_tmp.mp4', 'Video', 0, 'Conceito', 3, '3', 0, 'lalalal'),
+(5, 'Video Teste', 'arquivos/video_tmp.mp4', 'video, teste', 0, 'Formula', 3, '5', 0, 'lalalal'),
+(6, 'alallalalallalalalal', 'arquivos/video_tmp.mp4', 'llalalal', 0, 'Formula', 3, '1ª ano - Ensino Fundamental', 0, 'lalalal'),
+(7, 'Video after save', 'arquivos/video_7.mp4', 'after, save', 1, 'Exemplo', 3, '1ª ano - Ensino Médio', 0, 'lalalla'),
+(8, 'lalalla', 'arquivos/video_8.mp4', 'girls in the house', 1, 'Exercicio Resolvido', 2, '1ª ano - Ensino Fundamental', 0, 'lalala');
 
 -- --------------------------------------------------------
 
@@ -353,13 +557,27 @@ CREATE TABLE IF NOT EXISTS `ObjVideo` (
 
 CREATE TABLE IF NOT EXISTS `Questao` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nivel` varchar(16) NOT NULL,
+  `nivel` int(11) NOT NULL,
   `assunto` varchar(255) DEFAULT NULL,
   `enunciado` text NOT NULL,
   `duracao` int(11) NOT NULL,
   `dica` text NOT NULL,
+  `conteudo` int(11) NOT NULL,
+  `correta` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
+
+--
+-- Extraindo dados da tabela `Questao`
+--
+
+INSERT INTO `Questao` (`id`, `nivel`, `assunto`, `enunciado`, `duracao`, `dica`, `conteudo`, `correta`) VALUES
+(17, 3, 'Testando dificuldade', 'Enunciado de Testando dificuldade ', 2, 'essa é a dica de Testando dificuldade', 0, 'b'),
+(18, 1, 'Esse é um assunto ', '<p>Testando <strong>altera&ccedil;&atilde;o</strong> para HTML/Editor</p>\r\n', 1, 'lalal', 0, 'd'),
+(19, 1, 'Testando a dica', '<p>Testando a dica com <span style="color:#FF0000"><span style="background-color:#8B4513">HTML</span></span></p>\r\n', 4, '<p><em>teste</em></p>\r\n\r\n<p><em>teste</em></p>\r\n\r\n<p>Testando a dica&nbsp;</p>\r\n', 0, 'a'),
+(20, 1, 'Teste da duração', '<p><strong>Teste da dura&ccedil;&atilde;o</strong></p>\r\n', 2, '<p><em>Teste da dura&ccedil;&atilde;o</em></p>\r\n', 0, 'b'),
+(21, 1, 'Testando conteúdo relacionado', '<p>Testando relacionar o conte&uacute;do com a quest&atilde;o atrav&eacute;s de <strong>text input</strong></p>\r\n', 3, '<p>oi, olha que dica legal</p>\r\n', 15, 'a'),
+(22, 3, 'Período entre guerras ', '<p>Quanteo tempo durou esse per&iacute;odo?</p>\r\n', 2, '<p>Essa &eacute; uma dica</p>\r\n', 5, 'a');
 
 -- --------------------------------------------------------
 
@@ -381,14 +599,16 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `password_reset_token` (`password_reset_token`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
 
 --
 -- Extraindo dados da tabela `user`
 --
 
 INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'professor', 'dJYHUWqoo9pmRiiENmx31iCrMAiRlD9r', '$2y$13$GG4jOk7nVZ6K/Qk9OwtJyuWJFueh3v6MYztIVpCu1sDxgYAAXba3.', NULL, 'professor@gmail.com', 10, 1473709954, 1473709954);
+(2, 'professor', 'UjZAPOLRotScuYpJFEcyp3O1aucj9X6V', '$2y$13$.MQd2.zLLfPhUX3sDT3KHOp3.VZTssjhpkvRGlhlt5Eb6WyaQXHTO', NULL, 'professor@gmail.com', 10, 1474393067, 1474393067),
+(3, 'eribeiro', 'gHZ7fTrYMKtOlWfN1_dLjZLGO5k7tf1Z', '$2y$13$QlRlUUc1.b8UmjtA9WJPQ./MADxBRie8IJep0jNQCUBpEdPRTPnWe', NULL, 'erick.ribeiro.17@hotmail.com', 10, 1474459019, 1474459019),
+(4, 'erickribeiro', 'g0TnYAFX3IhUSeTl2U5bOlcjTVE0DkNr', '$2y$13$s5JOEzjOl/c9gTKkMUH6O.4xv5zjmyc8A07EE6CSZJvJFJV3JMMQi', NULL, 'erick.ribeiro.18@hotmail.com', 10, 1474889801, 1474889801);
 
 --
 -- Constraints for dumped tables
@@ -398,7 +618,7 @@ INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_res
 -- Limitadores para a tabela `Alternativa`
 --
 ALTER TABLE `Alternativa`
-  ADD CONSTRAINT `fk_Alternativa_Questao1` FOREIGN KEY (`Questao_id`) REFERENCES `Questao` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Alternativa_Questao1` FOREIGN KEY (`Questao_id`) REFERENCES `Questao` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Limitadores para a tabela `Aula`
@@ -410,7 +630,7 @@ ALTER TABLE `Aula`
 -- Limitadores para a tabela `Capitulo`
 --
 ALTER TABLE `Capitulo`
-  ADD CONSTRAINT `fk_Capitulo_Aula1` FOREIGN KEY (`Aula_id`) REFERENCES `Aula` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Capitulo_Aula1` FOREIGN KEY (`Aula_id`) REFERENCES `Aula` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Limitadores para a tabela `Capitulo_has_ObjApresentacao`
@@ -461,10 +681,11 @@ ALTER TABLE `Disciplina`
   ADD CONSTRAINT `fk_Disciplina_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Limitadores para a tabela `Imagem`
+-- Limitadores para a tabela `ObjGaleria_has_Imagem`
 --
-ALTER TABLE `Imagem`
-  ADD CONSTRAINT `fk_Imagem_Galeria1` FOREIGN KEY (`Galeria_id`) REFERENCES `ObjGaleria` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `ObjGaleria_has_Imagem`
+  ADD CONSTRAINT `fk_ObjGaleria_has_Imagem_Imagem1` FOREIGN KEY (`Imagem_id`) REFERENCES `Imagem` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_ObjGaleria_has_Imagem_ObjGaleria1` FOREIGN KEY (`ObjGaleria_id`) REFERENCES `ObjGaleria` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Limitadores para a tabela `ObjQuestionario_has_Questao`
