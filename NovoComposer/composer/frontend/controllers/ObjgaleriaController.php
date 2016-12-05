@@ -92,10 +92,10 @@ class ObjgaleriaController extends Controller
                 $achou = 0;
                 for($i = 1; $i < count($ordem); $i++){
                     try{
-                    if($ordem[$i]['tipo'] == "objgaleria" && $ordem[$i]['id'] == $model->id){
-                        $achou = 1;
-                        break;
-                    }
+                        if($ordem[$i]['tipo'] == "objgaleria" && $ordem[$i]['id'] == $model->id){
+                            $achou = 1;
+                            break;
+                        }
                     }catch(Exception $e){}
                 }
 
