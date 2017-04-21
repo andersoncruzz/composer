@@ -97,12 +97,21 @@ class DisciplinaController extends Controller
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
-     */
+     */ 
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
 
+        $this->findModel($id)->delete();
         return $this->redirect(['index']);
+
+     /*   $count = Aula::find()->where(['Disciplina_id' => $id])->count();
+        
+        if ($count==0) {
+            $this->findModel($id)->delete();
+            return $this->redirect(['index']);
+        } else {
+            return $this->redirect(['view', 'id' => $id]);
+        }*/
     }
 
     /**

@@ -88,8 +88,7 @@ $aux = $aux[2];
 
         <h1><?= Html::encode($this->title) ?></h1>
         <p>
-            <?= Html::a('Atualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-            <?= Html::a('Deletar', ['delete', 'id' => $model->id], [
+             <?= Html::a('Deletar', ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
                 'data' => [
                     'confirm' => 'Tem certeza que deseja deletar esse capítulo?',
@@ -148,7 +147,7 @@ $aux = $aux[2];
                 </thead>
                 <tbody>
                 <?php
-
+ 
                 $array = json_decode($model->ordem, true);
                 //var_dump($array);
                 for ($i=0 ; $i<= count($array); $i++) {
@@ -256,7 +255,7 @@ $aux = $aux[2];
             console.log(e.value);
             var ip = "<?= $aux ?>";
             console.log(ip);
-            $.get("http://"+ip+"/OpenLab/NovoComposer/composer/frontend/web/index.php?r=capitulo/find&titulo="+e.value, function(data, status){
+            $.get("http://"+ip+"/equipe1/NovoComposer/composer/frontend/web/index.php?r=capitulo/find&titulo="+e.value, function(data, status){
                 /**
                  * Converte o JSON(string) em objetos do tipo javascript
                  */
@@ -288,7 +287,7 @@ $aux = $aux[2];
 
             console.log(indice);
             console.log(itens[indice].assunto);
-            var url = "http://"+window.location.hostname+"/OpenLab/NovoComposer/composer/frontend/web/index.php?r=capitulo/add&idCat="+category+"&idObj="+itens[indice].id+"&type="+itens[indice].tipo;
+            var url = "http://"+window.location.hostname+"/equipe1/NovoComposer/composer/frontend/web/index.php?r=capitulo/add&idCat="+category+"&idObj="+itens[indice].id+"&type="+itens[indice].tipo;
             console.log(url);
             $.get(url, function(data, status){
                 console.log(data)

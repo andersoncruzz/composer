@@ -82,6 +82,7 @@ class CapituloController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['aula/view', 'id' => $model->Aula_id]);
         } else {
+ 
             return $this->render('create', [
                 'model' => $model,
             ]);
@@ -96,11 +97,11 @@ class CapituloController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+   
             return $this->render('update', [
                 'model' => $model,
             ]);

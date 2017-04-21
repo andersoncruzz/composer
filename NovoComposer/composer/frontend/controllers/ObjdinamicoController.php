@@ -73,7 +73,11 @@ class ObjdinamicoController extends Controller
         $model->avaliacao = 0;
 
         if ($model->load(Yii::$app->request->post())){
-            $model->tipo = implode(",", $model->tipo);
+            if ($model->tipo != NULL) {
+                $model->tipo = implode(",", $model->tipo);
+            }
+
+            //$model->tipo = implode(",", $model->tipo);
             $model->caminho = UploadedFile::getInstance($model, 'caminho');
             $model->upload();
 

@@ -71,7 +71,11 @@ class ObjgaleriaController extends Controller
         $model = new ObjGaleria();
 
         if ($model->load(Yii::$app->request->post())){
-            $model->tipo = implode(",", $model->tipo);
+            if ($model->tipo != NULL) {
+                $model->tipo = implode(",", $model->tipo);
+            }
+
+            //$model->tipo = implode(",", $model->tipo);
             if ($model->save()) {
                 $parametros = Yii::$app->request->post();
 

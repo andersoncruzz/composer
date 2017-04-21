@@ -42,7 +42,7 @@ class ObjApresentacao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['assunto', 'topicos', 'duracao', 'serie', 'referencias'], 'required'],
+            [['assunto', 'topicos', 'duracao', 'serie', 'referencias', 'caminho'], 'required'],
             [['qteSlides', 'exerciciosResolvidos', 'duracao', 'avaliacao'], 'integer'],
             [['caminho'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf, ppt, pptx'],
             [['topicos', 'tipo', 'referencias'], 'string'],

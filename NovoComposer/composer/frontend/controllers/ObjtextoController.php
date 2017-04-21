@@ -71,7 +71,9 @@ class ObjtextoController extends Controller
         $model = new ObjTexto();
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->tipo = implode(",", $model->tipo);
+            if ($model->tipo != NULL) {
+                $model->tipo = implode(",", $model->tipo);
+            } 
             if($model->save()){
                 $parametros = Yii::$app->request->post();
 

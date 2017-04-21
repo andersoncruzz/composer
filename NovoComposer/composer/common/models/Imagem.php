@@ -33,6 +33,7 @@ class Imagem extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['caminho', 'legenda'], 'required'],        
             [['caminho'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, gif'],
             [['legenda'], 'string', 'max' => 200],
         ];

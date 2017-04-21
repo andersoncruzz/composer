@@ -37,7 +37,7 @@ class ObjVideo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['assunto', 'topicos', 'exerciciosResolvidos', 'duracao', 'serie', 'referencias'], 'required'],
+            [['assunto', 'topicos','exerciciosResolvidos', 'duracao', 'serie', 'referencias', 'caminho'], 'required'],
             [['topicos', 'tipo', 'referencias'], 'string'],
             [['caminho'], 'file', 'skipOnEmpty' => true, 'extensions' => 'mp4'],
             [['exerciciosResolvidos', 'duracao', 'avaliacao'], 'integer'],
