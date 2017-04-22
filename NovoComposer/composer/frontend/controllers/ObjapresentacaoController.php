@@ -79,7 +79,7 @@ class ObjapresentacaoController extends Controller
 
             $arquivo = UploadedFile::getInstance($model, 'caminho');
             $model->extension = $arquivo->extension;
-            $model->caminho = "";
+            $model->caminho = "teste";
 
             if($model->save()) {
                 $parametros = Yii::$app->request->post();
